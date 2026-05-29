@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Galeri - GMIT Sahaduta Bello</title>
+  <link rel="stylesheet" href="./styel.css">
+</head>
+<body>
+  <header>
+    <h1>GMIT Yegar Sahaduta Bello</h1>
+    <p class="tagline">Melayani dengan Kasih</p>
+  </header>
+
+  <nav>
+    <ul class="main-nav">
+      <li><a href="Beranda.html">Beranda</a></li>
+      <li><a href="tentangSAHADUTA.html">Tentang GMIT Yegar Sahaduta Belo</a></li>
+      <li><a href="tentangGMIT.html">Tentang GMIT</a></li>
+      <li><a href="Profil.gereja.html">Struktur Kepengurusan</a></li>
+      <li><a href="galeri.html" class="active">Galeri</a></li>
+      <li><a href="pengumuman.html">Pengumuman</a></li>
+      <li><a href="#">📄 Sistem Surat</a></li>
+      <li><a href="./admin/login.html" class="nav-cta">🔐 Admin Login</a></li>
+    </ul>
+  </nav>
+
+  <main style="max-width:1200px;margin:40px auto;padding:0 16px 60px;">
+    <h2 class="gallery-title" style="font-size: 32px; color: #123a5a; font-weight: 700; text-align: center; margin-bottom: 40px; padding-bottom: 16px; border-bottom: 3px solid linear-gradient(90deg, #123a5a, #1e5a96);">Riwayat Pelayanan Pendeta di GMIT Yegar Sahaduta Bello</h2>
+
+    <section class="pastors-gallery" id="pastors-gallery" aria-label="Riwayat pelayanan pendeta" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; align-items: center; justify-items: center; margin-bottom: 80px;">
+      <!-- Pastor items will be loaded dynamically -->
+    </section>
+
+    <h2 class="gallery-title" style="font-size: 32px; color: #123a5a; font-weight: 700; text-align: center; margin-bottom: 40px; padding-bottom: 16px; border-bottom: 3px solid linear-gradient(90deg, #123a5a, #1e5a96);">Dokumentasi</h2>
+
+    <section class="gallery-grid" id="activities-gallery" aria-label="Galeri kegiatan" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; align-items: stretch;">
+      <!-- Activity items will be loaded dynamically -->
+    </section>
+
+    <h2 class="gallery-title" style="margin-top:60px;font-size: 32px; color: #123a5a; font-weight: 700; text-align: center; margin-bottom: 40px; padding-bottom: 16px; border-bottom: 3px solid linear-gradient(90deg, #123a5a, #1e5a96);">Gedung Kebaktian</h2>
+
+    <section class="gallery-highlight" id="building-gallery" aria-label="Gedung gereja" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; align-items: stretch; justify-items: stretch;">
+      <!-- Building items will be loaded dynamically -->
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-location">
+        <h4>Lokasi Gereja</h4>
+        <div class="map-wrapper">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d31417.81922723395!2d123.59795155!3d-10.1621622!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2s!5e0!3m2!1sid!2sid!4v1762710993106!5m2!1sid!2sid"
+            title="Lokasi GMIT Sahaduta Bello"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            allowfullscreen>
+          </iframe>
+        </div>
+      </div>
+
+      <div class="footer-right">
+        <div class="follow">
+          <h4>FOLLOW US</h4>
+          <div class="social-buttons">
+            <a class="social-btn fb" href="#" aria-label="Facebook">Facebook</a>
+            <a class="social-btn ig" href="#" aria-label="Instagram">Instagram</a>
+            <a class="social-btn yt" href="#" aria-label="YouTube">YouTube</a>
+          </div>
+        </div>
+
+        <div style="margin-top: 8px;">
+          <h5 style="margin: 0 0 8px 0; color: #e6eef7; font-size: 14px;">Contact us</h5>
+          <a class="email-link" href="mailto:gmitsahadutabelo@gmail.com" aria-label="Email GMIT">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 6.5L12 13l9-6.5" stroke="#fff" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M21 6.5v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-11" stroke="#fff" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>gmitsahadutabelo@gmail.com</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="copyright">&copy; 2025 GMIT Sahaduta Bello</div>
+  </footer>
+
+  <!-- Lightbox modal -->
+  <div id="lightbox" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.8);align-items:center;justify-content:center;padding:24px;">
+    <button id="lb-close" aria-label="Tutup" style="position:absolute;right:20px;top:20px;background:transparent;border:none;color:#fff;font-size:28px;cursor:pointer;">&times;</button>
+    <img id="lb-img" src="" alt="" style="max-width:100%;max-height:90vh;border-radius:8px;box-shadow:0 12px 40px rgba(0,0,0,0.6);">
+    <div id="lb-caption" style="color:#fff;text-align:center;margin-top:12px;font-size:16px;opacity:0.95;"></div>
+  </div>
+
+  <script src="api-client.js"></script>
+  <script>
+    // API client adalah global - tidak perlu set ulang
+    console.log('API Client initialized:', api.baseUrl);
+
+    // Load gallery data dari API MongoDB
+    async function loadGalleryData() {
+      try {
+        // Fetch pastors dari API
+        const pastorsData = await api.getPastors();
+        console.log('Pastors dari API:', pastorsData);
+        renderPastors(pastorsData);
+      } catch (err) {
+        console.error('Error loading pastors dari API:', err);
+        // Fallback ke localStorage jika API gagal
+        loadGalleryDataFromLocalStorage();
+      }
+
+      // Load activities + building dari API (fallback ke default jika kosong/gagal)
+      try {
+        const activities = await api.getPublicGallery('activities');
+        if (Array.isArray(activities) && activities.length > 0) {
+          renderActivities(activities.map(i => ({ image: i.image_url, caption: i.caption || '' })));
+        } else {
+          loadDefaultActivitiesAndBuilding('activities');
+        }
+      } catch (err) {
+        console.error('Error loading activities gallery dari API:', err);
+        loadDefaultActivitiesAndBuilding('activities');
+      }
+
+      try {
+        const building = await api.getPublicGallery('building');
+        if (Array.isArray(building) && building.length > 0) {
+          renderBuilding(building.map(i => ({ image: i.image_url, caption: i.caption || '' })));
+        } else {
+          loadDefaultActivitiesAndBuilding('building');
+        }
+      } catch (err) {
+        console.error('Error loading building gallery dari API:', err);
+        loadDefaultActivitiesAndBuilding('building');
+      }
+    }
+
+    // Fallback: Load dari localStorage jika API tidak tersedia
+    function loadGalleryDataFromLocalStorage() {
+      let storedPastors = localStorage.getItem('gmitPastorsData');
+      console.log('Fallback - gmitPastorsData raw:', storedPastors);
+      if (!storedPastors) {
+        const legacy = localStorage.getItem('gmitGalleryData');
+        console.log('Fallback - gmitGalleryData raw (legacy):', legacy);
+        if (legacy) {
+          try {
+            const legacyParsed = JSON.parse(legacy);
+            const mapped = Array.isArray(legacyParsed) ? legacyParsed.map(item => ({
+              name: item.name || item.title || '',
+              period: item.period || item.subtitle || '',
+              image_url: (item.image || item.src || '').replace(/^\.\.\//, '')
+            })) : [];
+            renderPastors(mapped);
+            return;
+          } catch (e) {
+            console.error('Error parsing legacy gallery data:', e);
+          }
+        }
+        loadDefaultData();
+        return;
+      }
+
+      try {
+        const pastorsData = JSON.parse(storedPastors);
+        renderPastors(pastorsData);
+      } catch (e) {
+        console.error('Error loading pastors data from localStorage:', e);
+        loadDefaultData();
+      }
+    }
+
+    // Load default data if no localStorage data exists
+    function loadDefaultData() {
+      const defaultPastors = [
+        { name: 'Pendeta Pelayanan Pertama', period: '', image: 'arsip/pastor1.jpg' },
+        { name: 'Pdt. Selvy J.K. Asfes-Zina, S.Th', period: '2020 - Sekarang', image: 'arsip/IMG-20251124-WA0059.jpg' }
+      ];
+      renderPastors(defaultPastors);
+    }
+    
+    function loadDefaultActivitiesAndBuilding(which) {
+      if (!which || which === 'activities') {
+        const defaultActivities = [
+          { image: 'arsip/1.jpeg' },
+          { image: 'arsip/2.jpeg' },
+          { image: 'arsip/3.jpeg' },
+          { image: 'arsip/4.jpeg' },
+          { image: 'arsip/5.jpeg' },
+          { image: 'arsip/6.jpeg' },
+          { image: 'arsip/7.jpeg' },
+          { image: 'arsip/8.jpeg' },
+          { image: 'arsip/9.jpeg' },
+          { image: 'arsip/10.jpeg' },
+          { image: 'arsip/11.jpeg' },
+          { image: 'arsip/12.jpeg' }
+        ];
+        renderActivities(defaultActivities);
+      }
+
+      if (!which || which === 'building') {
+        const defaultBuilding = [
+          { image: 'arsip/tampak-dalam.jpg', caption: 'Tampak Dalam' },
+          { image: 'arsip/tampak-depan.jpg', caption: 'Tampak Depan' },
+          { image: 'arsip/gedung3.jpg', caption: 'Tampak Samping' }
+        ];
+        renderBuilding(defaultBuilding);
+      }
+    }
+
+    // Render pastors gallery
+    function renderPastors(items) {
+      const container = document.getElementById('pastors-gallery');
+      container.innerHTML = '';
+      items.forEach(pastor => {
+        const figure = document.createElement('figure');
+        
+        // Gunakan image_url dari API, fallback ke image jika ada
+        const imgPath = (pastor.image_url || pastor.image || '').replace(/^\.\.\//, '') || 'arsip/pastor1.jpg';
+        figure.setAttribute('data-src', imgPath);
+        figure.style.cssText = 'width: 100%; max-width: 400px; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 8px 24px rgba(18,58,90,0.15); border: 1px solid rgba(18,58,90,0.08); transition: all 0.4s ease; cursor: pointer;';
+        figure.onmouseover = function() { this.style.boxShadow='0 16px 40px rgba(18,58,90,0.25)'; this.style.transform='translateY(-8px)'; };
+        figure.onmouseout = function() { this.style.boxShadow='0 8px 24px rgba(18,58,90,0.15)'; this.style.transform='translateY(0)'; };
+        
+        const img = document.createElement('img');
+        img.src = imgPath;
+        img.alt = pastor.name || '';
+        img.style.cssText = 'width:100%;height:320px;object-fit:cover;';
+        img.onerror = function() {
+          console.warn('Image not found, using fallback:', imgPath);
+          this.src = 'arsip/pastor1.jpg';
+        };
+        
+        figure.appendChild(img);
+        
+        // Create caption with name and period
+        const caption = document.createElement('figcaption');
+        caption.style.cssText = 'padding:16px;text-align:center;color:#123a5a;';
+        
+        const nameDiv = document.createElement('div');
+        nameDiv.textContent = pastor.name || '';
+        nameDiv.style.cssText = 'font-size:15px;font-weight:600;margin-bottom:4px;';
+        
+        const periodDiv = document.createElement('div');
+        periodDiv.textContent = pastor.period || '';
+        periodDiv.style.cssText = 'font-size:13px;color:#666;font-weight:400;';
+        
+        caption.appendChild(nameDiv);
+        if (pastor.period) {
+          caption.appendChild(periodDiv);
+        }
+        figure.appendChild(caption);
+        
+        container.appendChild(figure);
+      });
+    }
+
+    // Render activities gallery
+    function renderActivities(items) {
+      const container = document.getElementById('activities-gallery');
+      container.innerHTML = '';
+      items.forEach(item => {
+        const figure = document.createElement('figure');
+        figure.setAttribute('data-src', item.image);
+        figure.style.cssText = 'margin: 0; border-radius: 10px; overflow: hidden; box-shadow: 0 6px 16px rgba(18,58,90,0.15); transition: all 0.4s ease; cursor: pointer;';
+        figure.onmouseover = function() { this.style.boxShadow='0 14px 32px rgba(18,58,90,0.25)'; this.style.transform='scale(1.05)'; };
+        figure.onmouseout = function() { this.style.boxShadow='0 6px 16px rgba(18,58,90,0.15)'; this.style.transform='scale(1)'; };
+        
+        const img = document.createElement('img');
+        img.src = item.image;
+        img.alt = item.alt || item.caption || '';
+        img.style.cssText = 'width:100%;height:160px;object-fit:cover;';
+        
+        figure.appendChild(img);
+        container.appendChild(figure);
+      });
+    }
+
+    // Render building gallery
+    function renderBuilding(items) {
+      const container = document.getElementById('building-gallery');
+      container.innerHTML = '';
+      items.forEach(item => {
+        const figure = document.createElement('figure');
+        figure.setAttribute('data-src', item.image);
+        figure.style.cssText = 'width: 100%; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 8px 24px rgba(18,58,90,0.15); border: 1px solid rgba(18,58,90,0.08); transition: all 0.4s ease; cursor: pointer;';
+        figure.onmouseover = function() { this.style.boxShadow='0 16px 40px rgba(18,58,90,0.25)'; this.style.transform='translateY(-8px)'; };
+        figure.onmouseout = function() { this.style.boxShadow='0 8px 24px rgba(18,58,90,0.15)'; this.style.transform='translateY(0)'; };
+        
+        const img = document.createElement('img');
+        img.src = item.image;
+        img.alt = item.alt || item.caption || '';
+        img.style.cssText = 'width:100%;height:280px;object-fit:cover;';
+        
+        figure.appendChild(img);
+        
+        if (item.caption) {
+          const caption = document.createElement('figcaption');
+          caption.textContent = item.caption;
+          caption.style.cssText = 'padding:16px;text-align:center;color:#123a5a;font-size:15px;font-weight:600;';
+          figure.appendChild(caption);
+        }
+        
+        container.appendChild(figure);
+      });
+    }
+
+    // Lightbox functionality
+    (function(){
+      const lightbox = document.getElementById('lightbox');
+      const lbImg = document.getElementById('lb-img');
+      const lbCaption = document.getElementById('lb-caption');
+      const lbClose = document.getElementById('lb-close');
+
+      function openLightbox(src, caption){
+        lbImg.src = src;
+        lbCaption.textContent = caption || '';
+        lightbox.style.display = 'flex';
+      }
+
+      function closeLightbox(){
+        lightbox.style.display = 'none';
+        lbImg.src = '';
+      }
+
+      // Setup lightbox event delegation
+      document.addEventListener('click', function(e) {
+        const figure = e.target.closest('figure[data-src]');
+        if (figure) {
+          const src = figure.getAttribute('data-src');
+          const capEl = figure.querySelector('figcaption');
+          const caption = capEl ? capEl.textContent.trim() : '';
+          openLightbox(src, caption);
+        }
+      });
+
+      lbClose.addEventListener('click', closeLightbox);
+      lightbox.addEventListener('click', function(e){ if(e.target === lightbox) closeLightbox(); });
+      document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeLightbox(); });
+    })();
+
+    // Load gallery on page load
+    document.addEventListener('DOMContentLoaded', loadGalleryData);
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kelola Riwayat Pendeta - Admin Panel</title>
+  <link rel="stylesheet" href="admin-style.css">
+  <style>
+    .gallery-section {
+      background: white;
+      padding: 24px;
+      border-radius: 12px;
+      margin-bottom: 24px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    
+    .gallery-section h3 {
+      color: #123a5a;
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid #e0e0e0;
+    }
+    
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 16px;
+      margin-top: 20px;
+    }
+    
+    .gallery-item {
+      position: relative;
+      background: #f5f5f5;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 2px solid #e0e0e0;
+      transition: all 0.3s ease;
+    }
+    
+    .gallery-item:hover {
+      border-color: #123a5a;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(18,58,90,0.15);
+    }
+    
+    .gallery-item img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+    }
+    
+    .gallery-item-info {
+      padding: 12px;
+      background: white;
+    }
+    
+    .gallery-item-info input {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 13px;
+      margin-bottom: 8px;
+    }
+    
+    .gallery-item-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-top: 8px;
+    }
+    
+    .gallery-item-actions button {
+      padding: 6px 12px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+    
+    .btn-delete {
+      background: #dc3545;
+      color: white;
+      grid-column: 1 / -1;
+    }
+    
+    .btn-delete:hover {
+      background: #c82333;
+    }
+    
+    .btn-up, .btn-down {
+      background: #6c757d;
+      color: white;
+      font-size: 16px !important;
+      font-weight: bold;
+    }
+    
+    .btn-up:hover, .btn-down:hover {
+      background: #5a6268;
+    }
+    
+    .btn-up:disabled, .btn-down:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
+    
+    .btn-info {
+      background: #17a2b8;
+      color: white;
+      grid-column: 1 / -1;
+    }
+    
+    .btn-info:hover {
+      background: #138496;
+    }
+    
+    .input-group {
+      margin-bottom: 16px;
+    }
+    
+    .input-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #333;
+    }
+    
+    .input-group input,
+    .input-group textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+    
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.6);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .modal.active {
+      display: flex;
+    }
+    
+    .modal-content {
+      background: white;
+      padding: 32px;
+      border-radius: 12px;
+      max-width: 500px;
+      width: 90%;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+    
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 2px solid #e0e0e0;
+    }
+    
+    .modal-header h3 {
+      margin: 0;
+      color: #123a5a;
+    }
+    
+    .close-btn {
+      background: none;
+      border: none;
+      font-size: 28px;
+      cursor: pointer;
+      color: #666;
+      line-height: 1;
+      padding: 0;
+    }
+    
+    .close-btn:hover {
+      color: #dc3545;
+    }
+    
+    .button-group {
+      display: flex;
+      gap: 12px;
+      margin-top: 20px;
+    }
+    
+    .help-text {
+      background: #d1ecf1;
+      color: #0c5460;
+      padding: 12px;
+      border-radius: 6px;
+      margin-bottom: 20px;
+      font-size: 14px;
+      border-left: 4px solid #17a2b8;
+    }
+    
+    .upload-preview {
+      margin-top: 12px;
+      text-align: center;
+    }
+    
+    .upload-preview img {
+      max-width: 200px;
+      max-height: 150px;
+      border-radius: 6px;
+      border: 1px solid #ddd;
+    }
+    
+    .loading-spinner {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      border: 2px solid #f3f3f3;
+      border-top: 2px solid #123a5a;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-right: 8px;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+    
+    .alert {
+      padding: 12px;
+      border-radius: 6px;
+      margin-bottom: 16px;
+      border-left: 4px solid;
+    }
+    
+    .alert-success {
+      background: #d4edda;
+      color: #155724;
+      border-left-color: #28a745;
+    }
+    
+    .alert-error {
+      background: #f8d7da;
+      color: #721c24;
+      border-left-color: #dc3545;
+    }
+    
+    .alert-info {
+      background: #d1ecf1;
+      color: #0c5460;
+      border-left-color: #17a2b8;
+    }
+  </style>
+</head>
+<body style="margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f5f7fa;">
+  <div class="admin-container" style="display: flex; min-height: 100vh;">
+    <!-- Sidebar -->
+    <aside class="admin-sidebar">
+      <div class="sidebar-header">
+        <h2>Admin Panel</h2>
+        <p>GMIT Sahaduta Bello</p>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="index.html" class="nav-item">
+          <span class="icon">📊</span> Dashboard
+        </a>
+        <a href="index.html#content-sahaduta" class="nav-item">
+          <span class="icon">📝</span> Content Sahaduta
+        </a>
+        <a href="index.html#content-gmit" class="nav-item">
+          <span class="icon">📚</span> Content GMIT
+        </a>
+        <a href="index.html#pengumuman" class="nav-item">
+          <span class="icon">📢</span> Pengumuman
+        </a>
+        <a href="kelola-galeri.html" class="nav-item active">
+          <span class="icon">🖼️</span> Kelola Galeri
+        </a>
+        <a href="index.html#struktur" class="nav-item">
+          <span class="icon">👥</span> Struktur Kepengurusan
+        </a>
+        <a href="#logout" class="nav-item logout" onclick="handleLogout()">
+          <span class="icon">🚪</span> Logout
+        </a>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="admin-main">
+      <header class="admin-header">
+        <h1>Kelola Riwayat Pendeta</h1>
+        <div class="user-info">
+          <span>Admin</span>
+        </div>
+      </header>
+
+      <div class="admin-content">
+        <div class="help-text">
+          <strong>💡 Cara Menggunakan (PENTING):</strong><br>
+          1. Klik tombol <strong>"➕ Tambah Pendeta"</strong> untuk menambah pendeta baru<br>
+          2. <strong>⚠️ WAJIB UPLOAD FILE FOTO</strong> dari device (jangan paste URL/path) — drag/drop atau klik zona upload<br>
+          3. Tunggu progress bar 100% — file akan diupload ke AWS S3 secara otomatis<br>
+          4. Isi nama dan masa jabatan, lalu klik <strong>"Simpan"</strong><br>
+          5. Foto yang diupload akan ditampilkan di galeri publik (galeri.html)<br>
+          <span style="color: #dc3545; font-weight: 700;">🚫 Tidak boleh melewati upload foto — sistem akan menolak jika tidak ada foto!</span>
+        </div>
+
+        <div id="alert-container"></div>
+
+        <div class="button-group" style="margin-bottom: 24px;">
+          <button class="btn btn-primary" onclick="addPastorItem()">➕ Tambah Pendeta Baru</button>
+          <button class="btn btn-secondary" onclick="previewGallery()">👁️ Lihat di Halaman Galeri</button>
+        </div>
+
+        <!-- Riwayat Pelayanan Pendeta -->
+        <div class="gallery-section">
+          <h3>🙏 Daftar Pendeta yang Pernah Melayani</h3>
+          <div class="gallery-grid" id="pastors-grid">
+            <!-- Items akan diload dari MongoDB -->
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Modal for Adding/Editing Item -->
+  <div id="item-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="modal-title">Tambah Pendeta Baru</h3>
+        <button class="close-btn" onclick="closeModal()">&times;</button>
+      </div>
+      
+      <form id="item-form" onsubmit="saveItem(event)">
+        <input type="hidden" id="item-index">
+        <input type="hidden" id="item-id">
+        
+        <div class="input-group">
+          <label>Nama Pendeta *</label>
+          <input type="text" id="pastor-name" required placeholder="Pdt. Nama Lengkap, S.Th">
+        </div>
+        
+        <div class="input-group">
+          <label>Masa Jabatan *</label>
+          <input type="text" id="pastor-period" required placeholder="2020 - 2025 atau Pelayanan Pertama">
+        </div>
+        
+        <div class="input-group">
+          <label style="font-weight: 700; color: #dc3545;">📸 Upload Foto Pendeta (File) *</label>
+          <div style="position: relative; border: 3px dashed #17a2b8; border-radius: 8px; padding: 20px; text-align: center; cursor: pointer; background: #f8fafb; transition: all 0.3s ease;" id="upload-dropzone" onmouseover="this.style.background='#f0f7fa'; this.style.borderColor='#0c5460';" onmouseout="this.style.background='#f8fafb'; this.style.borderColor='#17a2b8';">
+            <input type="file" id="pastor-image-file" accept="image/jpeg,image/png,image/webp,image/gif" style="display:none;" onchange="handleFileSelect()">
+            <div id="upload-placeholder">
+              <div style="font-size: 40px; margin-bottom: 12px; animation: pulse 2s infinite;">📁</div>
+              <div style="font-weight: 700; color: #123a5a; margin-bottom: 8px; font-size: 16px;">PILIH ATAU DRAG FILE FOTO DI SINI</div>
+              <small style="color: #666; display: block; margin-bottom: 8px;">Pilih file dari komputer Anda (bukan copy URL)</small>
+              <small style="color: #888; font-style: italic;">✅ Format: JPG, PNG, WebP | 📏 Ukuran Max: 5MB</small>
+            </div>
+            <div id="upload-progress" style="display:none;">
+              <div style="font-size: 28px; margin-bottom: 12px; animation: spin 1s linear infinite;" id="progress-icon">⏳</div>
+              <div style="font-weight: 600; color: #123a5a; margin-bottom: 8px;">Mengupload FILE ke AWS S3...</div>
+              <div style="width: 100%; background: #ddd; border-radius: 4px; height: 10px; overflow: hidden;">
+                <div id="progress-bar" style="background: linear-gradient(90deg, #17a2b8, #20c997); height: 100%; width: 0%; transition: width 0.3s ease; box-shadow: 0 0 10px rgba(23, 162, 184, 0.5);"></div>
+              </div>
+              <small id="progress-text" style="color: #17a2b8; margin-top: 8px; display: block; font-weight: 600;">0%</small>
+            </div>
+          </div>
+          <div class="upload-preview" id="upload-preview" style="margin-top: 16px;"></div>
+          <div id="upload-status" style="margin-top: 12px; font-size: 14px; font-weight: 600; text-align: center;"></div>
+        </div>
+        
+        <div class="button-group">
+          <button type="submit" class="btn btn-primary">💾 Simpan</button>
+          <button type="button" class="btn btn-secondary" onclick="closeModal()">Batal</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="../api-client.js"></script>
+  <script>
+    // API client is global - no need to override base URL
+    console.log('Admin Kelola Galeri - API Base URL:', api.baseUrl);
+
+    let pastorsData = [];
+    let uploadedImageUrl = null;
+
+    // Function to check login and initialize
+    function initializePage() {
+      console.log('Initializing kelola-galeri page...');
+      
+      // Check session auth (fallback)
+      const isLoggedIn = sessionStorage.getItem('adminLoggedIn') === 'true';
+      const token = localStorage.getItem('adminToken');
+      
+      console.log('Session logged in:', isLoggedIn, 'Token:', token ? 'exists' : 'missing');
+      
+      if (!isLoggedIn && !token) {
+        console.log('User not logged in. Redirecting to login page...');
+        alert('Anda harus login terlebih dahulu!');
+        setTimeout(() => {
+          window.location.href = './login.html';
+        }, 100);
+        return false;
+      }
+      
+      console.log('User logged in. Loading pastors data...');
+      loadPastorsData();
+      return true;
+    }
+
+    // Load pastors dari MongoDB API
+    async function loadPastorsData() {
+      try {
+        console.log('Fetching pastors dari API:', api.baseUrl);
+        const data = await api.getPastors();
+        pastorsData = data;
+        console.log('Pastors loaded:', pastorsData);
+        renderPastors();
+      } catch (err) {
+        console.error('Error loading pastors:', err);
+        showAlert('⚠️ Tidak bisa terhubung ke server. Pastikan backend berjalan di ' + api.baseUrl, 'error');
+        pastorsData = [];
+        renderPastors();
+      }
+    }
+
+    // Render pastors ke UI
+    function renderPastors() {
+      const grid = document.getElementById('pastors-grid');
+      if (!grid) return;
+      
+      grid.innerHTML = '';
+      
+      if (!pastorsData || pastorsData.length === 0) {
+        grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #999; padding: 40px;">Belum ada data pendeta. Klik "Tambah Pendeta Baru" untuk memulai.</p>';
+        return;
+      }
+      
+      pastorsData.forEach((pastor, index) => {
+        const div = document.createElement('div');
+        div.className = 'gallery-item';
+        
+        const img = document.createElement('img');
+        img.src = pastor.image_url || 'arsip/pastor1.jpg';
+        img.alt = pastor.name;
+        img.onerror = function() {
+          this.src = 'arsip/pastor1.jpg';
+        };
+        
+        const infoDiv = document.createElement('div');
+        infoDiv.className = 'gallery-item-info';
+        
+        const nameP = document.createElement('p');
+        nameP.style.cssText = 'margin: 0 0 4px 0; font-weight: 600; font-size: 14px; color: #123a5a;';
+        nameP.textContent = pastor.name || '';
+        
+        const periodP = document.createElement('p');
+        periodP.style.cssText = 'margin: 0 0 8px 0; font-size: 12px; color: #666;';
+        periodP.textContent = pastor.period || '';
+        
+        const actionsDiv = document.createElement('div');
+        actionsDiv.className = 'gallery-item-actions';
+        
+        const btnEdit = document.createElement('button');
+        btnEdit.className = 'btn btn-info';
+        btnEdit.textContent = '✏️ Edit';
+        btnEdit.type = 'button';
+        btnEdit.onclick = () => openModal(index);
+        
+        const btnUp = document.createElement('button');
+        btnUp.type = 'button';
+        btnUp.className = 'btn-up';
+        btnUp.textContent = '↑';
+        btnUp.disabled = index === 0;
+        btnUp.onclick = () => moveItem(index, -1);
+        
+        const btnDown = document.createElement('button');
+        btnDown.type = 'button';
+        btnDown.className = 'btn-down';
+        btnDown.textContent = '↓';
+        btnDown.disabled = index === pastorsData.length - 1;
+        btnDown.onclick = () => moveItem(index, 1);
+        
+        const btnDelete = document.createElement('button');
+        btnDelete.className = 'btn-delete';
+        btnDelete.textContent = '🗑️ Hapus';
+        btnDelete.type = 'button';
+        btnDelete.onclick = () => deleteItem(index);
+        
+        actionsDiv.appendChild(btnEdit);
+        actionsDiv.appendChild(btnUp);
+        actionsDiv.appendChild(btnDown);
+        actionsDiv.appendChild(btnDelete);
+        
+        infoDiv.appendChild(nameP);
+        infoDiv.appendChild(periodP);
+        infoDiv.appendChild(actionsDiv);
+        
+        div.appendChild(img);
+        div.appendChild(infoDiv);
+        grid.appendChild(div);
+      });
+    }
+
+    // Move item up/down
+    async function moveItem(index, direction) {
+      const newIndex = index + direction;
+      if (newIndex < 0 || newIndex >= pastorsData.length) return;
+      
+      const temp = pastorsData[index];
+      pastorsData[index] = pastorsData[newIndex];
+      pastorsData[newIndex] = temp;
+      
+      renderPastors();
+      
+      // Update order di server
+      try {
+        const pastorIds = pastorsData.map(p => p._id);
+        await api.reorderPastors(pastorIds);
+        showAlert('✅ Urutan berhasil diupdate', 'success');
+      } catch (err) {
+        console.error('Reorder error:', err);
+        showAlert('❌ Gagal mengupdate urutan: ' + err.message, 'error');
+      }
+    }
+
+    // Delete item
+    async function deleteItem(index) {
+      if (!confirm('Hapus data pendeta ini?')) return;
+      
+      const pastor = pastorsData[index];
+      if (!pastor || !pastor._id) {
+        showAlert('❌ ID pendeta tidak ditemukan', 'error');
+        return;
+      }
+      
+      try {
+        await api.deletePastor(pastor._id);
+        pastorsData.splice(index, 1);
+        renderPastors();
+        showAlert('✅ Data pendeta berhasil dihapus', 'success');
+      } catch (err) {
+        console.error('Delete error:', err);
+        showAlert('❌ Gagal menghapus: ' + err.message, 'error');
+      }
+    }
+
+    // Add new pastor
+    function addPastorItem() {
+      openModal(-1);
+    }
+
+    // Open modal for add/edit
+    function openModal(index) {
+      const modal = document.getElementById('item-modal');
+      const form = document.getElementById('item-form');
+      uploadedImageUrl = null;
+      
+      document.getElementById('item-index').value = index;
+      
+      if (index >= 0) {
+        // Edit mode
+        const pastor = pastorsData[index];
+        document.getElementById('modal-title').textContent = 'Edit Data Pendeta';
+        document.getElementById('pastor-name').value = pastor.name;
+        document.getElementById('pastor-period').value = pastor.period;
+        document.getElementById('item-id').value = pastor._id || '';
+        
+        // Simpan URL lama di memory (untuk fallback jika tidak upload foto baru)
+        uploadedImageUrl = pastor.image_url || null;
+        
+        if (pastor.image_url) {
+          const preview = document.getElementById('upload-preview');
+          preview.innerHTML = `<img src="${pastor.image_url}" alt="Current image" style="border: 2px solid #17a2b8;"><div style="margin-top: 8px; font-size: 12px; color: #666;">📸 Foto saat ini — upload foto baru untuk mengubah</div>`;
+        }
+      } else {
+        // Add mode
+        document.getElementById('modal-title').textContent = 'Tambah Pendeta Baru';
+        document.getElementById('item-id').value = '';
+        form.reset();
+        document.getElementById('upload-preview').innerHTML = '';
+      }
+      
+      modal.classList.add('active');
+    }
+
+    // Close modal
+    function closeModal() {
+      document.getElementById('item-modal').classList.remove('active');
+      document.getElementById('item-form').reset();
+      document.getElementById('upload-preview').innerHTML = '';
+      uploadedImageUrl = null;
+    }
+
+    // Handle file select / drop
+    const dropzone = document.getElementById('upload-dropzone');
+    
+    dropzone.addEventListener('click', () => {
+      document.getElementById('pastor-image-file').click();
+    });
+    
+    // Drag and drop support
+    dropzone.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      dropzone.style.background = '#e8f4f8';
+      dropzone.style.borderColor = '#0c5460';
+    });
+    
+    dropzone.addEventListener('dragleave', () => {
+      dropzone.style.background = '#f8fafb';
+      dropzone.style.borderColor = '#17a2b8';
+    });
+    
+    dropzone.addEventListener('drop', (e) => {
+      e.preventDefault();
+      dropzone.style.background = '#f8fafb';
+      dropzone.style.borderColor = '#17a2b8';
+      const files = e.dataTransfer.files;
+      if (files.length > 0) {
+        document.getElementById('pastor-image-file').files = files;
+        handleFileSelect();
+      }
+    });
+
+    function handleFileSelect() {
+      const file = document.getElementById('pastor-image-file').files[0];
+      if (!file) return;
+      
+      // Validate file size
+      if (file.size > 5 * 1024 * 1024) {
+        showAlert('❌ File terlalu besar (max 5MB)', 'error');
+        document.getElementById('pastor-image-file').value = '';
+        return;
+      }
+      
+      // Validate MIME type
+      const allowedTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
+      if (!allowedTypes.includes(file.type)) {
+        showAlert('❌ Format gambar tidak didukung. Gunakan JPG, PNG, atau WebP', 'error');
+        document.getElementById('pastor-image-file').value = '';
+        return;
+      }
+      
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const preview = document.getElementById('upload-preview');
+        const statusDiv = document.getElementById('upload-status');
+        
+        preview.innerHTML = `
+          <div style="position: relative; display: inline-block;">
+            <img src="${e.target.result}" alt="Preview" style="max-width: 200px; max-height: 150px; border-radius: 6px; border: 2px solid #28a745; box-shadow: 0 2px 8px rgba(40, 167, 69, 0.2);">
+            <div style="margin-top: 8px; font-size: 12px; color: #333; text-align: left;">
+              <div>📄 File: ${file.name}</div>
+              <div>💾 Ukuran: ${(file.size / 1024).toFixed(1)} KB</div>
+              <div style="color: #28a745; font-weight: 600; margin-top: 4px;">✅ File siap di-upload ke AWS S3</div>
+            </div>
+          </div>
+        `;
+        
+        if (statusDiv) {
+          statusDiv.innerHTML = '<span style="color: #28a745; font-weight: 600;">✅ File terdeteksi: ' + file.name + ' — siap di-upload saat "Simpan" diklik</span>';
+        }
+        
+        uploadedImageUrl = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    // Save item
+    async function saveItem(event) {
+      event.preventDefault();
+      
+      const index = parseInt(document.getElementById('item-index').value);
+      const name = document.getElementById('pastor-name').value;
+      const period = document.getElementById('pastor-period').value;
+      const pastorId = document.getElementById('item-id').value;
+      const imageFile = document.getElementById('pastor-image-file').files[0];
+      let imageUrl = null; // HANYA dari S3 upload, bukan manual input!
+      
+      if (!name || !period) {
+        showAlert('❌ Nama dan masa jabatan harus diisi', 'error');
+        return;
+      }
+      
+      // ⚠️ VALIDASI: Jika add mode, WAJIB upload foto
+      if (index < 0 && !imageFile) {
+        showAlert('❌ WAJIB upload foto pendeta! Pilih file dari device Anda.', 'error');
+        return;
+      }
+      
+      try {
+        // Upload image jika ada file baru
+        if (imageFile) {
+          // Show upload progress
+          const placeholder = document.getElementById('upload-placeholder');
+          const progress = document.getElementById('upload-progress');
+          const progressBar = document.getElementById('progress-bar');
+          const progressText = document.getElementById('progress-text');
+          
+          if (placeholder) placeholder.style.display = 'none';
+          if (progress) progress.style.display = 'block';
+          
+          // Create FormData for multipart upload
+          const formData = new FormData();
+          formData.append('image', imageFile);
+          
+          // Simulate progress (since we can't track actual upload progress with fetch)
+          let fakeProgress = 0;
+          const progressInterval = setInterval(() => {
+            if (fakeProgress < 90) {
+              fakeProgress += Math.random() * 30;
+              if (fakeProgress > 90) fakeProgress = 90;
+              progressBar.style.width = fakeProgress + '%';
+              progressText.textContent = Math.round(fakeProgress) + '%';
+            }
+          }, 200);
+          
+          // Upload to server
+          const response = await fetch(api.baseUrl + '/pastors/upload', {
+            method: 'POST',
+            headers: {
+              'Authorization': `Bearer ${api.token}`
+            },
+            body: formData
+          });
+          
+          clearInterval(progressInterval);
+          
+          if (!response.ok) {
+            const error = await response.json();
+            throw new Error(error.error || 'Upload gagal');
+          }
+          
+          const uploadResult = await response.json();
+          imageUrl = uploadResult.url;
+          
+          // Complete progress bar
+          progressBar.style.width = '100%';
+          progressText.textContent = '100%';
+          
+          // Update progress icon
+          document.getElementById('progress-icon').textContent = '✅';
+          document.getElementById('progress-icon').parentElement.style.color = '#28a745';
+          
+          showAlert('✅ Gambar berhasil diupload ke S3', 'success');
+          
+          // Reset progress after 1 second
+          setTimeout(() => {
+            if (placeholder) placeholder.style.display = 'block';
+            if (progress) progress.style.display = 'none';
+            progressBar.style.width = '0%';
+            progressText.textContent = '0%';
+            document.getElementById('progress-icon').textContent = '⏳';
+            document.getElementById('progress-icon').parentElement.style.color = 'inherit';
+          }, 1000);
+        } else {
+          // Tidak ada file upload - gunakan URL lama (hanya untuk edit)
+          if (index >= 0 && uploadedImageUrl) {
+            imageUrl = uploadedImageUrl;
+          } else if (index >= 0) {
+            showAlert('❌ Jika ingin mengubah foto, wajib upload file baru!', 'error');
+            return;
+          }
+        }
+        
+        if (index >= 0) {
+          // Update existing pastor
+          if (!pastorId) {
+            showAlert('❌ ID pendeta tidak ditemukan', 'error');
+            return;
+          }
+          
+          const updated = await api.updatePastor(pastorId, { name, period, image_url: imageUrl });
+          pastorsData[index] = updated.pastor;
+          showAlert('✅ Data pendeta berhasil diperbarui', 'success');
+        } else {
+          // Create new pastor - WAJIB ADA imageUrl dari S3 upload
+          if (!imageUrl) {
+            showAlert('❌ Upload foto pendeta wajib! Tidak boleh skip.', 'error');
+            return;
+          }
+          const created = await api.createPastor(name, period, imageUrl);
+          pastorsData.push(created.pastor);
+          showAlert('✅ Data pendeta berhasil ditambahkan', 'success');
+        }
+        
+        renderPastors();
+        closeModal();
+      } catch (err) {
+        console.error('Save error:', err);
+        showAlert('❌ Gagal menyimpan: ' + err.message, 'error');
+      }
+    }
+
+    // Preview gallery
+    function previewGallery() {
+      window.open('../galeri.html', '_blank');
+    }
+
+    // Logout
+    function handleLogout() {
+      if (confirm('Logout dari admin panel?')) {
+        sessionStorage.removeItem('adminLoggedIn');
+        sessionStorage.removeItem('adminUsername');
+        localStorage.removeItem('adminToken');
+        api.clearToken();
+        window.location.href = './login.html';
+      }
+    }
+
+    // Show alert
+    function showAlert(message, type = 'info') {
+      const container = document.getElementById('alert-container');
+      const alert = document.createElement('div');
+      alert.className = `alert alert-${type}`;
+      alert.textContent = message;
+      container.appendChild(alert);
+      
+      setTimeout(() => {
+        alert.remove();
+      }, 4000);
+    }
+
+    // Initialize on page load
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initializePage);
+    } else {
+      initializePage();
+    }
+  </script>
+</body>
+</html>

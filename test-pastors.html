@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test Pastors Data</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; background: #f5f5f5; }
+    .container { max-width: 800px; margin: 0 auto; background: white; padding: 20px; border-radius: 8px; }
+    button { padding: 10px 20px; margin: 5px; cursor: pointer; background: #123a5a; color: white; border: none; border-radius: 5px; }
+    button:hover { background: #1e5a96; }
+    #output { margin-top: 20px; padding: 15px; background: #f9f9f9; border: 1px solid #ddd; border-radius: 5px; }
+    pre { background: #2d2d2d; color: #f8f8f8; padding: 15px; border-radius: 5px; overflow-x: auto; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Test Pastors Data Management</h1>
+    
+    <div style="margin: 20px 0;">
+      <button onclick="initData()">1. Initialize Sample Data</button>
+      <button onclick="showData()">2. Show Current Data</button>
+      <button onclick="clearData()">3. Clear Data</button>
+      <button onclick="testGalleryPage()">4. Open Galeri Page</button>
+      <button onclick="testAdminPage()">5. Open Admin Page</button>
+    </div>
+    
+    <div id="output"></div>
+  </div>
+
+  <script>
+    function initData() {
+      const sampleData = [
+        {
+          name: 'Pendeta Pelayanan Pertama',
+          period: '1950 - 1970',
+          image: 'arsip/pastor1.jpg'
+        },
+        {
+          name: 'Pdt. Selvy J.K. Asfes-Zina, S.Th',
+          period: '2020 - Sekarang',
+          image: 'arsip/IMG-20251124-WA0059.jpg'
+        }
+      ];
+      
+      localStorage.setItem('gmitPastorsData', JSON.stringify(sampleData));
+      document.getElementById('output').innerHTML = `
+        <h3>✅ Sample Data Initialized!</h3>
+        <pre>${JSON.stringify(sampleData, null, 2)}</pre>
+      `;
+    }
+    
+    function showData() {
+      const data = localStorage.getItem('gmitPastorsData');
+      if (data) {
+        const parsed = JSON.parse(data);
+        document.getElementById('output').innerHTML = `
+          <h3>📊 Current Data (${parsed.length} pastors):</h3>
+          <pre>${JSON.stringify(parsed, null, 2)}</pre>
+        `;
+      } else {
+        document.getElementById('output').innerHTML = `
+          <h3>⚠️ No Data Found</h3>
+          <p>Click "Initialize Sample Data" first.</p>
+        `;
+      }
+    }
+    
+    function clearData() {
+      localStorage.removeItem('gmitPastorsData');
+      document.getElementById('output').innerHTML = `
+        <h3>🗑️ Data Cleared!</h3>
+        <p>localStorage has been cleared.</p>
+      `;
+    }
+    
+    function testGalleryPage() {
+      window.open('galeri.html', '_blank');
+    }
+    
+    function testAdminPage() {
+      // Set admin login for testing
+      sessionStorage.setItem('adminLoggedIn', 'true');
+      sessionStorage.setItem('adminUsername', 'admin');
+      window.open('admin/kelola-galeri.html', '_blank');
+    }
+    
+    // Auto show data on load
+    window.addEventListener('DOMContentLoaded', showData);
+  </script>
+</body>
+</html>

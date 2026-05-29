@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kelola Galeri (Kegiatan & Gedung) - Admin Panel</title>
+  <link rel="stylesheet" href="admin-style.css">
+  <style>
+    .gallery-section {
+      background: white;
+      padding: 24px;
+      border-radius: 12px;
+      margin-bottom: 24px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .gallery-section h3 {
+      color: #123a5a;
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid #e0e0e0;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 16px;
+      margin-top: 20px;
+    }
+
+    .gallery-item {
+      position: relative;
+      background: #f5f5f5;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 2px solid #e0e0e0;
+      transition: all 0.3s ease;
+    }
+
+    .gallery-item:hover {
+      border-color: #123a5a;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(18,58,90,0.15);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      background: #eee;
+    }
+
+    .gallery-item-info {
+      padding: 12px;
+      background: white;
+    }
+
+    .gallery-item-info input {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 13px;
+      margin-bottom: 8px;
+    }
+
+    .gallery-item-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .gallery-item-actions button {
+      padding: 6px 12px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .btn-delete {
+      background: #dc3545;
+      color: white;
+      grid-column: 1 / -1;
+    }
+
+    .btn-delete:hover {
+      background: #c82333;
+    }
+
+    .btn-up, .btn-down {
+      background: #6c757d;
+      color: white;
+      font-size: 16px !important;
+      font-weight: bold;
+    }
+
+    .btn-up:hover, .btn-down:hover {
+      background: #5a6268;
+    }
+
+    .btn-up:disabled, .btn-down:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
+
+    .btn-info {
+      background: #17a2b8;
+      color: white;
+      grid-column: 1 / -1;
+    }
+
+    .btn-info:hover {
+      background: #138496;
+    }
+
+    .alert {
+      padding: 12px;
+      border-radius: 6px;
+      margin-bottom: 16px;
+      border-left: 4px solid;
+    }
+
+    .alert-success {
+      background: #d4edda;
+      color: #155724;
+      border-left-color: #28a745;
+    }
+
+    .alert-error {
+      background: #f8d7da;
+      color: #721c24;
+      border-left-color: #dc3545;
+    }
+
+    .help-text {
+      background: #d1ecf1;
+      color: #0c5460;
+      padding: 12px;
+      border-radius: 6px;
+      margin-bottom: 20px;
+      font-size: 14px;
+      border-left: 4px solid #17a2b8;
+    }
+
+    .section-toggle {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    .section-toggle .btn {
+      margin-right: 0;
+    }
+
+    .section-toggle .btn.active {
+      filter: brightness(0.95);
+      box-shadow: inset 0 0 0 2px rgba(18,58,90,0.25);
+    }
+
+    .add-form {
+      display: grid;
+      grid-template-columns: 1fr 1fr auto;
+      gap: 12px;
+      align-items: end;
+      margin-top: 10px;
+    }
+
+    .add-form .form-group {
+      margin-bottom: 0;
+    }
+
+    @media (max-width: 900px) {
+      .add-form {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .spinner {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      border: 2px solid #f3f3f3;
+      border-top: 2px solid #123a5a;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-right: 8px;
+      vertical-align: -3px;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body style="margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f5f7fa;">
+  <div class="admin-container" style="display: flex; min-height: 100vh;">
+    <!-- Sidebar -->
+    <aside class="admin-sidebar">
+      <div class="sidebar-header">
+        <h2>Admin Panel</h2>
+        <p>GMIT Sahaduta Bello</p>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="index.html" class="nav-item">
+          <span class="icon">📊</span> Dashboard
+        </a>
+        <a href="index.html#content-sahaduta" class="nav-item">
+          <span class="icon">📝</span> Content Sahaduta
+        </a>
+        <a href="index.html#content-gmit" class="nav-item">
+          <span class="icon">📚</span> Content GMIT
+        </a>
+        <a href="index.html#pengumuman" class="nav-item">
+          <span class="icon">📢</span> Pengumuman
+        </a>
+        <a href="kelola-galeri.html" class="nav-item active">
+          <span class="icon">🖼️</span> Kelola Galeri
+        </a>
+        <a href="index.html#struktur" class="nav-item">
+          <span class="icon">👥</span> Struktur Kepengurusan
+        </a>
+        <a href="#logout" class="nav-item logout" onclick="handleLogout()">
+          <span class="icon">🚪</span> Logout
+        </a>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="admin-main">
+      <header class="admin-header">
+        <h1>Kelola Galeri (Kegiatan & Gedung)</h1>
+        <div class="user-info">
+          <span>Admin</span>
+        </div>
+      </header>
+
+      <div class="admin-content">
+        <div class="help-text">
+          <strong>💡 Cara Menggunakan:</strong><br>
+          1. Pilih section <strong>Dokumentasi Kegiatan</strong> atau <strong>Gedung Kebaktian</strong><br>
+          2. Upload foto (file) lalu klik <strong>"Upload & Tambah"</strong><br>
+          3. Ubah caption lalu klik <strong>"Simpan Caption"</strong> jika diperlukan<br>
+          4. Atur urutan dengan tombol <strong>↑</strong> dan <strong>↓</strong> (urutan tampil di galeri publik)
+        </div>
+
+        <div id="alert-container"></div>
+
+        <div class="section-toggle">
+          <button class="btn btn-primary active" id="btn-activities" type="button" onclick="setSection('activities')">📸 Dokumentasi Kegiatan</button>
+          <button class="btn btn-secondary" id="btn-building" type="button" onclick="setSection('building')">🏛️ Gedung Kebaktian</button>
+          <button class="btn btn-secondary" type="button" onclick="previewGallery()">👁️ Lihat di Halaman Galeri</button>
+        </div>
+
+        <div class="gallery-section">
+          <h3 id="section-title">Dokumentasi Kegiatan</h3>
+
+          <div class="add-form">
+            <div class="form-group">
+              <label for="gallery-file" style="display:block; margin-bottom: 6px; font-weight: 600;">Upload Foto (File)</label>
+              <input type="file" id="gallery-file" accept="image/jpeg,image/png,image/webp,image/gif" style="width: 100%;" />
+            </div>
+            <div class="form-group">
+              <label for="gallery-caption" style="display:block; margin-bottom: 6px; font-weight: 600;">Caption (opsional)</label>
+              <input type="text" id="gallery-caption" placeholder="Contoh: Ibadah Minggu, Perayaan Natal, dst" style="width: 100%;" />
+            </div>
+            <div class="form-group">
+              <button class="btn btn-success" id="btn-upload-add" type="button" onclick="uploadAndAdd()">➕ Upload & Tambah</button>
+            </div>
+          </div>
+
+          <div class="gallery-grid" id="gallery-grid"></div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="../api-client.js"></script>
+  <script>
+    console.log('Admin Kelola Galeri Konten - API Base URL:', api.baseUrl);
+
+    let currentSection = 'activities';
+    let galleryData = [];
+    let isBusy = false;
+
+    function getDefaultItems(section) {
+      if (section === 'activities') {
+        return [
+          { image_url: '../arsip/1.jpeg', caption: '' },
+          { image_url: '../arsip/2.jpeg', caption: '' },
+          { image_url: '../arsip/3.jpeg', caption: '' },
+          { image_url: '../arsip/4.jpeg', caption: '' },
+          { image_url: '../arsip/5.jpeg', caption: '' },
+          { image_url: '../arsip/6.jpeg', caption: '' },
+          { image_url: '../arsip/7.jpeg', caption: '' },
+          { image_url: '../arsip/8.jpeg', caption: '' },
+          { image_url: '../arsip/9.jpeg', caption: '' },
+          { image_url: '../arsip/10.jpeg', caption: '' },
+          { image_url: '../arsip/11.jpeg', caption: '' },
+          { image_url: '../arsip/12.jpeg', caption: '' }
+        ];
+      }
+
+      if (section === 'building') {
+        return [
+          { image_url: '../arsip/tampak-dalam.jpg', caption: 'Tampak Dalam' },
+          { image_url: '../arsip/tampak-depan.jpg', caption: 'Tampak Depan' },
+          { image_url: '../arsip/gedung3.jpg', caption: 'Tampak Samping' }
+        ];
+      }
+
+      return [];
+    }
+
+    async function seedSectionIfEmpty(section) {
+      const seedKey = `gallerySeeded:${section}`;
+      // If admin previously cleared the DB, public fallback still shows defaults.
+      // Seeding keeps admin view consistent with what jemaat sees.
+      if (localStorage.getItem(seedKey) === 'true') return false;
+
+      const defaults = getDefaultItems(section);
+      if (!defaults.length) return false;
+
+      try {
+        isBusy = true;
+        for (const item of defaults) {
+          await api.createGalleryItem({
+            section,
+            image_url: item.image_url,
+            caption: item.caption || '',
+            s3_key: ''
+          });
+        }
+        localStorage.setItem(seedKey, 'true');
+        showAlert('ℹ️ Galeri diisi otomatis dari konten publik (arsip) agar bisa dikelola admin.', 'success');
+        return true;
+      } catch (err) {
+        console.error('Error seeding gallery defaults:', err);
+        // Don't lock the seed if it failed.
+        localStorage.removeItem(seedKey);
+        return false;
+      } finally {
+        isBusy = false;
+      }
+    }
+
+    function initializePage() {
+      const isLoggedIn = sessionStorage.getItem('adminLoggedIn') === 'true';
+      const token = localStorage.getItem('adminToken');
+      if (!isLoggedIn && !token) {
+        alert('Anda harus login terlebih dahulu!');
+        setTimeout(() => {
+          window.location.href = './login.html';
+        }, 100);
+        return false;
+      }
+
+      setSection('activities');
+      return true;
+    }
+
+    function setSection(section) {
+      if (section !== 'activities' && section !== 'building') return;
+      currentSection = section;
+
+      const btnActivities = document.getElementById('btn-activities');
+      const btnBuilding = document.getElementById('btn-building');
+      const h3El = document.getElementById('section-title');
+
+      // toggle button styles
+      if (section === 'activities') {
+        btnActivities.classList.add('active');
+        btnActivities.classList.remove('btn-secondary');
+        btnActivities.classList.add('btn-primary');
+
+        btnBuilding.classList.remove('active');
+        btnBuilding.classList.remove('btn-primary');
+        btnBuilding.classList.add('btn-secondary');
+
+        h3El.textContent = 'Dokumentasi Kegiatan';
+      } else {
+        btnBuilding.classList.add('active');
+        btnBuilding.classList.remove('btn-secondary');
+        btnBuilding.classList.add('btn-primary');
+
+        btnActivities.classList.remove('active');
+        btnActivities.classList.remove('btn-primary');
+        btnActivities.classList.add('btn-secondary');
+
+        h3El.textContent = 'Gedung Kebaktian';
+      }
+
+      loadGallery();
+    }
+
+    async function loadGallery() {
+      try {
+        const data = await api.getGallery(currentSection);
+        galleryData = Array.isArray(data) ? data : [];
+
+        // Jika database kosong, load konten publik default (arsip) ke database
+        if (galleryData.length === 0) {
+          const didSeed = await seedSectionIfEmpty(currentSection);
+          if (didSeed) {
+            const refreshed = await api.getGallery(currentSection);
+            galleryData = Array.isArray(refreshed) ? refreshed : [];
+          }
+        }
+
+        renderGallery();
+      } catch (err) {
+        console.error('Error loading gallery:', err);
+        showAlert('⚠️ Tidak bisa memuat data galeri. Pastikan backend berjalan di ' + api.baseUrl, 'error');
+        galleryData = [];
+        renderGallery();
+      }
+    }
+
+    function renderGallery() {
+      const grid = document.getElementById('gallery-grid');
+      if (!grid) return;
+
+      grid.innerHTML = '';
+
+      if (!galleryData || galleryData.length === 0) {
+        grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #999; padding: 40px;">Belum ada foto. Upload foto untuk menambah item.</p>';
+        return;
+      }
+
+      galleryData.forEach((item, index) => {
+        const div = document.createElement('div');
+        div.className = 'gallery-item';
+
+        const img = document.createElement('img');
+        // Support both absolute URLs (S3) and relative paths
+        const url = item.image_url || '';
+        img.src = url.startsWith('http') ? url : url.replace(/^\.\//, '');
+        img.alt = item.caption || ('Foto ' + (index + 1));
+
+        const infoDiv = document.createElement('div');
+        infoDiv.className = 'gallery-item-info';
+
+        const captionInput = document.createElement('input');
+        captionInput.type = 'text';
+        captionInput.value = item.caption || '';
+        captionInput.placeholder = 'Caption (opsional)';
+
+        const actionsDiv = document.createElement('div');
+        actionsDiv.className = 'gallery-item-actions';
+
+        const btnSave = document.createElement('button');
+        btnSave.type = 'button';
+        btnSave.className = 'btn btn-info';
+        btnSave.textContent = '💾 Simpan Caption';
+        btnSave.onclick = () => saveCaption(index, captionInput.value);
+
+        const btnUp = document.createElement('button');
+        btnUp.type = 'button';
+        btnUp.className = 'btn-up';
+        btnUp.textContent = '↑';
+        btnUp.disabled = index === 0;
+        btnUp.onclick = () => moveItem(index, -1);
+
+        const btnDown = document.createElement('button');
+        btnDown.type = 'button';
+        btnDown.className = 'btn-down';
+        btnDown.textContent = '↓';
+        btnDown.disabled = index === galleryData.length - 1;
+        btnDown.onclick = () => moveItem(index, 1);
+
+        const btnDelete = document.createElement('button');
+        btnDelete.type = 'button';
+        btnDelete.className = 'btn-delete';
+        btnDelete.textContent = '🗑️ Hapus';
+        btnDelete.onclick = () => deleteItem(index);
+
+        actionsDiv.appendChild(btnSave);
+        actionsDiv.appendChild(btnUp);
+        actionsDiv.appendChild(btnDown);
+        actionsDiv.appendChild(btnDelete);
+
+        infoDiv.appendChild(captionInput);
+        infoDiv.appendChild(actionsDiv);
+
+        div.appendChild(img);
+        div.appendChild(infoDiv);
+        grid.appendChild(div);
+      });
+    }
+
+    async function saveCaption(index, caption) {
+      const item = galleryData[index];
+      if (!item) return;
+
+      try {
+        await api.updateGalleryItem(item._id, { caption: caption || '' });
+        showAlert('✅ Caption berhasil disimpan', 'success');
+        await loadGallery();
+      } catch (err) {
+        console.error('Error saving caption:', err);
+        showAlert('❌ Gagal menyimpan caption: ' + err.message, 'error');
+      }
+    }
+
+    async function moveItem(index, delta) {
+      if (isBusy) return;
+      const newIndex = index + delta;
+      if (newIndex < 0 || newIndex >= galleryData.length) return;
+
+      // update local order first for snappy UI
+      const moved = galleryData.splice(index, 1)[0];
+      galleryData.splice(newIndex, 0, moved);
+      renderGallery();
+
+      try {
+        isBusy = true;
+        await api.reorderGallery(currentSection, galleryData.map(i => i._id));
+        showAlert('✅ Urutan berhasil diperbarui', 'success');
+      } catch (err) {
+        console.error('Error reordering gallery:', err);
+        showAlert('❌ Gagal mengubah urutan: ' + err.message, 'error');
+        await loadGallery();
+      } finally {
+        isBusy = false;
+      }
+    }
+
+    async function deleteItem(index) {
+      const item = galleryData[index];
+      if (!item) return;
+
+      if (!confirm('Yakin ingin menghapus foto ini?')) return;
+
+      try {
+        await api.deleteGalleryItem(item._id);
+        showAlert('✅ Item berhasil dihapus', 'success');
+        await loadGallery();
+      } catch (err) {
+        console.error('Error deleting item:', err);
+        showAlert('❌ Gagal menghapus item: ' + err.message, 'error');
+      }
+    }
+
+    async function uploadAndAdd() {
+      if (isBusy) return;
+
+      const fileInput = document.getElementById('gallery-file');
+      const captionInput = document.getElementById('gallery-caption');
+      const btn = document.getElementById('btn-upload-add');
+
+      const file = fileInput && fileInput.files ? fileInput.files[0] : null;
+      const caption = captionInput ? captionInput.value : '';
+
+      if (!file) {
+        showAlert('⚠️ Pilih file foto terlebih dahulu.', 'error');
+        return;
+      }
+
+      try {
+        isBusy = true;
+        const originalText = btn.textContent;
+        btn.disabled = true;
+        btn.innerHTML = '<span class="spinner"></span> Mengupload...';
+
+        const uploadRes = await api.uploadGalleryImage(file, currentSection);
+        await api.createGalleryItem({
+          section: currentSection,
+          image_url: uploadRes.url,
+          caption: caption || '',
+          s3_key: uploadRes.s3_key || ''
+        });
+
+        fileInput.value = '';
+        if (captionInput) captionInput.value = '';
+
+        showAlert('✅ Foto berhasil ditambahkan', 'success');
+        await loadGallery();
+
+        btn.textContent = originalText;
+      } catch (err) {
+        console.error('Error upload/add gallery:', err);
+        showAlert('❌ Gagal upload/tambah: ' + err.message, 'error');
+      } finally {
+        isBusy = false;
+        btn.disabled = false;
+        btn.textContent = '➕ Upload & Tambah';
+      }
+    }
+
+    function previewGallery() {
+      window.open('../galeri.html', '_blank');
+    }
+
+    function showAlert(message, type) {
+      const container = document.getElementById('alert-container');
+      if (!container) return;
+
+      const div = document.createElement('div');
+      div.className = 'alert ' + (type === 'success' ? 'alert-success' : 'alert-error');
+      div.textContent = message;
+
+      container.innerHTML = '';
+      container.appendChild(div);
+
+      setTimeout(() => {
+        if (container.contains(div)) container.removeChild(div);
+      }, 3500);
+    }
+
+    function handleLogout() {
+      try {
+        localStorage.removeItem('adminToken');
+        sessionStorage.removeItem('adminLoggedIn');
+      } catch {}
+      window.location.href = './login.html';
+    }
+
+    // init
+    initializePage();
+  </script>
+</body>
+</html>

@@ -1,0 +1,369 @@
+/* Gaya khusus halaman Tentang GMIT Yegar Sahaduta Bello - konsisten dengan tema utama */
+
+:root{
+  --brand:#123a5a;
+  --muted:#55656b;
+  --card-bg:#fff;
+  --panel-bg:#f8fafc;
+}
+
+.page-wrap{
+  max-width:1100px;
+  margin:28px auto;
+  padding:0 16px 60px;
+  display:block;
+}
+
+/* Header kecil khusus halaman */
+.tentang-header{
+  background:var(--card-bg);
+  text-align:center;
+  padding:22px;
+  border-radius:8px;
+  box-shadow:0 2px 8px rgba(0,0,0,0.04);
+  margin-bottom:20px;
+}
+.tentang-header img.church-logo{
+  width:110px;
+  height:auto;
+  display:block;
+  margin:0 auto 12px;
+}
+.tentang-header h1{
+  color:var(--brand);
+  font-size:22px;
+  margin-bottom:6px;
+}
+.tentang-header .lead{
+  color:var(--muted);
+  font-size:15px;
+}
+
+/* Konten utama */
+.tentang-content{
+  background:var(--card-bg);
+  padding:26px;
+  border-radius:8px;
+  box-shadow:0 2px 10px rgba(0,0,0,0.04);
+  line-height:1.8;
+  color:#29333a;
+}
+
+/* Section headings */
+.tentang-content h2{
+  color:var(--brand);
+  font-size:18px;
+  margin-top:16px;
+  margin-bottom:10px;
+  border-bottom:2px solid rgba(18,58,90,0.06);
+  padding-bottom:8px;
+}
+
+/* Paragraf dan list */
+.tentang-content p{
+  margin-bottom:14px;
+  text-align:justify;
+}
+.tentang-content ul{
+  margin:12px 0 16px 20px;
+}
+.tentang-content li{
+  margin-bottom:8px;
+}
+
+/* Info statistik card */
+.stats {
+  display: flex;
+  gap: 12px;
+  margin-top: 18px;
+  flex-wrap: wrap;
+  justify-content: center; /* center cards horizontally */
+  align-items: center;     /* center cards vertically */
+  text-align: center;
+}
+
+.stat-card {
+  background: var(--panel-bg);
+  padding: 12px 14px;
+  border-radius: 10px;
+  min-width: 160px;
+  box-shadow: 0 2px 6px rgba(16,40,60,0.03);
+  display: flex;
+  flex-direction: column;
+  align-items: center;    /* center content inside each card */
+  justify-content: center;
+}
+
+/* Footer spacing (jika footer global dipakai) */
+.tentang-footer-space{ margin-top:18px; }
+
+/* ========== RESPONSIVE DESIGN ========== */
+
+/* Large screens */
+@media (min-width: 1200px) {
+  .page-wrap {
+    max-width: 1200px;
+    padding: 0 20px 70px;
+  }
+  
+  .tentang-content {
+    padding: 35px;
+  }
+  
+  .tentang-header {
+    padding: 30px;
+  }
+}
+
+/* Tablets: 768px - 1023px */
+@media (max-width: 1023px) {
+  .page-wrap {
+    max-width: 100%;
+    margin: 20px auto;
+    padding: 0 15px 50px;
+  }
+  
+  .tentang-header {
+    padding: 20px 18px;
+    margin-bottom: 18px;
+  }
+  
+  .tentang-header h1 {
+    font-size: 21px;
+  }
+  
+  .tentang-header .lead {
+    font-size: 14px;
+  }
+  
+  .tentang-content {
+    padding: 24px 20px;
+  }
+  
+  .tentang-content h2 {
+    font-size: 17px;
+    margin-top: 14px;
+    margin-bottom: 8px;
+  }
+}
+
+/* Mobile landscape and small tablets: 640px - 767px */
+@media (max-width: 767px) {
+  .page-wrap {
+    margin: 15px auto;
+    padding: 0 12px 40px;
+  }
+  
+  .tentang-header {
+    padding: 18px 15px;
+    margin-bottom: 16px;
+    border-radius: 6px;
+  }
+  
+  .tentang-header img.church-logo {
+    width: 90px;
+    margin-bottom: 10px;
+  }
+  
+  .tentang-header h1 { 
+    font-size: 20px;
+    margin-bottom: 5px;
+  }
+  
+  .tentang-header .lead {
+    font-size: 13px;
+  }
+  
+  .tentang-content { 
+    padding: 20px 16px;
+    border-radius: 6px;
+  }
+  
+  .tentang-content h2 {
+    font-size: 16px;
+    margin-top: 12px;
+    margin-bottom: 8px;
+    padding-bottom: 6px;
+  }
+  
+  .tentang-content p {
+    margin-bottom: 12px;
+    font-size: 14px;
+  }
+  
+  .tentang-content ul {
+    margin: 10px 0 14px 18px;
+  }
+  
+  .tentang-content li {
+    margin-bottom: 6px;
+    font-size: 14px;
+  }
+  
+  .stats { 
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 16px;
+  }
+  
+  .stat-card {
+    min-width: 100%;
+    max-width: 100%;
+    padding: 12px;
+  }
+}
+
+/* Mobile portrait: 480px - 639px */
+@media (max-width: 639px) {
+  .page-wrap {
+    margin: 12px auto;
+    padding: 0 10px 35px;
+  }
+  
+  .tentang-header {
+    padding: 16px 12px;
+    margin-bottom: 14px;
+  }
+  
+  .tentang-header img.church-logo {
+    width: 80px;
+    margin-bottom: 8px;
+  }
+  
+  .tentang-header h1 {
+    font-size: 18px;
+    margin-bottom: 4px;
+  }
+  
+  .tentang-header .lead {
+    font-size: 12px;
+  }
+  
+  .tentang-content {
+    padding: 18px 14px;
+  }
+  
+  .tentang-content h2 {
+    font-size: 15px;
+    margin-top: 10px;
+    margin-bottom: 7px;
+    padding-bottom: 5px;
+  }
+  
+  .tentang-content p {
+    margin-bottom: 10px;
+    font-size: 13px;
+    line-height: 1.7;
+  }
+  
+  .tentang-content ul {
+    margin: 8px 0 12px 16px;
+  }
+  
+  .tentang-content li {
+    margin-bottom: 5px;
+    font-size: 13px;
+  }
+  
+  .stats {
+    gap: 8px;
+    margin-top: 14px;
+  }
+  
+  .stat-card {
+    padding: 10px;
+    font-size: 13px;
+  }
+}
+
+/* Small mobile: 320px - 479px */
+@media (max-width: 479px) {
+  .page-wrap {
+    margin: 10px auto;
+    padding: 0 8px 30px;
+  }
+  
+  .tentang-header {
+    padding: 14px 10px;
+    margin-bottom: 12px;
+    border-radius: 5px;
+  }
+  
+  .tentang-header img.church-logo {
+    width: 70px;
+    margin-bottom: 8px;
+  }
+  
+  .tentang-header h1 {
+    font-size: 17px;
+    margin-bottom: 4px;
+  }
+  
+  .tentang-header .lead {
+    font-size: 11px;
+  }
+  
+  .tentang-content {
+    padding: 16px 12px;
+    border-radius: 5px;
+  }
+  
+  .tentang-content h2 {
+    font-size: 14px;
+    margin-top: 10px;
+    margin-bottom: 6px;
+    padding-bottom: 4px;
+  }
+  
+  .tentang-content p {
+    margin-bottom: 10px;
+    font-size: 12px;
+    line-height: 1.6;
+  }
+  
+  .tentang-content ul {
+    margin: 8px 0 10px 14px;
+  }
+  
+  .tentang-content li {
+    margin-bottom: 5px;
+    font-size: 12px;
+    line-height: 1.5;
+  }
+  
+  .stats {
+    gap: 8px;
+    margin-top: 12px;
+  }
+  
+  .stat-card {
+    padding: 10px 8px;
+    font-size: 12px;
+    min-width: 100%;
+  }
+  
+  .tentang-footer-space {
+    margin-top: 15px;
+  }
+}
+
+/* Very small screens */
+@media (max-width: 360px) {
+  .tentang-header img.church-logo {
+    width: 60px;
+  }
+  
+  .tentang-header h1 {
+    font-size: 16px;
+  }
+  
+  .tentang-content h2 {
+    font-size: 13px;
+  }
+  
+  .tentang-content p,
+  .tentang-content li {
+    font-size: 11px;
+  }
+}
+

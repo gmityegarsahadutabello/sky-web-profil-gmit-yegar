@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Pengumuman - GMIT Yegar Sahaduta Bello</title>
+  <link rel="stylesheet" href="./styel.css">
+  <style>
+    .pengumuman-page {
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    .page-header-pengumuman {
+      text-align: center;
+      margin-bottom: 40px;
+      padding: 40px 20px;
+      background: linear-gradient(135deg, rgba(18,58,90,0.05) 0%, rgba(30,90,150,0.05) 100%);
+      border-radius: 12px;
+    }
+
+    .page-header-pengumuman h1 {
+      color: #123a5a;
+      font-size: 36px;
+      margin-bottom: 10px;
+    }
+
+    .page-header-pengumuman p {
+      color: #666;
+      font-size: 16px;
+    }
+
+    .filter-tabs {
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 30px;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      padding: 10px 20px;
+      border: 2px solid #123a5a;
+      background: white;
+      color: #123a5a;
+      border-radius: 25px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .filter-btn:hover,
+    .filter-btn.active {
+      background: #123a5a;
+      color: white;
+    }
+
+    .pengumuman-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 25px;
+      margin-bottom: 40px;
+    }
+
+    .pengumuman-card {
+      background: white;
+      border-radius: 12px;
+      padding: 25px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border-left: 5px solid #123a5a;
+    }
+
+    .pengumuman-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    }
+
+    .pengumuman-kategori {
+      display: inline-block;
+      padding: 5px 15px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 15px;
+      text-transform: uppercase;
+    }
+
+    .kategori-kegiatan {
+      background: #d1ecf1;
+      color: #0c5460;
+    }
+
+    .kategori-perjamuan {
+      background: #f8d7da;
+      color: #721c24;
+    }
+
+    .kategori-irt {
+      background: #d4edda;
+      color: #155724;
+    }
+
+    .kategori-umum {
+      background: #e2e3e5;
+      color: #383d41;
+    }
+
+    .pengumuman-card h3 {
+      color: #123a5a;
+      font-size: 20px;
+      margin-bottom: 15px;
+      line-height: 1.4;
+    }
+
+    .pengumuman-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 15px;
+      color: #666;
+      font-size: 14px;
+    }
+
+    .meta-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .meta-icon {
+      font-size: 16px;
+      width: 20px;
+    }
+
+    .pengumuman-deskripsi {
+      color: #444;
+      line-height: 1.7;
+      font-size: 15px;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      background: #f8f9fa;
+      border-radius: 12px;
+    }
+
+    .empty-state h3 {
+      color: #123a5a;
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+
+    .empty-state p {
+      color: #666;
+    }
+
+    @media (max-width: 768px) {
+      .pengumuman-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .page-header-pengumuman h1 {
+        font-size: 28px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>GMIT Yegar Sahaduta Bello</h1>
+    <p class="tagline">Melayani dengan Kasih</p>
+  </header>
+
+  <nav>
+    <ul class="main-nav">
+      <li><a href="Beranda.html">Beranda</a></li>
+      <li><a href="tentangSAHADUTA.html">Tentang GMIT Yegar Sahaduta Belo</a></li>
+      <li><a href="tentangGMIT.html">Tentang GMIT</a></li>
+      <li><a href="Profil.gereja.html">Struktur Kepengurusan</a></li>
+      <li><a href="galeri.html">Galeri</a></li>
+      <li><a href="pengumuman.html" class="active">Pengumuman</a></li>
+      <li><a href="#">📄 Sistem Surat</a></li>
+      <li><a href="./admin/login.html" class="nav-cta">🔐 Admin Login</a></li>
+    </ul>
+  </nav>
+
+  <main class="pengumuman-page">
+    <div class="page-header-pengumuman">
+      <h1>📢 Pengumuman Jemaat</h1>
+      <p>Informasi kegiatan dan pengumuman penting GMIT Yegar Sahaduta Bello</p>
+    </div>
+
+    <div class="filter-tabs">
+      <button class="filter-btn active" data-filter="all">Semua</button>
+      <button class="filter-btn" data-filter="kegiatan">Kegiatan Gereja</button>
+      <button class="filter-btn" data-filter="perjamuan">Jadwal Perjamuan</button>
+      <button class="filter-btn" data-filter="irt">Ibadah Rumah Tangga</button>
+      <button class="filter-btn" data-filter="umum">Pengumuman Umum</button>
+    </div>
+
+    <div class="pengumuman-grid" id="pengumuman-container">
+      <!-- Pengumuman akan dimuat di sini -->
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-location">
+        <h4>Lokasi Gereja</h4>
+        <div class="map-wrapper">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d31417.81922723395!2d123.59795155!3d-10.1621622!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2s!5e0!3m2!1sid!2sid!4v1762710993106!5m2!1sid!2sid"
+            title="Lokasi GMIT Sahaduta Bello"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            allowfullscreen>
+          </iframe>
+        </div>
+      </div>
+
+      <div class="footer-right">
+        <div class="follow">
+          <h4>FOLLOW US</h4>
+          <div class="social-buttons">
+            <a class="social-btn fb" href="#" aria-label="Facebook">Facebook</a>
+            <a class="social-btn ig" href="#" aria-label="Instagram">Instagram</a>
+            <a class="social-btn yt" href="#" aria-label="YouTube">YouTube</a>
+          </div>
+        </div>
+
+        <div style="margin-top: 8px;">
+          <h5 style="margin: 0 0 8px 0; color: #e6eef7; font-size: 14px;">Contact us</h5>
+          <a class="email-link" href="mailto:gmitsahadutabelo@gmail.com" aria-label="Email GMIT">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 6.5L12 13l9-6.5" stroke="#fff" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M21 6.5v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-11" stroke="#fff" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            gmitsahadutabelo@gmail.com
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="./api-client.js"></script>
+  <script>
+    // Cache pengumuman agar filter tidak fetch berulang
+    let pengumumanCache = [];
+
+    // Load pengumuman publik dari API (MongoDB). Fallback ke localStorage jika backend offline.
+    async function loadPengumuman() {
+      try {
+        if (typeof api === 'undefined' || !api) {
+          throw new Error('API client belum dimuat');
+        }
+
+        const list = await api.getPublicAnnouncements();
+        return Array.isArray(list) ? list : [];
+      } catch (err) {
+        console.warn('Gagal load pengumuman dari API, fallback localStorage:', err.message);
+        const data = localStorage.getItem('gmitAdminData');
+        if (!data) return [];
+        try {
+          const parsedData = JSON.parse(data);
+          return (parsedData.pengumuman || []).filter(p => p.aktif);
+        } catch {
+          return [];
+        }
+      }
+    }
+
+    // Display pengumuman
+    function displayPengumuman(filter = 'all') {
+      const container = document.getElementById('pengumuman-container');
+      let pengumumanList = [...pengumumanCache];
+      
+      // Filter by category
+      if (filter !== 'all') {
+        pengumumanList = pengumumanList.filter(p => p.kategori === filter);
+      }
+      
+      // Sort by date (newest first)
+      pengumumanList.sort((a, b) => new Date(b.tanggal) - new Date(a.tanggal));
+      
+      if (pengumumanList.length === 0) {
+        container.innerHTML = `
+          <div class="empty-state" style="grid-column: 1 / -1;">
+            <h3>Belum ada pengumuman</h3>
+            <p>Saat ini belum ada pengumuman yang ditampilkan.</p>
+          </div>
+        `;
+        return;
+      }
+      
+      container.innerHTML = pengumumanList.map(p => `
+        <div class="pengumuman-card" data-kategori="${p.kategori}">
+          <span class="pengumuman-kategori kategori-${p.kategori}">${getKategoriLabel(p.kategori)}</span>
+          <h3>${p.judul}</h3>
+          <div class="pengumuman-meta">
+            <div class="meta-row">
+              <span class="meta-icon">📅</span>
+              <span>${formatDate(p.tanggal)}</span>
+            </div>
+            ${p.waktu ? `
+              <div class="meta-row">
+                <span class="meta-icon">🕐</span>
+                <span>${p.waktu}</span>
+              </div>
+            ` : ''}
+            ${p.lokasi ? `
+              <div class="meta-row">
+                <span class="meta-icon">📍</span>
+                <span>${p.lokasi}</span>
+              </div>
+            ` : ''}
+          </div>
+          <p class="pengumuman-deskripsi">${p.deskripsi}</p>
+        </div>
+      `).join('');
+    }
+
+    function getKategoriLabel(kategori) {
+      const labels = {
+        'kegiatan': 'Kegiatan Gereja',
+        'perjamuan': 'Jadwal Perjamuan',
+        'irt': 'Ibadah Rumah Tangga',
+        'umum': 'Pengumuman Umum'
+      };
+      return labels[kategori] || kategori;
+    }
+
+    function formatDate(dateString) {
+      const date = new Date(dateString);
+      const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+      return date.toLocaleDateString('id-ID', options);
+    }
+
+    // Filter functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      // Load dulu dari API, baru render
+      loadPengumuman().then(list => {
+        pengumumanCache = list;
+        displayPengumuman();
+      });
+
+      // Filter buttons
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+          // Update active button
+          document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+          this.classList.add('active');
+          
+          // Display filtered pengumuman
+          const filter = this.getAttribute('data-filter');
+          displayPengumuman(filter);
+        });
+      });
+    });
+  </script>
+</body>
+</html>

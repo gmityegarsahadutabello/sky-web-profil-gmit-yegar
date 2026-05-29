@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel - GMIT Yegar Sahaduta Bello</title>
+  <link rel="stylesheet" href="admin-style.css">
+</head>
+<body>
+  <div class="admin-container">
+    <!-- Sidebar -->
+    <aside class="admin-sidebar">
+      <div class="sidebar-header">
+        <h2>Admin Panel</h2>
+        <p>GMIT Sahaduta Bello</p>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="#dashboard" class="nav-item active" data-section="dashboard">
+          <span class="icon">📊</span> Dashboard
+        </a>
+        <a href="#content-sahaduta" class="nav-item" data-section="content-sahaduta">
+          <span class="icon">📝</span> Content Sahaduta
+        </a>
+        <a href="#content-gmit" class="nav-item" data-section="content-gmit">
+          <span class="icon">📚</span> Content GMIT
+        </a>
+        <a href="#pengumuman" class="nav-item" data-section="pengumuman">
+          <span class="icon">📢</span> Pengumuman
+        </a>
+        <a href="kelola-galeri.html" class="nav-item">
+          <span class="icon">🖼️</span> Kelola Galeri
+        </a>
+        <a href="#struktur" class="nav-item" data-section="struktur">
+          <span class="icon">👥</span> Struktur Kepengurusan
+        </a>
+        <a href="#logout" class="nav-item logout">
+          <span class="icon">🚪</span> Logout
+        </a>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="admin-main">
+      <header class="admin-header">
+        <h1 id="section-title">Dashboard</h1>
+        <div class="user-info">
+          <span>Admin</span>
+        </div>
+      </header>
+
+      <div class="admin-content">
+        <!-- Dashboard Section -->
+        <section id="dashboard" class="content-section active">
+          <div class="dashboard-cards">
+            <div class="card" role="button" onclick="window.location.href='kelola-galeri.html'" style="cursor: pointer;">
+              <div class="card-icon">🖼️</div>
+              <div class="card-content">
+                <h3>Galeri</h3>
+                <p>Kelola galeri foto gereja</p>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-icon">📢</div>
+              <div class="card-content">
+                <h3>Pengumuman</h3>
+                <p id="pengumuman-count">0 pengumuman aktif</p>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-icon">👥</div>
+              <div class="card-content">
+                <h3>Struktur Kepengurusan</h3>
+                <p>Kelola data majelis jemaat</p>
+              </div>
+            </div>
+          </div>
+          <div class="quick-actions">
+            <h2>Quick Actions</h2>
+            <button class="btn btn-primary" onclick="navigateToSection('pengumuman')">Buat Pengumuman Baru</button>
+            <button class="btn btn-secondary" onclick="navigateToSection('content-sahaduta')">Edit Content Sahaduta</button>
+            <button class="btn btn-secondary" onclick="window.location.href='kelola-galeri.html'">Kelola Galeri</button>
+            <button class="btn btn-secondary" onclick="navigateToSection('struktur')">Update Struktur</button>
+          </div>
+        </section>
+
+        <!-- Content Sahaduta Section -->
+        <section id="content-sahaduta" class="content-section">
+          <div class="editor-container">
+            <div class="editor-header">
+              <h2>Edit Content Tentang GMIT Yegar Sahaduta Bello</h2>
+              <div class="button-group">
+                <button class="btn btn-success" onclick="loadCurrentSahaduta()">📥 Load Data Website Saat Ini</button>
+                <button class="btn btn-primary" onclick="saveContentSahaduta()">💾 Simpan Perubahan</button>
+                <button class="btn btn-secondary" onclick="previewSahaduta()">👁️ Preview</button>
+                <button class="btn btn-info" onclick="showAddSahadutaSection()">➕ Tambah Section Baru</button>
+              </div>
+            </div>
+
+            <!-- Form Tambah Section Baru -->
+            <div id="formAddSahadutaSection" style="display: none; margin: 20px 0; padding: 20px; border: 2px solid #28a745; border-radius: 8px; background-color: #f0f8f5;">
+              <h3 style="color: #28a745; margin-bottom: 15px;">➕ Tambah Section Baru</h3>
+              <div class="form-group">
+                <label for="newSahadutaSectionId">ID Section (gunakan huruf kecil tanpa spasi, contoh: visi-misi):</label>
+                <input type="text" id="newSahadutaSectionId" placeholder="visi-misi" style="width: 100%;">
+              </div>
+              <div class="form-group">
+                <label for="newSahadutaSectionLabel">Label/Judul Section:</label>
+                <input type="text" id="newSahadutaSectionLabel" placeholder="Visi & Misi" style="width: 100%;">
+              </div>
+              <div class="form-group">
+                <label for="newSahadutaSectionContent">Isi Content:</label>
+                <textarea id="newSahadutaSectionContent" rows="6" placeholder="Masukkan isi content section..."></textarea>
+              </div>
+              <div class="form-group">
+                <button onclick="saveNewSahadutaSection()" class="btn btn-success">✅ Simpan Section Baru</button>
+                <button onclick="cancelAddSahadutaSection()" class="btn btn-secondary">❌ Batal</button>
+              </div>
+            </div>
+
+            <div class="info-box" style="background: #d1ecf1; color: #0c5460; padding: 15px; border-radius: 8px; margin-bottom: 25px; border-left: 4px solid #17a2b8;">
+              <strong>💡 Cara Menggunakan:</strong>
+              <ol style="margin: 10px 0 0 20px; line-height: 1.8;">
+                <li>Klik "📥 Load Data Website Saat Ini" untuk mengambil content yang ada di website</li>
+                <li>Edit text sesuai kebutuhan di form di bawah</li>
+                <li>Klik "💾 Simpan Perubahan" untuk menyimpan</li>
+                <li>Klik "👁️ Preview" untuk melihat hasil di halaman publik</li>
+              </ol>
+            </div>
+            
+            <div class="form-group">
+              <label for="sahaduta-gambaran">Gambaran Umum Jemaat</label>
+              <textarea id="sahaduta-gambaran" rows="8"></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="sahaduta-pertumbuhan">Pertumbuhan Jemaat</label>
+              <textarea id="sahaduta-pertumbuhan" rows="6"></textarea>
+            </div>
+
+            <div class="stats-editor">
+              <h3>Statistik Jemaat</h3>
+              <div class="stats-grid">
+                <div class="form-group">
+                  <label for="stat-kk">Jumlah KK</label>
+                  <input type="number" id="stat-kk" placeholder="82">
+                </div>
+                <div class="form-group">
+                  <label for="stat-jiwa">Jumlah Jiwa</label>
+                  <input type="number" id="stat-jiwa" placeholder="322">
+                </div>
+                <div class="form-group">
+                  <label for="stat-baptis">Jumlah Baptis</label>
+                  <input type="number" id="stat-baptis" placeholder="241">
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="sahaduta-pelayanan">Pelayanan & Kegiatan</label>
+              <textarea id="sahaduta-pelayanan" rows="5"></textarea>
+            </div>
+
+            <!-- Section Tambahan -->
+            <div id="additionalSahadutaSections"></div>
+          </div>
+        </section>
+
+        <!-- Content GMIT Section -->
+        <section id="content-gmit" class="content-section">
+          <div class="editor-container">
+            <div class="editor-header">
+              <h2>Edit Content Tentang GMIT</h2>
+              <div class="button-group">
+                <button class="btn btn-success" onclick="loadCurrentGMIT()">📥 Load Data Website Saat Ini</button>
+                <button class="btn btn-primary" onclick="saveContentGMIT()">💾 Simpan Perubahan</button>
+                <button class="btn btn-secondary" onclick="previewGMIT()">👁️ Preview</button>
+                <button class="btn btn-info" onclick="showAddGMITSection()">➕ Tambah Periode Baru</button>
+              </div>
+            </div>
+
+            <!-- Form Tambah Periode Baru -->
+            <div id="formAddGMITSection" style="display: none; margin: 20px 0; padding: 20px; border: 2px solid #28a745; border-radius: 8px; background-color: #f0f8f5;">
+              <h3 style="color: #28a745; margin-bottom: 15px;">➕ Tambah Periode Baru</h3>
+              <div class="form-group">
+                <label for="newGMITSectionId">ID Periode (gunakan huruf kecil tanpa spasi, contoh: masa-reformasi):</label>
+                <input type="text" id="newGMITSectionId" placeholder="masa-reformasi" style="width: 100%;">
+              </div>
+              <div class="form-group">
+                <label for="newGMITSectionLabel">Label/Judul Periode:</label>
+                <input type="text" id="newGMITSectionLabel" placeholder="Masa Reformasi" style="width: 100%;">
+              </div>
+              <div class="form-group">
+                <label for="newGMITSectionContent">Isi Content:</label>
+                <textarea id="newGMITSectionContent" rows="8" placeholder="Masukkan isi content periode..."></textarea>
+              </div>
+              <div class="form-group">
+                <button onclick="saveNewGMITSection()" class="btn btn-success">✅ Simpan Periode Baru</button>
+                <button onclick="cancelAddGMITSection()" class="btn btn-secondary">❌ Batal</button>
+              </div>
+            </div>
+
+            <div class="info-box" style="background: #d1ecf1; color: #0c5460; padding: 15px; border-radius: 8px; margin-bottom: 25px; border-left: 4px solid #17a2b8;">
+              <strong>💡 Cara Menggunakan:</strong>
+              <ol style="margin: 10px 0 0 20px; line-height: 1.8;">
+                <li>Klik "📥 Load Data Website Saat Ini" untuk mengambil content sejarah GMIT dari website</li>
+                <li>Edit content per periode sesuai kebutuhan</li>
+                <li>Klik "💾 Simpan Perubahan" untuk menyimpan</li>
+                <li>Klik "👁️ Preview" untuk melihat hasil di halaman publik</li>
+              </ol>
+            </div>
+
+            <div class="period-editor">
+              <h3>Edit Periode Sejarah GMIT</h3>
+              <p class="help-text">Edit konten untuk setiap periode sejarah GMIT</p>
+              
+              <div class="form-group">
+                <label for="gmit-portugis">Periode Portugis (1556–1613)</label>
+                <textarea id="gmit-portugis" rows="10"></textarea>
+              </div>
+
+              <div class="form-group">
+                <label for="gmit-belanda">Periode Belanda (1614–1941)</label>
+                <textarea id="gmit-belanda" rows="10"></textarea>
+              </div>
+
+              <div class="form-group">
+                <label for="gmit-jepang">Periode Jepang (1942–1945)</label>
+                <textarea id="gmit-jepang" rows="10"></textarea>
+              </div>
+
+              <div class="form-group">
+                <label for="gmit-pragmit">Periode Pra-GMIT (1945–1947)</label>
+                <textarea id="gmit-pragmit" rows="10"></textarea>
+              </div>
+
+              <div class="form-group">
+                <label for="gmit-modern">Periode GMIT Modern (1947–Kini)</label>
+                <textarea id="gmit-modern" rows="10"></textarea>
+              </div>
+
+              <!-- Periode Tambahan -->
+              <div id="additionalGMITSections"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Pengumuman Section -->
+        <section id="pengumuman" class="content-section">
+          <div class="pengumuman-container">
+            <div class="editor-header">
+              <h2>Kelola Pengumuman</h2>
+              <button class="btn btn-primary" onclick="showAddPengumumanModal()">➕ Tambah Pengumuman Baru</button>
+            </div>
+
+            <div class="pengumuman-list" id="pengumuman-list">
+              <!-- Pengumuman items will be loaded here -->
+            </div>
+          </div>
+
+          <!-- Add/Edit Modal -->
+          <div id="pengumuman-modal" class="modal">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h3 id="modal-title">Tambah Pengumuman Baru</h3>
+                <button class="close-btn" onclick="closePengumumanModal()">&times;</button>
+              </div>
+              <form id="pengumuman-form" onsubmit="savePengumuman(event)">
+                <input type="hidden" id="pengumuman-id">
+                
+                <div class="form-group">
+                  <label for="pengumuman-judul">Judul Pengumuman *</label>
+                  <input type="text" id="pengumuman-judul" required>
+                </div>
+
+                <div class="form-group">
+                  <label for="pengumuman-kategori">Kategori *</label>
+                  <select id="pengumuman-kategori" required>
+                    <option value="">Pilih Kategori</option>
+                    <option value="kegiatan">Kegiatan Gereja</option>
+                    <option value="perjamuan">Jadwal Perjamuan</option>
+                    <option value="irt">Ibadah Rumah Tangga</option>
+                    <option value="umum">Pengumuman Umum</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="pengumuman-tanggal">Tanggal *</label>
+                  <input type="date" id="pengumuman-tanggal" required>
+                </div>
+
+                <div class="form-group">
+                  <label for="pengumuman-waktu">Waktu</label>
+                  <input type="time" id="pengumuman-waktu">
+                </div>
+
+                <div class="form-group">
+                  <label for="pengumuman-lokasi">Lokasi</label>
+                  <input type="text" id="pengumuman-lokasi" placeholder="Contoh: Gedung Gereja">
+                </div>
+
+                <div class="form-group">
+                  <label for="pengumuman-deskripsi">Deskripsi *</label>
+                  <textarea id="pengumuman-deskripsi" rows="6" required></textarea>
+                </div>
+
+                <div class="form-group checkbox-group">
+                  <label>
+                    <input type="checkbox" id="pengumuman-aktif" checked>
+                    Tampilkan di website publik
+                  </label>
+                </div>
+
+                <div class="modal-actions">
+                  <button type="submit" class="btn btn-primary">Simpan</button>
+                  <button type="button" class="btn btn-secondary" onclick="closePengumumanModal()">Batal</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </section>
+
+        <!-- Struktur Kepengurusan Section -->
+        <section id="struktur" class="content-section">
+          <div class="struktur-container">
+            <div class="editor-header">
+              <h2>Kelola Struktur Kepengurusan</h2>
+              <div class="button-group">
+                <button class="btn btn-success" onclick="loadCurrentStruktur()">📥 Load Data Website Saat Ini</button>
+                <button class="btn btn-primary" onclick="saveStruktur()">💾 Simpan Perubahan</button>
+                <button class="btn btn-secondary" onclick="previewStruktur()">👁️ Preview</button>
+              </div>
+            </div>
+
+            <div class="info-box" style="background: #d1ecf1; color: #0c5460; padding: 15px; border-radius: 8px; margin-bottom: 25px; border-left: 4px solid #17a2b8;">
+              <strong>💡 Cara Menggunakan:</strong>
+              <ol style="margin: 10px 0 0 20px; line-height: 1.8;">
+                <li>Klik "📥 Load Data Website Saat Ini" untuk mengambil struktur yang ada di website</li>
+                <li>Edit data sesuai kebutuhan pada form di bawah</li>
+                <li>Klik "💾 Simpan Perubahan" untuk menyimpan</li>
+                <li>Klik "👁️ Preview" untuk melihat hasil di halaman publik</li>
+              </ol>
+            </div>
+
+            <div class="form-group">
+              <label for="struktur-periode">Periode Pelayanan</label>
+              <input type="text" id="struktur-periode" placeholder="Contoh: 2024-2027">
+            </div>
+
+            <div class="pengurus-section">
+              <h3>👔 Pengurus Utama</h3>
+              
+              <div class="form-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;">
+                <div class="form-group">
+                  <label for="ketua">Ketua Majelis Jemaat</label>
+                  <input type="text" id="ketua" placeholder="Contoh: Pdt. Selvy J.K. Asfes - Zina, S.Th.">
+                </div>
+
+                <div class="form-group">
+                  <label for="wakil-ketua">Wakil Ketua</label>
+                  <input type="text" id="wakil-ketua" placeholder="Contoh: Pnt. Ir. Adelfitje Meyok- Maka Ndolu">
+                </div>
+
+                <div class="form-group">
+                  <label for="sekretaris">Sekretaris</label>
+                  <input type="text" id="sekretaris" placeholder="Contoh: Pgjr. Lidya Camelia Kase, S.Pd">
+                </div>
+
+                <div class="form-group">
+                  <label for="wakil-sekretaris">Wakil Sekretaris</label>
+                  <input type="text" id="wakil-sekretaris" placeholder="Contoh: Pnt. Angelina Wabang-Maro, S.Pd">
+                </div>
+
+                <div class="form-group">
+                  <label for="bendahara">Bendahara</label>
+                  <input type="text" id="bendahara" placeholder="Contoh: Pnt. Elsi Natbais-Nobel, S.Pd">
+                </div>
+
+                <div class="form-group">
+                  <label for="wakil-bendahara">Wakil Bendahara</label>
+                  <input type="text" id="wakil-bendahara" placeholder="Contoh: Pnt. Melky E.K. Bana">
+                </div>
+              </div>
+            </div>
+
+            <div class="anggota-section">
+              <h3>👥 Anggota Majelis - Penatua</h3>
+              <p class="help-text">Masukkan nama penatua, satu per baris. Salin langsung dari dokumen jika sudah ada.</p>
+              <textarea id="penatua-list" rows="15" placeholder="Contoh:&#10;Johanis Watrimny, S.Si&#10;Agustinus Bria&#10;Engelina Wabang – Maro, S.Pd"></textarea>
+              <p class="counter" id="penatua-counter">0 penatua</p>
+            </div>
+
+            <div class="anggota-section">
+              <h3>👥 Anggota Majelis - Diaken</h3>
+              <p class="help-text">Masukkan nama diaken, satu per baris</p>
+              <textarea id="diaken-list" rows="10" placeholder="Contoh:&#10;Jublina Pandie – Nomleni&#10;Sebedius Selan"></textarea>
+              <p class="counter" id="diaken-counter">0 diaken</p>
+            </div>
+
+            <div class="anggota-section">
+              <h3>👥 Anggota Majelis - Pengajar</h3>
+              <p class="help-text">Masukkan nama pengajar, satu per baris</p>
+              <textarea id="pengajar-list" rows="8" placeholder="Contoh:&#10;Grancia Caroline Bria&#10;Lidya Camelia Kase, S.Pd"></textarea>
+              <p class="counter" id="pengajar-counter">0 pengajar</p>
+            </div>
+
+            <div class="template-info" style="background: #fff3cd; color: #856404; padding: 15px; border-radius: 8px; margin-top: 25px; border-left: 4px solid #ffc107;">
+              <strong>📋 Template Sudah Terintegrasi!</strong>
+              <p style="margin: 10px 0 0 0;">Data yang Anda masukkan di sini akan otomatis ditampilkan di halaman Struktur Kepengurusan website dengan format yang sama.</p>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // Check if user is logged in
+    if (sessionStorage.getItem('adminLoggedIn') !== 'true') {
+      window.location.href = 'login.html';
+    }
+  </script>
+  <script src="../api-client.js"></script>
+  <script src="admin-script.js"></script>
+</body>
+</html>
