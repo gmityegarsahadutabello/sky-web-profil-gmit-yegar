@@ -1,8 +1,15 @@
 // API Client untuk frontend
 // Gunakan di semua file HTML yang perlu komunikasi dengan backend
 
+const getDefaultApiBaseUrl = () => {
+  const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+  return isLocalhost
+    ? 'http://localhost:5000/api'
+    : 'https://web-profil-gmit-yegar-api.vercel.app/api';
+};
+
 class APIClient {
-  constructor(baseUrl = 'http://localhost:5000/api') {
+  constructor(baseUrl = getDefaultApiBaseUrl()) {
     this.baseUrl = baseUrl;
     this.token = localStorage.getItem('adminToken') || null;
   }
@@ -237,11 +244,7 @@ class APIClient {
 
 // Detect API base URL (browser environment)
 // Priority: window.API_URL -> localStorage -> default
-let apiBaseUrl = window.API_URL || localStorage.getItem('apiBaseUrl') || 'http://localhost:5000/api';
-if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
-  // In production, assume same origin
-  apiBaseUrl = '/api';
-}
+let apiBaseUrl = window.API_URL || localStorage.getItem('apiBaseUrl') || getDefaultApiBaseUrl();
 
 // Export untuk digunakan di script
 const api = new APIClient(apiBaseUrl);
