@@ -5,6 +5,7 @@ Website profil gereja lengkap dengan sistem admin untuk mengelola konten.
 ## 📋 Fitur Utama
 
 ### 🌐 Website Publik
+
 1. **Beranda** - Halaman utama dengan sambutan
 2. **Tentang GMIT Yegar Sahaduta Bello** - Sejarah dan profil jemaat
 3. **Tentang GMIT** - Sejarah GMIT secara umum
@@ -13,38 +14,44 @@ Website profil gereja lengkap dengan sistem admin untuk mengelola konten.
 6. **Pengumuman** - Informasi dan pengumuman terkini
 
 ### 🔐 Admin Panel
+
 Admin dapat mengelola semua konten website melalui dashboard yang mudah digunakan:
 
 #### 1. **Content Management**
-   - Edit konten Tentang GMIT Yegar Sahaduta Bello
-   - Edit konten Tentang GMIT (sejarah per periode)
-   - Update statistik jemaat (KK, Jiwa, Baptis)
-   - Preview perubahan sebelum publish
+
+- Edit konten Tentang GMIT Yegar Sahaduta Bello
+- Edit konten Tentang GMIT (sejarah per periode)
+- Update statistik jemaat (KK, Jiwa, Baptis)
+- Preview perubahan sebelum publish
 
 #### 2. **Kelola Pengumuman**
-   - Tambah pengumuman baru
-   - Edit pengumuman yang ada
-   - Hapus pengumuman
-   - Kategori: Kegiatan Gereja, Jadwal Perjamuan, Ibadah Rumah Tangga, Pengumuman Umum
-   - Set status aktif/nonaktif untuk tampilan publik
-   - Include detail: tanggal, waktu, lokasi, deskripsi
+
+- Tambah pengumuman baru
+- Edit pengumuman yang ada
+- Hapus pengumuman
+- Kategori: Kegiatan Gereja, Jadwal Perjamuan, Ibadah Rumah Tangga, Pengumuman Umum
+- Set status aktif/nonaktif untuk tampilan publik
+- Include detail: tanggal, waktu, lokasi, deskripsi
 
 #### 3. **Kelola Struktur Kepengurusan**
-   - Update periode pelayanan
-   - Edit pengurus utama (Ketua, Wakil, Sekretaris, Bendahara)
-   - Kelola daftar Penatua
-   - Kelola daftar Diaken
-   - Kelola daftar Pengajar
-   - Template terintegrasi dengan halaman publik
+
+- Update periode pelayanan
+- Edit pengurus utama (Ketua, Wakil, Sekretaris, Bendahara)
+- Kelola daftar Penatua
+- Kelola daftar Diaken
+- Kelola daftar Pengajar
+- Template terintegrasi dengan halaman publik
 
 ## 🚀 Cara Menggunakan
 
 ### Menjalankan Website
 
 1. **Menggunakan Python Server (Recommended)**
+
    ```bash
-   python -m http.server 5500
+   python -m http.server 5500 --directory frontend
    ```
+
    Atau gunakan task yang tersedia di VS Code: "Start Python Server"
 
 2. **Atau gunakan Live Server extension di VS Code**
@@ -56,6 +63,7 @@ Admin dapat mengelola semua konten website melalui dashboard yang mudah digunaka
 ### Login Admin
 
 **Kredensial Default:**
+
 - Username: `admin`
 - Password: `admin123`
 
@@ -65,37 +73,50 @@ Admin dapat mengelola semua konten website melalui dashboard yang mudah digunaka
 
 ```
 web profil kp/
-├── admin/
-│   ├── index.html          # Dashboard admin
-│   ├── login.html          # Halaman login admin
-│   ├── admin-style.css     # Styling admin panel
-│   └── admin-script.js     # JavaScript admin panel
-├── arsip/                  # Folder gambar dan aset
-├── Beranda.html           # Halaman utama
-├── tentangSAHADUTA.html   # Tentang jemaat
-├── tentangGMIT.html       # Tentang GMIT
-├── Profil.gereja.html     # Struktur kepengurusan
-├── galeri.html            # Galeri foto
-├── pengumuman.html        # Halaman pengumuman publik
-├── informasi.html         # Halaman informasi
-├── styel.css              # Main stylesheet
-└── README-ADMIN.md        # File ini
+├── frontend/
+│   ├── admin/
+│   │   ├── index.html          # Dashboard admin
+│   │   ├── login.html          # Halaman login admin
+│   │   ├── kelola-galeri.html
+│   │   ├── kelola-galeri-api.html
+│   │   └── kelola-galeri-konten.html
+│   ├── assets/
+│   │   ├── css/
+│   │   │   ├── styel.css              # Main stylesheet
+│   │   │   └── admin-style.css        # Styling admin panel
+│   │   ├── js/
+│   │   │   ├── api-client.js          # API connector
+│   │   │   └── admin-script.js        # JavaScript admin panel
+│   │   └── images/
+│   │       └── arsip/                 # Folder gambar dan aset
+│   ├── Beranda.html           # Halaman utama
+│   ├── tentangSAHADUTA.html   # Tentang jemaat
+│   ├── tentangGMIT.html       # Tentang GMIT
+│   ├── Profil.gereja.html     # Struktur kepengurusan
+│   ├── galeri.html            # Galeri foto
+│   ├── pengumuman.html        # Halaman pengumuman publik
+│   └── informasi.html         # Halaman informasi
+└── docs/README-ADMIN.md       # File ini
 ```
 
 ## 💾 Cara Kerja Penyimpanan Data
 
 Saat ini sistem menggunakan **localStorage** browser untuk menyimpan data:
+
 - Data disimpan di browser pengguna
 - Data tetap ada meskipun browser ditutup
 - Data dapat di-export/import jika diperlukan
 
 ### ⚠️ Catatan Penting:
+
 localStorage adalah solusi frontend yang cocok untuk:
+
 - ✅ Prototype dan development
 - ✅ Website sederhana dengan satu admin
 - ✅ Data yang tidak kritis
 
 Untuk website produksi, disarankan menggunakan:
+
 - ❌ Backend server (Node.js, PHP, Python, dll.)
 - ❌ Database (MySQL, PostgreSQL, MongoDB)
 - ❌ API untuk komunikasi frontend-backend
@@ -138,10 +159,13 @@ Untuk website produksi, disarankan menggunakan:
 ## 🔧 Kustomisasi
 
 ### Mengganti Logo
-Ganti file logo di folder `arsip/logo-gmit.png`
+
+Ganti file logo di folder `frontend/assets/images/arsip/logo-gmit.png`
 
 ### Mengganti Warna Tema
-Edit file `styel.css` dan `admin-style.css`:
+
+Edit file `frontend/assets/css/styel.css` dan `frontend/assets/css/admin-style.css`:
+
 ```css
 /* Warna utama */
 #123a5a  /* Biru tua */
@@ -149,22 +173,26 @@ Edit file `styel.css` dan `admin-style.css`:
 ```
 
 ### Menambah Kategori Pengumuman
-Edit file `admin/admin-script.js` dan `pengumuman.html`:
+
+Edit file `frontend/assets/js/admin-script.js` dan `frontend/pengumuman.html`:
+
 ```javascript
 const labels = {
-  'kegiatan': 'Kegiatan Gereja',
-  'kategori-baru': 'Label Kategori Baru'
+	kegiatan: "Kegiatan Gereja",
+	"kategori-baru": "Label Kategori Baru",
 };
 ```
 
 ## 🛡️ Keamanan
 
 ### Untuk Development:
+
 - ✅ Menggunakan sessionStorage untuk session management
 - ✅ Validasi input di frontend
 - ✅ Password tersembunyi dengan toggle
 
 ### Untuk Produksi (Disarankan):
+
 - 🔐 Implementasi backend authentication
 - 🔐 Enkripsi password dengan bcrypt/argon2
 - 🔐 HTTPS untuk koneksi aman
@@ -176,6 +204,7 @@ const labels = {
 ## 📱 Responsive Design
 
 Website sudah responsive dan dapat diakses dengan baik di:
+
 - 💻 Desktop
 - 📱 Tablet
 - 📱 Mobile
@@ -183,15 +212,20 @@ Website sudah responsive dan dapat diakses dengan baik di:
 ## 🐛 Troubleshooting
 
 ### Data admin hilang setelah clear browser
+
 **Solusi**: localStorage akan terhapus jika browser cache dibersihkan. Untuk produksi gunakan database.
 
 ### Preview tidak menampilkan perubahan
-**Solusi**: 
+
+**Solusi**:
+
 1. Pastikan sudah klik "Simpan"
 2. Refresh halaman preview (Ctrl+F5)
 
 ### Tidak bisa login
+
 **Solusi**:
+
 1. Pastikan menggunakan kredensial: `admin` / `admin123`
 2. Cek console browser untuk error (F12)
 3. Clear browser cache
@@ -199,11 +233,13 @@ Website sudah responsive dan dapat diakses dengan baik di:
 ## 📞 Support
 
 Untuk pertanyaan atau bantuan:
+
 - Email: gmitsahadutabelo@gmail.com
 
 ## 📝 Catatan Pengembangan Selanjutnya
 
 Fitur yang bisa ditambahkan:
+
 - [ ] Upload gambar untuk galeri dari admin panel
 - [ ] Export/import data backup
 - [ ] Multi-user admin dengan role berbeda

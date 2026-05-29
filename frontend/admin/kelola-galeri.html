@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Kelola Galeri - Admin Panel</title>
-  <link rel="stylesheet" href="admin-style.css">
+  <link rel="stylesheet" href="../assets/css/admin-style.css">
   <style>
     .menu-grid {
       display: grid;
@@ -372,8 +372,8 @@
         
         <div class="input-group">
           <label>URL Foto *</label>
-          <input type="text" id="pastor-image" required placeholder="arsip/pastor-nama.jpg">
-          <small style="color: #666; font-size: 12px;">Masukkan path gambar relatif (contoh: arsip/pastor1.jpg)</small>
+          <input type="text" id="pastor-image" required placeholder="../assets/images/arsip/pastor-nama.jpg">
+          <small style="color: #666; font-size: 12px;">Masukkan path gambar relatif (contoh: ../assets/images/arsip/pastor1.jpg)</small>
         </div>
         
         <div class="button-group">
@@ -468,8 +468,8 @@
     function loadFromWebsite() {
       if (confirm('Ini akan mengambil data pendeta dari website saat ini. Lanjutkan?')) {
         pastorsData = [
-          { name: 'Pendeta Pelayanan Pertama', period: '', image: 'arsip/pastor1.jpg' },
-          { name: 'Pdt. Selvy J.K. Asfes-Zina, S.Th', period: '2020 - Sekarang', image: 'arsip/IMG-20251124-WA0059.jpg' }
+          { name: 'Pendeta Pelayanan Pertama', period: '', image: '../assets/images/arsip/pastor1.jpg' },
+          { name: 'Pdt. Selvy J.K. Asfes-Zina, S.Th', period: '2020 - Sekarang', image: '../assets/images/arsip/IMG-20251124-WA0059.jpg' }
         ];
         renderPastors();
         alert('✅ Data pendeta berhasil dimuat dari website!');

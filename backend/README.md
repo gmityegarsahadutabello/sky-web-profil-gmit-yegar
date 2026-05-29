@@ -48,10 +48,11 @@ Panduan lengkap untuk mengintegrasikan MongoDB dan AWS S3 ke sistem website prof
    - Install untuk OS Anda
 
 2. **Start MongoDB**
+
    ```bash
    # Windows
    mongod --dbpath C:\data\db
-   
+
    # Mac/Linux
    mongod --dbpath ~/data/db
    ```
@@ -66,11 +67,13 @@ Panduan lengkap untuk mengintegrasikan MongoDB dan AWS S3 ke sistem website prof
 ## 2️⃣ Setup AWS S3
 
 ### 1. Buat AWS Account
+
 - Kunjungi: https://aws.amazon.com
 - Daftar dengan email dan kartu kredit
 - Free tier memberikan 5 GB gratis per bulan
 
 ### 2. Buat S3 Bucket
+
 1. Login ke AWS Console
 2. Cari "S3" dan buka
 3. Klik "Create Bucket"
@@ -80,26 +83,30 @@ Panduan lengkap untuk mengintegrasikan MongoDB dan AWS S3 ke sistem website prof
 7. Klik "Create Bucket"
 
 ### 3. Setup Bucket Policy (untuk public read)
+
 1. Buka bucket, tab "Permissions"
 2. Tab "Bucket Policy"
 3. Paste policy ini:
+
 ```json
 {
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Sid": "PublicReadGetObject",
-      "Effect": "Allow",
-      "Principal": "*",
-      "Action": "s3:GetObject",
-      "Resource": "arn:aws:s3:::gmit-sahaduta-images/*"
-    }
-  ]
+	"Version": "2012-10-17",
+	"Statement": [
+		{
+			"Sid": "PublicReadGetObject",
+			"Effect": "Allow",
+			"Principal": "*",
+			"Action": "s3:GetObject",
+			"Resource": "arn:aws:s3:::gmit-sahaduta-images/*"
+		}
+	]
 }
 ```
+
 4. Klik "Save"
 
 ### 4. Buat IAM User & Access Keys
+
 1. Cari "IAM" di AWS Console
 2. Menu "Users"
 3. Klik "Create User"
@@ -110,6 +117,7 @@ Panduan lengkap untuk mengintegrasikan MongoDB dan AWS S3 ke sistem website prof
 8. Klik "Create User"
 
 ### 5. Generate Access Keys
+
 1. Buka user yang baru dibuat
 2. Tab "Security credentials"
 3. Klik "Create access key"
@@ -123,18 +131,21 @@ Panduan lengkap untuk mengintegrasikan MongoDB dan AWS S3 ke sistem website prof
 ## 3️⃣ Backend Setup
 
 ### 1. Install Dependencies
+
 ```bash
 cd backend
 npm install
 ```
 
 ### 2. Setup .env File
+
 ```bash
 # Copy dari .env.example
 cp .env.example .env
 ```
 
 Edit `.env` dengan nilai Anda:
+
 ```env
 # MongoDB Connection
 MONGODB_URI=mongodb+srv://gmit_admin:password@cluster0.xxxxx.mongodb.net/gmit_sahaduta?retryWrites=true&w=majority
@@ -159,6 +170,7 @@ ADMIN_PASSWORD=kerjapraktik2025
 ```
 
 ### 3. Start Backend Server
+
 ```bash
 npm run dev
 ```
@@ -179,20 +191,21 @@ Cek health: `http://localhost:5000/health`
    - Copy JSON data
 
 2. **Buat file data.json**
+
    ```json
    [
-     {
-       "name": "Pendeta Pelayanan Pertama",
-       "period": "1950 - 1970",
-       "image_url": "arsip/pastor1.jpg",
-       "order": 0
-     },
-     {
-       "name": "Pdt. Selvy J.K. Asfes-Zina, S.Th",
-       "period": "2020 - Sekarang",
-       "image_url": "arsip/IMG-20251124-WA0059.jpg",
-       "order": 1
-     }
+   	{
+   		"name": "Pendeta Pelayanan Pertama",
+   		"period": "1950 - 1970",
+   		"image_url": "assets/images/arsip/pastor1.jpg",
+   		"order": 0
+   	},
+   	{
+   		"name": "Pdt. Selvy J.K. Asfes-Zina, S.Th",
+   		"period": "2020 - Sekarang",
+   		"image_url": "assets/images/arsip/IMG-20251124-WA0059.jpg",
+   		"order": 1
+   	}
    ]
    ```
 
@@ -209,32 +222,33 @@ Cek health: `http://localhost:5000/health`
 ### Update Frontend untuk Pakai API
 
 1. **Copy api-client.js**
-   - File sudah ada di root folder
-   - Include di HTML: `<script src="api-client.js"></script>`
+   - File sudah ada di `frontend/assets/js/api-client.js`
+   - Include di HTML: `<script src="./assets/js/api-client.js"></script>`
 
 2. **Update File HTML**
-   
-   **galeri.html** (public gallery):
+
+   **frontend/galeri.html** (public gallery):
    - Sudah diupdate untuk fetch dari `/api/pastors`
    - Fallback ke localStorage jika backend offline
 
-   **admin/kelola-galeri-api.html** (admin panel):
+   **frontend/admin/kelola-galeri-api.html** (admin panel):
    - Upload foto ke S3
    - CRUD operations via API
    - Real-time sync dengan MongoDB
 
-3. **Update admin/login.html**
+3. **Update frontend/admin/login.html**
    - Sudah diupdate untuk auth via API
    - Fallback ke local auth untuk testing
 
 ### Switch ke API Gallery
+
 ```bash
 # Ganti nama file
-# Dari: admin/kelola-galeri.html (localStorage version)
-# Ke: admin/kelola-galeri.html (gunakan kelola-galeri-api.html)
+# Dari: frontend/admin/kelola-galeri.html (localStorage version)
+# Ke: frontend/admin/kelola-galeri.html (gunakan kelola-galeri-api.html)
 
-mv admin/kelola-galeri.html admin/kelola-galeri-old.html
-mv admin/kelola-galeri-api.html admin/kelola-galeri.html
+mv frontend/admin/kelola-galeri.html frontend/admin/kelola-galeri-old.html
+mv frontend/admin/kelola-galeri-api.html frontend/admin/kelola-galeri.html
 ```
 
 ---
@@ -242,23 +256,27 @@ mv admin/kelola-galeri-api.html admin/kelola-galeri.html
 ## 6️⃣ Testing
 
 ### Test MongoDB Connection
+
 ```bash
 curl http://localhost:5000/health
 ```
 
 Response:
+
 ```json
-{"status":"Server berjalan","timestamp":"2025-12-18T..."}
+{ "status": "Server berjalan", "timestamp": "2025-12-18T..." }
 ```
 
 ### Test API Endpoints
 
 **GET all pastors**
+
 ```bash
 curl http://localhost:5000/api/pastors
 ```
 
 **Admin Login**
+
 ```bash
 curl -X POST http://localhost:5000/api/auth/login \
   -H "Content-Type: application/json" \
@@ -266,6 +284,7 @@ curl -X POST http://localhost:5000/api/auth/login \
 ```
 
 **Create pastor (dengan auth)**
+
 ```bash
 TOKEN="eyJhbGciOiJIUzI1NiIsInR..."
 
@@ -284,10 +303,12 @@ curl -X POST http://localhost:5000/api/pastors \
 ## 7️⃣ API Routes Reference
 
 ### Public Routes (Tidak perlu auth)
+
 - `GET /api/pastors` - Get all pastors
 - `GET /api/pastors/:id` - Get pastor by ID
 
 ### Admin Routes (Perlu JWT token)
+
 - `POST /api/auth/login` - Admin login
 - `POST /api/pastors` - Create pastor
 - `PUT /api/pastors/:id` - Update pastor
@@ -299,50 +320,58 @@ curl -X POST http://localhost:5000/api/pastors \
 
 ## 8️⃣ Environment Variables
 
-| Variable | Deskripsi | Contoh |
-|----------|-----------|--------|
-| `MONGODB_URI` | MongoDB connection string | `mongodb+srv://...` |
-| `AWS_ACCESS_KEY_ID` | AWS IAM access key | `AKIA...` |
-| `AWS_SECRET_ACCESS_KEY` | AWS IAM secret key | `wJalr...` |
-| `AWS_REGION` | AWS region | `ap-southeast-1` |
-| `AWS_S3_BUCKET_NAME` | S3 bucket name | `gmit-sahaduta-images` |
-| `PORT` | Backend port | `5000` |
-| `CORS_ORIGIN` | Frontend URL untuk CORS | `http://localhost:5500` |
-| `JWT_SECRET` | Secret untuk JWT token | random string panjang |
-| `ADMIN_USERNAME` | Admin username | `admin` |
-| `ADMIN_PASSWORD` | Admin password | `kerjapraktik2025` |
+| Variable                | Deskripsi                 | Contoh                  |
+| ----------------------- | ------------------------- | ----------------------- |
+| `MONGODB_URI`           | MongoDB connection string | `mongodb+srv://...`     |
+| `AWS_ACCESS_KEY_ID`     | AWS IAM access key        | `AKIA...`               |
+| `AWS_SECRET_ACCESS_KEY` | AWS IAM secret key        | `wJalr...`              |
+| `AWS_REGION`            | AWS region                | `ap-southeast-1`        |
+| `AWS_S3_BUCKET_NAME`    | S3 bucket name            | `gmit-sahaduta-images`  |
+| `PORT`                  | Backend port              | `5000`                  |
+| `CORS_ORIGIN`           | Frontend URL untuk CORS   | `http://localhost:5500` |
+| `JWT_SECRET`            | Secret untuk JWT token    | random string panjang   |
+| `ADMIN_USERNAME`        | Admin username            | `admin`                 |
+| `ADMIN_PASSWORD`        | Admin password            | `kerjapraktik2025`      |
 
 ---
 
 ## 9️⃣ Troubleshooting
 
 ### Backend tidak bisa connect ke MongoDB
+
 **Error**: `MongoServerError: connect ECONNREFUSED`
 
 **Solusi**:
+
 - Cek `MONGODB_URI` di .env
 - Pastikan MongoDB cluster/server running
 - Jika pakai Atlas: pastikan IP Anda di whitelist
 
 ### Upload ke S3 gagal
+
 **Error**: `Access Denied` atau `Signature does not match`
 
 **Solusi**:
+
 - Verifikasi AWS credentials
 - Cek bucket policy sudah setup public read
 - Pastikan IAM user punya `AmazonS3FullAccess`
 
 ### CORS error saat fetch dari frontend
+
 **Error**: `Access to XMLHttpRequest blocked by CORS policy`
 
 **Solusi**:
+
 - Update `CORS_ORIGIN` di .env dengan URL frontend
 - Kalau frontend di `http://localhost:5500`, set: `CORS_ORIGIN=http://localhost:5500`
 
 ### Gallery tidak menampilkan gambar
+
 **Error**: Gambar kosong / fallback
 
 **Solusi**:
+
 - Cek browser console untuk error 404
 - Pastikan image_url di MongoDB benar
 - Cek S3 bucket public read policy
@@ -352,17 +381,21 @@ curl -X POST http://localhost:5000/api/pastors \
 ## 🔟 Deployment to Production
 
 ### Deploy Backend ke Railway/Render
+
 1. Push code ke GitHub
 2. Connect repo ke Railway/Render
 3. Set environment variables di platform
 4. Deploy
 
 ### Update Frontend URL
-Ganti di `api-client.js`:
+
+Ganti di `frontend/assets/js/api-client.js`:
+
 ```javascript
-const API_URL = window.location.hostname === 'localhost' 
-  ? 'http://localhost:5000/api' 
-  : 'https://your-backend-api.railway.app/api';  // Ganti dengan URL production
+const API_URL =
+	window.location.hostname === "localhost"
+		? "http://localhost:5000/api"
+		: "https://your-backend-api.railway.app/api"; // Ganti dengan URL production
 ```
 
 ---
@@ -376,7 +409,7 @@ const API_URL = window.location.hostname === 'localhost'
 - [ ] `npm install` completed
 - [ ] Backend server running: `npm run dev`
 - [ ] MongoDB migration completed
-- [ ] Frontend `api-client.js` included
+- [ ] Frontend `frontend/assets/js/api-client.js` included
 - [ ] Admin panel dapat upload gambar
 - [ ] Public gallery menampilkan data dari API
 - [ ] Logout dan login berfungsi

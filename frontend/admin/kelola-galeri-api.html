@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Kelola Riwayat Pendeta - Admin Panel</title>
-  <link rel="stylesheet" href="admin-style.css">
+  <link rel="stylesheet" href="../assets/css/admin-style.css">
   <style>
     .gallery-section {
       background: white;
@@ -391,7 +391,7 @@
     </div>
   </div>
 
-  <script src="../api-client.js"></script>
+  <script src="../assets/js/api-client.js"></script>
   <script>
     // API client is global - no need to override base URL
     console.log('Admin Kelola Galeri - API Base URL:', api.baseUrl);
@@ -439,6 +439,14 @@
       }
     }
 
+    function resolveAdminImageUrl(url) {
+      if (!url) return '';
+      if (/^(https?:|data:|blob:|\/)/.test(url)) return url;
+      if (url.startsWith('../')) return url;
+      const normalized = url.replace(/^\.\//, '');
+      return `../${normalized}`;
+    }
+
     // Render pastors ke UI
     function renderPastors() {
       const grid = document.getElementById('pastors-grid');
@@ -456,10 +464,11 @@
         div.className = 'gallery-item';
         
         const img = document.createElement('img');
-        img.src = pastor.image_url || 'arsip/pastor1.jpg';
+        const resolvedUrl = resolveAdminImageUrl(pastor.image_url);
+        img.src = resolvedUrl || '../assets/images/arsip/pastor1.jpg';
         img.alt = pastor.name;
         img.onerror = function() {
-          this.src = 'arsip/pastor1.jpg';
+          this.src = '../assets/images/arsip/pastor1.jpg';
         };
         
         const infoDiv = document.createElement('div');
@@ -586,7 +595,8 @@
         
         if (pastor.image_url) {
           const preview = document.getElementById('upload-preview');
-          preview.innerHTML = `<img src="${pastor.image_url}" alt="Current image" style="border: 2px solid #17a2b8;"><div style="margin-top: 8px; font-size: 12px; color: #666;">📸 Foto saat ini — upload foto baru untuk mengubah</div>`;
+          const previewUrl = resolveAdminImageUrl(pastor.image_url);
+          preview.innerHTML = `<img src="${previewUrl}" alt="Current image" style="border: 2px solid #17a2b8;"><div style="margin-top: 8px; font-size: 12px; color: #666;">📸 Foto saat ini — upload foto baru untuk mengubah</div>`;
         }
       } else {
         // Add mode

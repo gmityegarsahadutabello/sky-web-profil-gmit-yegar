@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Kelola Galeri (Kegiatan & Gedung) - Admin Panel</title>
-  <link rel="stylesheet" href="admin-style.css">
+  <link rel="stylesheet" href="../assets/css/admin-style.css">
   <style>
     .gallery-section {
       background: white;
@@ -281,7 +281,7 @@
     </main>
   </div>
 
-  <script src="../api-client.js"></script>
+  <script src="../assets/js/api-client.js"></script>
   <script>
     console.log('Admin Kelola Galeri Konten - API Base URL:', api.baseUrl);
 
@@ -292,26 +292,26 @@
     function getDefaultItems(section) {
       if (section === 'activities') {
         return [
-          { image_url: '../arsip/1.jpeg', caption: '' },
-          { image_url: '../arsip/2.jpeg', caption: '' },
-          { image_url: '../arsip/3.jpeg', caption: '' },
-          { image_url: '../arsip/4.jpeg', caption: '' },
-          { image_url: '../arsip/5.jpeg', caption: '' },
-          { image_url: '../arsip/6.jpeg', caption: '' },
-          { image_url: '../arsip/7.jpeg', caption: '' },
-          { image_url: '../arsip/8.jpeg', caption: '' },
-          { image_url: '../arsip/9.jpeg', caption: '' },
-          { image_url: '../arsip/10.jpeg', caption: '' },
-          { image_url: '../arsip/11.jpeg', caption: '' },
-          { image_url: '../arsip/12.jpeg', caption: '' }
+          { image_url: '../assets/images/arsip/1.jpeg', caption: '' },
+          { image_url: '../assets/images/arsip/2.jpeg', caption: '' },
+          { image_url: '../assets/images/arsip/3.jpeg', caption: '' },
+          { image_url: '../assets/images/arsip/4.jpeg', caption: '' },
+          { image_url: '../assets/images/arsip/5.jpeg', caption: '' },
+          { image_url: '../assets/images/arsip/6.jpeg', caption: '' },
+          { image_url: '../assets/images/arsip/7.jpeg', caption: '' },
+          { image_url: '../assets/images/arsip/8.jpeg', caption: '' },
+          { image_url: '../assets/images/arsip/9.jpeg', caption: '' },
+          { image_url: '../assets/images/arsip/10.jpeg', caption: '' },
+          { image_url: '../assets/images/arsip/11.jpeg', caption: '' },
+          { image_url: '../assets/images/arsip/12.jpeg', caption: '' }
         ];
       }
 
       if (section === 'building') {
         return [
-          { image_url: '../arsip/tampak-dalam.jpg', caption: 'Tampak Dalam' },
-          { image_url: '../arsip/tampak-depan.jpg', caption: 'Tampak Depan' },
-          { image_url: '../arsip/gedung3.jpg', caption: 'Tampak Samping' }
+          { image_url: '../assets/images/arsip/tampak-dalam.jpg', caption: 'Tampak Dalam' },
+          { image_url: '../assets/images/arsip/tampak-depan.jpg', caption: 'Tampak Depan' },
+          { image_url: '../assets/images/arsip/gedung3.jpg', caption: 'Tampak Samping' }
         ];
       }
 
@@ -348,6 +348,14 @@
       } finally {
         isBusy = false;
       }
+    }
+
+    function resolveAdminImageUrl(url) {
+      if (!url) return '';
+      if (/^(https?:|data:|blob:|\/)/.test(url)) return url;
+      if (url.startsWith('../')) return url;
+      const normalized = url.replace(/^\.\//, '');
+      return `../${normalized}`;
     }
 
     function initializePage() {
@@ -439,8 +447,8 @@
 
         const img = document.createElement('img');
         // Support both absolute URLs (S3) and relative paths
-        const url = item.image_url || '';
-        img.src = url.startsWith('http') ? url : url.replace(/^\.\//, '');
+        const url = resolveAdminImageUrl(item.image_url || '');
+        img.src = url;
         img.alt = item.caption || ('Foto ' + (index + 1));
 
         const infoDiv = document.createElement('div');

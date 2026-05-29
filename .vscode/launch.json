@@ -16,21 +16,21 @@
                 "--user-data-dir=${workspaceFolder}\\.vscode\\chrome-user-data",
                 "--disable-extensions"
             ],
-            "webRoot": "${workspaceFolder}"
+            "webRoot": "${workspaceFolder}/frontend"
         },
         {
             "type": "chrome",
             "request": "launch",
             "name": "Launch Chrome (open Beranda.html)",
-            "file": "${workspaceFolder}/Beranda.html",
-            "webRoot": "${workspaceFolder}"
+            "file": "${workspaceFolder}/frontend/Beranda.html",
+            "webRoot": "${workspaceFolder}/frontend"
         },
         {
             "type": "chrome",
             "request": "launch",
             "name": "Launch Chrome (http://localhost:5500)",
             "url": "http://localhost:5500/Beranda.html",
-            "webRoot": "${workspaceFolder}"
+            "webRoot": "${workspaceFolder}/frontend"
         }
         ,
         {
@@ -38,7 +38,7 @@
             "type": "chrome",
             "request": "attach",
             "port": 9222,
-            "webRoot": "${workspaceFolder}"
+            "webRoot": "${workspaceFolder}/frontend"
         }
     ]
 }

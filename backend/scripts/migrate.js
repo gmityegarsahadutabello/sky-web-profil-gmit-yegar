@@ -60,13 +60,13 @@ if (process.stdin.isTTY) {
     {
       name: 'Pendeta Pelayanan Pertama',
       period: '1950 - 1970',
-      image_url: 'arsip/pastor1.jpg',
+      image_url: 'assets/images/arsip/pastor1.jpg',
       order: 0
     },
     {
       name: 'Pdt. Selvy J.K. Asfes-Zina, S.Th',
       period: '2020 - Sekarang',
-      image_url: 'arsip/IMG-20251124-WA0059.jpg',
+      image_url: 'assets/images/arsip/IMG-20251124-WA0059.jpg',
       order: 1
     }
   ];

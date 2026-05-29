@@ -1,7 +1,9 @@
 # 📝 Update Summary - File Upload Clarification
 
 ## 🎯 Objective
+
 Ensure the admin panel makes it **crystal clear** that:
+
 - ✅ Admin MUST upload **FILE PHOTO** (not paste URL)
 - ✅ File binary is sent to backend via FormData
 - ✅ Backend uploads file to AWS S3
@@ -14,14 +16,17 @@ Ensure the admin panel makes it **crystal clear** that:
 ## ✨ Changes Made
 
 ### 1️⃣ Enhanced Upload UI Label
-**File**: [admin/kelola-galeri-api.html](admin/kelola-galeri-api.html#L377)
+
+**File**: [frontend/admin/kelola-galeri-api.html](../frontend/admin/kelola-galeri-api.html#L377)
 
 **Before**:
+
 ```
 Foto Pendeta *
 ```
 
 **After**:
+
 ```
 📸 Upload Foto Pendeta (File) *
 ```
@@ -34,15 +39,18 @@ Foto Pendeta *
 ---
 
 ### 2️⃣ Clearer Upload Zone Text
-**File**: [admin/kelola-galeri-api.html](admin/kelola-galeri-api.html#L381)
+
+**File**: [frontend/admin/kelola-galeri-api.html](../frontend/admin/kelola-galeri-api.html#L381)
 
 **Before**:
+
 ```
 Klik atau drag foto di sini
 Format: JPG, PNG, WebP (Max 5MB)
 ```
 
 **After**:
+
 ```
 PILIH ATAU DRAG FILE FOTO DI SINI
 Pilih file dari komputer Anda (bukan copy URL)
@@ -57,9 +65,11 @@ Pilih file dari komputer Anda (bukan copy URL)
 ---
 
 ### 3️⃣ Improved File Preview & Status
-**File**: [admin/kelola-galeri-api.html](admin/kelola-galeri-api.html#L455-L483)
+
+**File**: [frontend/admin/kelola-galeri-api.html](../frontend/admin/kelola-galeri-api.html#L455-L483)
 
 **New Status Display**:
+
 ```javascript
 const statusDiv = document.getElementById('upload-status');
 statusDiv.innerHTML = '<span style="color: #28a745; font-weight: 600;">
@@ -68,6 +78,7 @@ statusDiv.innerHTML = '<span style="color: #28a745; font-weight: 600;">
 ```
 
 When file is selected:
+
 - ✅ Preview image with green border
 - 📄 Filename displayed
 - 💾 File size in KB
@@ -76,9 +87,11 @@ When file is selected:
 ---
 
 ### 4️⃣ Enhanced Help Text
-**File**: [admin/kelola-galeri-api.html](admin/kelola-galeri-api.html#L321)
+
+**File**: [frontend/admin/kelola-galeri-api.html](../frontend/admin/kelola-galeri-api.html#L321)
 
 **Before**:
+
 ```
 1. Klik "Tambah Pendeta" untuk menambah pendeta baru
 2. Upload file foto (JPG, PNG, WebP) — file akan dikirim ke AWS S3
@@ -86,6 +99,7 @@ When file is selected:
 ```
 
 **After**:
+
 ```
 1. Klik "Tambah Pendeta" untuk menambah pendeta baru
 2. ⚠️ PILIH FILE FOTO dari komputer (jangan copy URL) — drag/drop atau klik zona
@@ -101,9 +115,11 @@ When file is selected:
 ---
 
 ### 5️⃣ Better Upload Progress Feedback
-**File**: [admin/kelola-galeri-api.html](admin/kelola-galeri-api.html#L379)
+
+**File**: [frontend/admin/kelola-galeri-api.html](../frontend/admin/kelola-galeri-api.html#L379)
 
 **Upload Progress UI Now Shows**:
+
 - ⏳ Animated spinning icon
 - "Mengupload FILE ke AWS S3..." (emphasizes FILE, not URL)
 - Progress bar with gradient colors
@@ -113,12 +129,18 @@ When file is selected:
 ---
 
 ### 6️⃣ CSS Animations Added
-**File**: [admin/kelola-galeri-api.html](admin/kelola-galeri-api.html#L231-L234)
+
+**File**: [frontend/admin/kelola-galeri-api.html](../frontend/admin/kelola-galeri-api.html#L231-L234)
 
 ```css
 @keyframes pulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.1); }
+	0%,
+	100% {
+		transform: scale(1);
+	}
+	50% {
+		transform: scale(1.1);
+	}
 }
 ```
 
@@ -128,9 +150,11 @@ When file is selected:
 ---
 
 ### 7️⃣ Created Testing Guide
+
 **File**: [TESTING_GUIDE.md](TESTING_GUIDE.md)
 
 Comprehensive testing guide with:
+
 - Pre-testing checklist
 - Step-by-step test procedure
 - Expected outputs at each step
@@ -142,6 +166,7 @@ Comprehensive testing guide with:
 ## 🔄 Complete Flow
 
 ### Admin Workflow:
+
 ```
 1. Click "Tambah Pendeta Baru"
    ↓
@@ -181,7 +206,9 @@ Comprehensive testing guide with:
 ---
 
 ## 🔐 Backend Flow (No Changes)
+
 The backend upload endpoint (`/api/pastors/upload`) already:
+
 1. ✅ Receives FormData with file binary
 2. ✅ Validates file size & MIME type
 3. ✅ Reads file buffer
@@ -208,7 +235,7 @@ The backend upload endpoint (`/api/pastors/upload`) already:
 
 ## 📂 Files Modified
 
-1. ✏️ [admin/kelola-galeri-api.html](admin/kelola-galeri-api.html) — UI improvements, clearer labels, better help text
+1. ✏️ [frontend/admin/kelola-galeri-api.html](../frontend/admin/kelola-galeri-api.html) — UI improvements, clearer labels, better help text
 2. ✏️ [TESTING_GUIDE.md](TESTING_GUIDE.md) — New comprehensive testing guide
 
 ---
@@ -216,6 +243,7 @@ The backend upload endpoint (`/api/pastors/upload`) already:
 ## 🚀 Ready to Test!
 
 Everything is now set up for the admin to:
+
 1. Understand they must upload **file** (not URL)
 2. See clear visual feedback at each step
 3. Confirm file is ready before clicking save
@@ -227,6 +255,7 @@ Everything is now set up for the admin to:
 ## 📌 Key Takeaways
 
 **For Admin User**:
+
 - ✅ You upload **FILE PHOTO** (click zone to browse computer)
 - ✅ NOT paste URL or file path
 - ✅ File shows in preview before save
@@ -234,6 +263,7 @@ Everything is now set up for the admin to:
 - ✅ Photo auto-appears in public galeri.html
 
 **For Developer**:
+
 - ✅ FormData multipart/form-data sending file binary ✅
 - ✅ Backend receives file buffer ✅
 - ✅ S3 upload to Neva Objects custom endpoint ✅
@@ -247,6 +277,7 @@ Everything is now set up for the admin to:
 See [TESTING_GUIDE.md](TESTING_GUIDE.md) for complete step-by-step testing procedures.
 
 Quick start:
+
 ```bash
 # Terminal 1: Start backend
 cd backend

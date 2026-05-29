@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Galeri - GMIT Sahaduta Bello</title>
-  <link rel="stylesheet" href="./styel.css">
+  <link rel="stylesheet" href="./assets/css/styel.css">
 </head>
 <body>
   <header>
@@ -90,7 +90,7 @@
     <div id="lb-caption" style="color:#fff;text-align:center;margin-top:12px;font-size:16px;opacity:0.95;"></div>
   </div>
 
-  <script src="api-client.js"></script>
+  <script src="./assets/js/api-client.js"></script>
   <script>
     // API client adalah global - tidak perlu set ulang
     console.log('API Client initialized:', api.baseUrl);
@@ -171,8 +171,8 @@
     // Load default data if no localStorage data exists
     function loadDefaultData() {
       const defaultPastors = [
-        { name: 'Pendeta Pelayanan Pertama', period: '', image: 'arsip/pastor1.jpg' },
-        { name: 'Pdt. Selvy J.K. Asfes-Zina, S.Th', period: '2020 - Sekarang', image: 'arsip/IMG-20251124-WA0059.jpg' }
+        { name: 'Pendeta Pelayanan Pertama', period: '', image: 'assets/images/arsip/pastor1.jpg' },
+        { name: 'Pdt. Selvy J.K. Asfes-Zina, S.Th', period: '2020 - Sekarang', image: 'assets/images/arsip/IMG-20251124-WA0059.jpg' }
       ];
       renderPastors(defaultPastors);
     }
@@ -180,27 +180,27 @@
     function loadDefaultActivitiesAndBuilding(which) {
       if (!which || which === 'activities') {
         const defaultActivities = [
-          { image: 'arsip/1.jpeg' },
-          { image: 'arsip/2.jpeg' },
-          { image: 'arsip/3.jpeg' },
-          { image: 'arsip/4.jpeg' },
-          { image: 'arsip/5.jpeg' },
-          { image: 'arsip/6.jpeg' },
-          { image: 'arsip/7.jpeg' },
-          { image: 'arsip/8.jpeg' },
-          { image: 'arsip/9.jpeg' },
-          { image: 'arsip/10.jpeg' },
-          { image: 'arsip/11.jpeg' },
-          { image: 'arsip/12.jpeg' }
+          { image: 'assets/images/arsip/1.jpeg' },
+          { image: 'assets/images/arsip/2.jpeg' },
+          { image: 'assets/images/arsip/3.jpeg' },
+          { image: 'assets/images/arsip/4.jpeg' },
+          { image: 'assets/images/arsip/5.jpeg' },
+          { image: 'assets/images/arsip/6.jpeg' },
+          { image: 'assets/images/arsip/7.jpeg' },
+          { image: 'assets/images/arsip/8.jpeg' },
+          { image: 'assets/images/arsip/9.jpeg' },
+          { image: 'assets/images/arsip/10.jpeg' },
+          { image: 'assets/images/arsip/11.jpeg' },
+          { image: 'assets/images/arsip/12.jpeg' }
         ];
         renderActivities(defaultActivities);
       }
 
       if (!which || which === 'building') {
         const defaultBuilding = [
-          { image: 'arsip/tampak-dalam.jpg', caption: 'Tampak Dalam' },
-          { image: 'arsip/tampak-depan.jpg', caption: 'Tampak Depan' },
-          { image: 'arsip/gedung3.jpg', caption: 'Tampak Samping' }
+          { image: 'assets/images/arsip/tampak-dalam.jpg', caption: 'Tampak Dalam' },
+          { image: 'assets/images/arsip/tampak-depan.jpg', caption: 'Tampak Depan' },
+          { image: 'assets/images/arsip/gedung3.jpg', caption: 'Tampak Samping' }
         ];
         renderBuilding(defaultBuilding);
       }
@@ -214,7 +214,7 @@
         const figure = document.createElement('figure');
         
         // Gunakan image_url dari API, fallback ke image jika ada
-        const imgPath = (pastor.image_url || pastor.image || '').replace(/^\.\.\//, '') || 'arsip/pastor1.jpg';
+        const imgPath = (pastor.image_url || pastor.image || '').replace(/^\.\.\//, '') || 'assets/images/arsip/pastor1.jpg';
         figure.setAttribute('data-src', imgPath);
         figure.style.cssText = 'width: 100%; max-width: 400px; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 8px 24px rgba(18,58,90,0.15); border: 1px solid rgba(18,58,90,0.08); transition: all 0.4s ease; cursor: pointer;';
         figure.onmouseover = function() { this.style.boxShadow='0 16px 40px rgba(18,58,90,0.25)'; this.style.transform='translateY(-8px)'; };
@@ -226,7 +226,7 @@
         img.style.cssText = 'width:100%;height:320px;object-fit:cover;';
         img.onerror = function() {
           console.warn('Image not found, using fallback:', imgPath);
-          this.src = 'arsip/pastor1.jpg';
+          this.src = 'assets/images/arsip/pastor1.jpg';
         };
         
         figure.appendChild(img);

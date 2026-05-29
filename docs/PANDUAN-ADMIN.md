@@ -113,30 +113,38 @@ Setelah menyimpan perubahan, buka halaman publik untuk melihat hasilnya:
 ## ❓ FAQ - Pertanyaan Umum
 
 ### Q: Data saya hilang setelah close browser?
+
 **A**: Pastikan Anda sudah klik tombol "Simpan" sebelum menutup browser. Data tersimpan di localStorage browser Anda.
 
 ### Q: Pengumuman tidak muncul di website?
+
 **A**: Pastikan Anda sudah:
+
 1. Centang "Tampilkan di website publik"
 2. Klik tombol "Simpan"
 3. Refresh halaman website publik (tekan F5)
 
 ### Q: Lupa password admin?
+
 **A**: Kredensial default adalah:
+
 - Username: `admin`
 - Password: `admin123`
 
 Untuk mengganti password, hubungi developer website.
 
 ### Q: Bagaimana cara menambah foto?
-**A**: Saat ini fitur upload foto belum tersedia. Untuk menambah foto, hubungi developer website atau letakkan foto di folder `arsip/` kemudian edit HTML secara manual.
+
+**A**: Saat ini fitur upload foto belum tersedia. Untuk menambah foto, hubungi developer website atau letakkan foto di folder `frontend/assets/images/arsip/` kemudian edit HTML secara manual.
 
 ### Q: Apakah bisa diakses dari HP?
+
 **A**: Ya! Website dan admin panel sudah responsive dan bisa diakses dari smartphone atau tablet.
 
 ## 📞 Bantuan
 
 Jika mengalami kesulitan atau ada pertanyaan:
+
 - **Email**: gmitsahadutabelo@gmail.com
 - **Telephone**: (hubungi majelis jemaat)
 
@@ -151,18 +159,21 @@ Jika mengalami kesulitan atau ada pertanyaan:
 ## 🎯 Tips & Trik
 
 ### Menulis Pengumuman yang Baik
+
 - Gunakan judul yang jelas dan menarik
 - Pilih kategori yang sesuai
 - Berikan detail waktu dan lokasi yang lengkap
 - Tulis deskripsi yang informatif tapi tidak terlalu panjang
 
 ### Mengorganisir Content
+
 - Update pengumuman secara rutin
 - Hapus atau nonaktifkan pengumuman yang sudah lewat
 - Update statistik jemaat setiap periode tertentu
 - Periksa struktur kepengurusan di awal periode baru
 
 ### Keamanan
+
 - Jangan bagikan password admin ke sembarang orang
 - Logout setelah selesai menggunakan admin panel
 - Gunakan browser yang aman dan terpercaya
