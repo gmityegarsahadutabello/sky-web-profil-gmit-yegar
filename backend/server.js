@@ -22,4 +22,4 @@ connectToMongo()
     process.exit(1);
   });
 
-  // ini cuman text
+  // ini cuman 
