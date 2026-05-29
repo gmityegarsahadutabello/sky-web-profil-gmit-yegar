@@ -21,3 +21,5 @@ connectToMongo()
     console.error('❌ MongoDB connection error:', err.message);
     process.exit(1);
   });
+
+  // ini cuman text
