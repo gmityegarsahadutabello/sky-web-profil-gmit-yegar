@@ -183,16 +183,31 @@
     <div class="copyright">&copy; 2025 GMIT Sahaduta Bello</div>
   </footer>
 
+  <script src="./assets/js/api-client.js"></script>
   <script>
     // Load pengumuman terbaru untuk beranda
-    document.addEventListener('DOMContentLoaded', function() {
-      const data = localStorage.getItem('gmitAdminData');
+    document.addEventListener('DOMContentLoaded', async function() {
       let pengumumanList = [];
       
-      if (data) {
-        const parsedData = JSON.parse(data);
-        // Filter only active pengumuman
-        pengumumanList = (parsedData.pengumuman || []).filter(p => p.aktif);
+      try {
+        if (typeof api !== 'undefined' && api) {
+          const list = await api.getPublicAnnouncements();
+          pengumumanList = Array.isArray(list) ? list : [];
+        } else {
+          throw new Error('API client belum dimuat');
+        }
+      } catch (err) {
+        console.warn('Gagal load pengumuman dari API, fallback localStorage:', err.message);
+        const data = localStorage.getItem('gmitAdminData');
+        if (data) {
+          try {
+            const parsedData = JSON.parse(data);
+            // Filter only active pengumuman
+            pengumumanList = (parsedData.pengumuman || []).filter(p => p.aktif);
+          } catch (e) {
+            console.error('Error parsing gmitAdminData:', e);
+          }
+        }
       }
       
       // Sort by date (newest first) and take only 3
@@ -270,7 +285,7 @@
                 </div>
               </div>
               
-              <p style="color: #666; line-height: 1.7; font-size: 15px; margin: 0 0 18px 0;">${p.deskripsi.substring(0, 130)}${p.deskripsi.length > 130 ? '...' : ''}</p>
+              <p style="color: #666; line-height: 1.7; font-size: 15px; margin: 0 0 18px 0; white-space: pre-wrap;">${p.deskripsi.substring(0, 130)}${p.deskripsi.length > 130 ? '...' : ''}</p>
               
               <div style="display: flex; justify-content: space-between; align-items: center; padding-top: 18px; border-top: 2px dashed rgba(18,58,90,0.1);">
                 <a href="pengumuman.html" style="color: #123a5a; text-decoration: none; font-weight: 600; font-size: 14px; display: flex; align-items: center; gap: 6px; transition: gap 0.3s ease;" onmouseover="this.style.gap='10px'" onmouseout="this.style.gap='6px'">

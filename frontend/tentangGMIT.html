@@ -256,7 +256,7 @@
             if (portugisArticle) {
               // Replace paragraphs with new content, keeping formatting
               const paragraphs = data.gmit.portugis.split('\n\n').filter(p => p.trim() !== '');
-              const html = paragraphs.map(p => `<p>${p.trim()}</p>`).join('\n            ');
+              const html = paragraphs.map(p => `<p>${p.trim().replace(/\n/g, '<br>')}</p>`).join('\n            ');
               portugisArticle.innerHTML = html;
               console.log('Portugis content updated');
             }
@@ -267,7 +267,7 @@
             if (belandaArticle) {
               // For Belanda, it has structured content with ol/li
               const paragraphs = data.gmit.belanda.split('\n\n').filter(p => p.trim() !== '');
-              const html = paragraphs.map(p => `<p>${p.trim()}</p>`).join('\n            ');
+              const html = paragraphs.map(p => `<p>${p.trim().replace(/\n/g, '<br>')}</p>`).join('\n            ');
               belandaArticle.innerHTML = html;
               console.log('Belanda content updated');
             }
@@ -277,7 +277,7 @@
             const jepangArticle = document.querySelector('#masa-jepang .history-text');
             if (jepangArticle) {
               const paragraphs = data.gmit.jepang.split('\n\n').filter(p => p.trim() !== '');
-              const html = paragraphs.map(p => `<p>${p.trim()}</p>`).join('\n            ');
+              const html = paragraphs.map(p => `<p>${p.trim().replace(/\n/g, '<br>')}</p>`).join('\n            ');
               jepangArticle.innerHTML = html;
               console.log('Jepang content updated');
             }
@@ -287,7 +287,7 @@
             const pragmitArticle = document.querySelector('#pra-gmit .history-text');
             if (pragmitArticle) {
               const paragraphs = data.gmit.pragmit.split('\n\n').filter(p => p.trim() !== '');
-              const html = paragraphs.map(p => `<p>${p.trim()}</p>`).join('\n            ');
+              const html = paragraphs.map(p => `<p>${p.trim().replace(/\n/g, '<br>')}</p>`).join('\n            ');
               pragmitArticle.innerHTML = html;
               console.log('Pra-GMIT content updated');
             }
@@ -297,7 +297,7 @@
             const modernArticle = document.querySelector('#masa-gmit .history-text');
             if (modernArticle) {
               const paragraphs = data.gmit.modern.split('\n\n').filter(p => p.trim() !== '');
-              const html = paragraphs.map(p => `<p>${p.trim()}</p>`).join('\n            ');
+              const html = paragraphs.map(p => `<p>${p.trim().replace(/\n/g, '<br>')}</p>`).join('\n            ');
               modernArticle.innerHTML = html;
               console.log('Modern GMIT content updated');
             }
@@ -322,7 +322,7 @@
               
               // Split content by double newlines to create paragraphs
               const paragraphs = content.split('\n\n').filter(p => p.trim() !== '');
-              const paragraphsHTML = paragraphs.map(p => `<p>${p.trim()}</p>`).join('\n            ');
+              const paragraphsHTML = paragraphs.map(p => `<p>${p.trim().replace(/\n/g, '<br>')}</p>`).join('\n            ');
               
               article.innerHTML = `
               <h2>${section.label}</h2>

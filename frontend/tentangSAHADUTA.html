@@ -119,17 +119,31 @@
         if (data.sahaduta) {
           // Update Gambaran Umum
           if (data.sahaduta.gambaran) {
-            const gambaranSection = document.querySelector('#gambaran-umum p');
+            const gambaranSection = document.querySelector('#gambaran-umum');
             if (gambaranSection) {
-              gambaranSection.textContent = data.sahaduta.gambaran;
+              const h2 = gambaranSection.querySelector('h2');
+              gambaranSection.querySelectorAll('p').forEach(p => p.remove());
+              const paragraphs = data.sahaduta.gambaran.split('\n\n').filter(p => p.trim() !== '');
+              const paragraphsHTML = paragraphs.map(p => `<p>${p.trim().replace(/\n/g, '<br>')}</p>`).join('\n              ');
+              gambaranSection.innerHTML = '';
+              if (h2) gambaranSection.appendChild(h2);
+              gambaranSection.insertAdjacentHTML('beforeend', paragraphsHTML);
             }
           }
 
           // Update Pertumbuhan Jemaat
           if (data.sahaduta.pertumbuhan) {
-            const pertumbuhanSection = document.querySelector('#pertumbuhan-jemaat p');
+            const pertumbuhanSection = document.querySelector('#pertumbuhan-jemaat');
             if (pertumbuhanSection) {
-              pertumbuhanSection.textContent = data.sahaduta.pertumbuhan;
+              pertumbuhanSection.querySelectorAll('p').forEach(p => p.remove());
+              const paragraphs = data.sahaduta.pertumbuhan.split('\n\n').filter(p => p.trim() !== '');
+              const paragraphsHTML = paragraphs.map(p => `<p>${p.trim().replace(/\n/g, '<br>')}</p>`).join('\n              ');
+              const statsEl = pertumbuhanSection.querySelector('.stats');
+              if (statsEl) {
+                statsEl.insertAdjacentHTML('beforebegin', paragraphsHTML);
+              } else {
+                pertumbuhanSection.insertAdjacentHTML('beforeend', paragraphsHTML);
+              }
             }
           }
 
@@ -147,9 +161,15 @@
 
           // Update Pelayanan
           if (data.sahaduta.pelayanan) {
-            const pelayananSection = document.querySelector('#pelayanan p');
+            const pelayananSection = document.querySelector('#pelayanan');
             if (pelayananSection) {
-              pelayananSection.textContent = data.sahaduta.pelayanan;
+              const h2 = pelayananSection.querySelector('h2');
+              pelayananSection.querySelectorAll('p').forEach(p => p.remove());
+              const paragraphs = data.sahaduta.pelayanan.split('\n\n').filter(p => p.trim() !== '');
+              const paragraphsHTML = paragraphs.map(p => `<p>${p.trim().replace(/\n/g, '<br>')}</p>`).join('\n              ');
+              pelayananSection.innerHTML = '';
+              if (h2) pelayananSection.appendChild(h2);
+              pelayananSection.insertAdjacentHTML('beforeend', paragraphsHTML);
             }
           }
         }
@@ -170,7 +190,7 @@
             
             // Split content by double newlines to create paragraphs
             const paragraphs = content.split('\n\n').filter(p => p.trim() !== '');
-            const paragraphsHTML = paragraphs.map(p => `<p>${p.trim()}</p>`).join('\n        ');
+            const paragraphsHTML = paragraphs.map(p => `<p>${p.trim().replace(/\n/g, '<br>')}</p>`).join('\n        ');
             
             sectionDiv.innerHTML = `
               <h2>${section.label}</h2>

@@ -434,6 +434,7 @@ body {
   color: #333;
   line-height: 1.6;
   margin-bottom: 10px;
+  white-space: pre-wrap;
 }
 
 .status-badge {
