@@ -1300,6 +1300,7 @@ footer .copyright {
   
   .history-image {
     height: 180px !important;
+    min-height: 0 !important;
   }
   
   .history-text h2 {
@@ -1322,13 +1323,10 @@ footer .copyright {
     gap: 14px !important;
   }
   
-  .qr-warta img,
-  .qr-donasi img {
-    width: 80px !important;
-    height: 80px !important;
+  .qr-warta span:first-child {
+    font-size: 32px !important;
   }
   
-  .qr-warta p,
   .qr-donasi p {
     font-size: 10px !important;
   }
