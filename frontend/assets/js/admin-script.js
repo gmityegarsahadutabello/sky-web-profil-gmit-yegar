@@ -874,17 +874,17 @@ function loadAdditionalSahadutaSections() {
     return;
   }
 
-  let html = '<hr style="margin: 30px 0; border: 2px solid #28a745;"><h3 style="color: #28a745; margin: 20px 0;">📋 Section Tambahan yang Anda Buat</h3>';
+  // Full-width separator across the content area (matches .admin-content padding)
+  let html = '<hr style="margin: 30px -30px; border: none; border-top: 2px solid #e9ecef;">';
   customSections.forEach(section => {
     const content = data.contentSahaduta && data.contentSahaduta[section.id] ? data.contentSahaduta[section.id] : section.content;
     html += `
-      <div class="form-group" style="position: relative; padding: 20px; border: 2px solid #d4edda; border-radius: 8px; margin-bottom: 20px; background-color: #f8fff9;">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-          <label style="margin: 0; color: #28a745; font-weight: bold; font-size: 16px;">${section.label}</label>
-          <button onclick="deleteCustomSahadutaSection('${section.id}')" class="btn btn-danger" style="padding: 6px 12px; font-size: 12px;">🗑️ Hapus</button>
+      <div class="form-group">
+        <div style="display: flex; justify-content: space-between; align-items: center; gap: 12px;">
+          <label for="custom-sahaduta-${section.id}" style="margin-bottom: 8px; text-align: left;">${section.label}</label>
+          <button type="button" onclick="deleteCustomSahadutaSection('${section.id}')" class="btn btn-danger" style="padding: 6px 12px; font-size: 12px; margin: 0 0 8px 0; white-space: nowrap;">🗑️ Hapus</button>
         </div>
-        <small style="color: #6c757d; display: block; margin-bottom: 8px;">ID: ${section.id}</small>
-        <textarea id="custom-sahaduta-${section.id}" rows="6" style="width: 100%; padding: 10px; border: 1px solid #ced4da; border-radius: 4px;">${content}</textarea>
+        <textarea id="custom-sahaduta-${section.id}" rows="6">${content}</textarea>
       </div>
     `;
   });
@@ -985,17 +985,17 @@ function loadAdditionalGMITSections() {
     return;
   }
 
-  let html = '<hr style="margin: 30px 0; border: 2px solid #28a745;"><h3 style="color: #28a745; margin: 20px 0;">📋 Periode Tambahan yang Anda Buat</h3>';
+  // Full-width separator across the content area (matches .admin-content padding)
+  let html = '<hr style="margin: 30px -30px; border: none; border-top: 2px solid #e9ecef;">';
   customSections.forEach(section => {
     const content = data.contentGMIT && data.contentGMIT[section.id] ? data.contentGMIT[section.id] : section.content;
     html += `
-      <div class="form-group" style="position: relative; padding: 20px; border: 2px solid #d4edda; border-radius: 8px; margin-bottom: 20px; background-color: #f8fff9;">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-          <label style="margin: 0; color: #28a745; font-weight: bold; font-size: 16px;">${section.label}</label>
-          <button onclick="deleteCustomGMITSection('${section.id}')" class="btn btn-danger" style="padding: 6px 12px; font-size: 12px;">🗑️ Hapus</button>
+      <div class="form-group">
+        <div style="display: flex; justify-content: space-between; align-items: center; gap: 12px;">
+          <label for="custom-gmit-${section.id}" style="margin-bottom: 8px; text-align: left;">${section.label}</label>
+          <button type="button" onclick="deleteCustomGMITSection('${section.id}')" class="btn btn-danger" style="padding: 6px 12px; font-size: 12px; margin: 0 0 8px 0; white-space: nowrap;">🗑️ Hapus</button>
         </div>
-        <small style="color: #6c757d; display: block; margin-bottom: 8px;">ID: ${section.id}</small>
-        <textarea id="custom-gmit-${section.id}" rows="8" style="width: 100%; padding: 10px; border: 1px solid #ced4da; border-radius: 4px;">${content}</textarea>
+        <textarea id="custom-gmit-${section.id}" rows="8">${content}</textarea>
       </div>
     `;
   });

@@ -118,9 +118,9 @@
         <div class="follow">
           <h4>FOLLOW US</h4>
           <div class="social-buttons">
-            <a class="social-btn fb" href="#" aria-label="Facebook">Facebook</a>
-            <a class="social-btn ig" href="#" aria-label="Instagram">Instagram</a>
-            <a class="social-btn yt" href="#" aria-label="YouTube">YouTube</a>
+            <a class="social-btn fb" href="https://www.facebook.com/pages/Gmit%20'yegar%20Sahaduta%20Bello'/100147828281927/#" aria-label="Facebook" target="blank">Facebook</a>
+            <a class="social-btn ig" href="https://www.instagram.com/explore/locations/100147828281927/gmit-yegar-sahaduta-bello/" aria-label="Instagram" target="blank">Instagram</a>
+            <!-- <a class="social-btn yt" href="#" aria-label="YouTube">YouTube</a> -->
           </div>
         </div>
 
@@ -206,29 +206,40 @@
         if (customSections.length > 0) {
           const main = document.querySelector('main.tentang-content');
           const footerSpace = document.querySelector('.tentang-footer-space');
-          
+          if (main) {
+            const separator = document.createElement('hr');
+            separator.style.cssText = 'margin: 18px 0; border: none; border-top: 2px solid rgba(18,58,90,0.06);';
+            if (footerSpace) {
+              main.insertBefore(separator, footerSpace);
+            } else {
+              main.appendChild(separator);
+            }
+          }
+
           customSections.forEach(section => {
             const content = data.contentSahaduta && data.contentSahaduta[section.id] ? data.contentSahaduta[section.id] : section.content;
-            
+
             // Create section element with same style as default sections
             const sectionDiv = document.createElement('section');
             sectionDiv.id = section.id;
-            sectionDiv.style.cssText = 'margin-top: 18px;';
-            
+            sectionDiv.style.marginTop = '18px';
+
             // Split content by double newlines to create paragraphs
             const paragraphs = content.split('\n\n').filter(p => p.trim() !== '');
-            const paragraphsHTML = paragraphs.map(p => `<p>${p.trim().replace(/\n/g, '<br>')}</p>`).join('\n        ');
-            
+            const paragraphsHTML = paragraphs.map(p => `<p style="text-align: left;">${p.trim().replace(/\n/g, '<br>')}</p>`).join('\n        ');
+
             sectionDiv.innerHTML = `
               <h2>${section.label}</h2>
               ${paragraphsHTML}
             `;
-            
+
             // Insert BEFORE tentang-footer-space to keep it inside tentang-content container
-            if (footerSpace) {
-              main.insertBefore(sectionDiv, footerSpace);
-            } else {
-              main.appendChild(sectionDiv);
+            if (main) {
+              if (footerSpace) {
+                main.insertBefore(sectionDiv, footerSpace);
+              } else {
+                main.appendChild(sectionDiv);
+              }
             }
           });
         }
