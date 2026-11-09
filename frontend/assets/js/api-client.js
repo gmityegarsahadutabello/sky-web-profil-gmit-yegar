@@ -240,6 +240,80 @@ class APIClient {
 
     return response.json();
   }
+
+  // ===== SAHADUTA ENDPOINTS =====
+
+  // GET sahaduta publik
+  async getPublicSahaduta() {
+    return this._fetch(`${this.baseUrl}/sahaduta/public`);
+  }
+
+  // GET sahaduta (admin)
+  async getSahaduta() {
+    return this._fetch(`${this.baseUrl}/sahaduta`);
+  }
+
+  // CREATE/UPDATE sahaduta (admin)
+  async saveSahaduta(data) {
+    return this._fetch(`${this.baseUrl}/sahaduta`, {
+      method: 'POST',
+      body: JSON.stringify(data)
+    });
+  }
+
+  // DELETE custom sahaduta section (admin)
+  async deleteCustomSahadutaSection(sectionId) {
+    return this._fetch(`${this.baseUrl}/sahaduta/custom/${sectionId}`, {
+      method: 'DELETE'
+    });
+  }
+
+  // ===== GMIT ENDPOINTS =====
+
+  // GET gmit publik
+  async getPublicGMIT() {
+    return this._fetch(`${this.baseUrl}/gmit/public`);
+  }
+
+  // GET gmit (admin)
+  async getGMIT() {
+    return this._fetch(`${this.baseUrl}/gmit`);
+  }
+
+  // CREATE/UPDATE gmit (admin)
+  async saveGMIT(data) {
+    return this._fetch(`${this.baseUrl}/gmit`, {
+      method: 'POST',
+      body: JSON.stringify(data)
+    });
+  }
+
+  // DELETE custom gmit section (admin)
+  async deleteCustomGMITSection(sectionId) {
+    return this._fetch(`${this.baseUrl}/gmit/custom/${sectionId}`, {
+      method: 'DELETE'
+    });
+  }
+
+  // ===== STRUKTUR ENDPOINTS =====
+
+  // GET struktur publik
+  async getPublicStruktur() {
+    return this._fetch(`${this.baseUrl}/struktur/public`);
+  }
+
+  // GET struktur (admin)
+  async getStruktur() {
+    return this._fetch(`${this.baseUrl}/struktur`);
+  }
+
+  // CREATE/UPDATE struktur (admin)
+  async saveStruktur(data) {
+    return this._fetch(`${this.baseUrl}/struktur`, {
+      method: 'POST',
+      body: JSON.stringify(data)
+    });
+  }
 }
 
 // Detect API base URL (browser environment)
@@ -248,3 +322,6 @@ let apiBaseUrl = window.API_URL || localStorage.getItem('apiBaseUrl') || getDefa
 
 // Export untuk digunakan di script
 const api = new APIClient(apiBaseUrl);
+if (typeof window !== 'undefined') {
+  window.api = api;
+}

@@ -113,6 +113,8 @@
         </div>
         <h3 style="margin-bottom: 12px; color: #123a5a; font-size: 20px; font-weight: 700;">Tentang GMIT</h3>
         <p style="font-size: 15px; color: #666; margin-bottom: 18px; line-height: 1.7;">GMIT adalah gereja yang melayani dengan kasih kepada seluruh jemaat. Kami berkomitmen untuk memberikan pelayanan spiritual terbaik.</p>
+        <!-- Custom GMIT masa badges (populated dynamically) -->
+        <div id="gmit-masa-badges" style="margin-bottom: 15px; display: flex; flex-wrap: wrap; gap: 6px; justify-content: center;"></div>
         <button onclick="window.location.href='tentangGMIT.html'" style="padding: 12px 24px; background: linear-gradient(135deg, #123a5a, #1e5a96); color: white; border: none; cursor: pointer; border-radius: 8px; font-weight: 600; transition: all 0.3s ease; box-shadow: 0 4px 12px rgba(18,58,90,0.25); font-size: 14px;">Selengkapnya</button>
       </div>
 
@@ -154,7 +156,9 @@
 
       <div class="history-text">
         <h2 style="margin-bottom: 20px; font-size: clamp(22px, 4vw, 28px); color: #123a5a; font-weight: 700;">Tentang GMIT Yegar Sahaduta Belo</h2>
-        <p style="line-height: 1.9; color: #555; margin-bottom: 18px; font-size: clamp(14px, 2.5vw, 16px);">GMIT Yegar Sahaduta Belo adalah gereja yang berdedikasi melayani jemaat dengan penuh kasih sayang dan integritas. Kami memiliki visi untuk menjadi komunitas spiritual yang kuat, inklusif, dan relevan dalam kehidupan bermasyarakat.</p>
+        <p id="sahaduta-beranda-desc" style="line-height: 1.9; color: #555; margin-bottom: 18px; font-size: clamp(14px, 2.5vw, 16px);">GMIT Yegar Sahaduta Belo adalah gereja yang berdedikasi melayani jemaat dengan penuh kasih sayang dan integritas. Kami memiliki visi untuk menjadi komunitas spiritual yang kuat, inklusif, dan relevan dalam kehidupan bermasyarakat.</p>
+        <!-- Custom Sahaduta section badges (populated dynamically) -->
+        <div id="sahaduta-sections-badges" style="margin-bottom: 18px; display: flex; flex-wrap: wrap; gap: 8px;"></div>
         <button onclick="window.location.href='tentangSAHADUTA.html'" style="padding: clamp(10px, 2vw, 14px) clamp(20px, 3vw, 32px); background: linear-gradient(135deg, #123a5a, #1e5a96); color: white; border: none; cursor: pointer; border-radius: 8px; font-weight: 600; transition: all 0.3s ease; box-shadow: 0 6px 16px rgba(18,58,90,0.3); font-size: clamp(13px, 2.5vw, 15px);">Selengkapnya</button>
       </div>
 
@@ -217,6 +221,15 @@
   <script>
     // Load pengumuman terbaru untuk beranda
     document.addEventListener('DOMContentLoaded', async function() {
+      // Load pengumuman AND custom sections concurrently
+      await Promise.all([
+        loadPengumuman(),
+        loadBerandaContent()
+      ]);
+    });
+
+    // ---- Pengumuman ----
+    async function loadPengumuman() {
       let pengumumanList = [];
       
       try {
@@ -328,7 +341,69 @@
           `;
         }).join('');
       }
-    });
+    }
+
+    // ---- Beranda Content: Custom Sahaduta Sections & GMIT Masa ----
+    async function loadBerandaContent() {
+      let sahaduta = null;
+      let gmit = null;
+
+      // Try API first
+      try {
+        if (typeof api !== 'undefined' && api) {
+          if (typeof api.getPublicSahaduta === 'function') {
+            sahaduta = await api.getPublicSahaduta();
+          }
+          if (typeof api.getPublicGMIT === 'function') {
+            gmit = await api.getPublicGMIT();
+          }
+        }
+      } catch (err) {
+        console.warn('Gagal load beranda content dari API, fallback localStorage:', err.message);
+      }
+
+      // Fallback to localStorage
+      if (!sahaduta || !gmit) {
+        try {
+          const saved = localStorage.getItem('gmitAdminData');
+          if (saved) {
+            const data = JSON.parse(saved);
+            if (!sahaduta && data.sahaduta) sahaduta = data.sahaduta;
+            if (!gmit && data.gmit) gmit = data.gmit;
+          }
+        } catch (e) {
+          console.error('Error parsing gmitAdminData:', e);
+        }
+      }
+
+      // Render Sahaduta section badges
+      const sahadutaBadgesEl = document.getElementById('sahaduta-sections-badges');
+      if (sahadutaBadgesEl && sahaduta) {
+        const customSections = sahaduta.customSahadutaSections || [];
+        if (customSections.length > 0) {
+          sahadutaBadgesEl.innerHTML = customSections.map(section =>
+            `<a href="tentangSAHADUTA.html#${section.id}"
+                style="display: inline-block; padding: 6px 14px; background: rgba(18,58,90,0.08); color: #123a5a; border-radius: 20px; font-size: 13px; font-weight: 600; text-decoration: none; border: 1px solid rgba(18,58,90,0.2); transition: all 0.2s ease;"
+                onmouseover="this.style.background='rgba(18,58,90,0.18)'"
+                onmouseout="this.style.background='rgba(18,58,90,0.08)'">${section.label}</a>`
+          ).join('');
+        }
+      }
+
+      // Render GMIT masa badges
+      const gmitBadgesEl = document.getElementById('gmit-masa-badges');
+      if (gmitBadgesEl && gmit) {
+        const customSections = gmit.customGMITSections || [];
+        if (customSections.length > 0) {
+          gmitBadgesEl.innerHTML = customSections.map(section =>
+            `<a href="tentangGMIT.html#${section.id}"
+                style="display: inline-block; padding: 5px 12px; background: rgba(18,58,90,0.08); color: #123a5a; border-radius: 20px; font-size: 12px; font-weight: 600; text-decoration: none; border: 1px solid rgba(18,58,90,0.2); transition: all 0.2s ease;"
+                onmouseover="this.style.background='rgba(18,58,90,0.18)'"
+                onmouseout="this.style.background='rgba(18,58,90,0.08)'">${section.label}</a>`
+          ).join('');
+        }
+      }
+    }
   </script>
   <style>
     @keyframes pulse {

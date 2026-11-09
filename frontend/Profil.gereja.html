@@ -10,7 +10,7 @@
   
   <!-- Canonical URL -->
   <link rel="canonical" href="https://gmityegarsahadutabello.vercel.app/Profil.gereja.html" />
-
+  
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://gmityegarsahadutabello.vercel.app/Profil.gereja.html" />
@@ -19,20 +19,21 @@
   <meta property="og:image" content="https://gmityegarsahadutabello.vercel.app/assets/images/arsip/struktur-icon.png" />
   <meta property="og:site_name" content="GMIT Yegar Sahaduta Bello" />
   <meta property="og:locale" content="id_ID" />
-
+  
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:url" content="https://gmityegarsahadutabello.vercel.app/Profil.gereja.html" />
   <meta name="twitter:title" content="Profil & Kepengurusan Majelis - GMIT Yegar Sahaduta Bello" />
   <meta name="twitter:description" content="Struktur organisasi dan fungsionaris Majelis Harian Jemaat (MHJ) GMIT Yegar Sahaduta Bello periode pelayanan 2024-2027. Temukan profil penatua, diaken, dan pendeta." />
   <meta name="twitter:image" content="https://gmityegarsahadutabello.vercel.app/assets/images/arsip/struktur-icon.png" />
-
+  
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="./assets/images/arsip/logo-gmit.png" />
   <link rel="apple-touch-icon" href="./assets/images/arsip/logo-gmit.png" />
-
+  
   <link rel="stylesheet" href="./assets/css/styel.css">
 </head>
+
 <body>
   <header>
     <h1>GMIT Yegar Sahaduta Bello</h1>
@@ -54,7 +55,7 @@
 
   <main class="page-content" style="max-width: 1200px; margin: 40px auto; padding: 0 20px;">
     <section id="majelis" style="background: #f8f9fa; padding: 40px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-      <h1 style="text-align: center; color: #123a5a; margin-bottom: 40px; font-size: 32px;">FUNGSIONARIS MAJELIS HARIAN JEMAAT YEGAR SAHADUTA BELLO<br>PERIODE PELAYANAN 2024-2027</h1>
+      <h1 style="text-align: center; color: #123a5a; margin-bottom: 40px; font-size: 32px;">FUNGSIONARIS MAJELIS HARIAN JEMAAT YEGAR SAHADUTA BELLO<br>PERIODE PELAYANAN <span id="periode-value">2024-2027</span></h1>
       
       <div style="display: flex; flex-direction: column; gap: 30px;">
 
@@ -66,32 +67,32 @@
           <div style="display:flex; flex-direction:column; gap:12px; align-items:center; text-align:center;">
             <div>
               <p style="font-weight:700; color:#123a5a; margin:0 0 6px 0; font-size:14px;">Ketua Majelis Jemaat</p>
-              <p style="color:#555; margin:0 0 10px 0; font-size:15px;">Pdt. Selvy J.K. Asfes - Zina, S.Th.</p>
+              <p style="color:#555; margin:0 0 10px 0; font-size:15px;" id="ketua-value">Pdt. Selvy J.K. Asfes - Zina, S.Th.</p>
             </div>
 
             <div>
               <p style="font-weight:700; color:#123a5a; margin:0 0 6px 0; font-size:14px;">Wakil Ketua</p>
-              <p style="color:#555; margin:0 0 10px 0; font-size:15px;">Pnt. Ir. Adelfitje Meyok- Maka Ndolu</p>
+              <p style="color:#555; margin:0 0 10px 0; font-size:15px;" id="wakil-ketua-value">Pnt. Ir. Adelfitje Meyok- Maka Ndolu</p>
             </div>
 
             <div>
               <p style="font-weight:700; color:#123a5a; margin:0 0 6px 0; font-size:14px;">Sekretaris</p>
-              <p style="color:#555; margin:0 0 10px 0; font-size:15px;">Pgjr. Lidya Camelia Kase, S.Pd</p>
+              <p style="color:#555; margin:0 0 10px 0; font-size:15px;" id="sekretaris-value">Pgjr. Lidya Camelia Kase, S.Pd</p>
             </div>
 
             <div>
               <p style="font-weight:700; color:#123a5a; margin:0 0 6px 0; font-size:14px;">Wakil Sekretaris</p>
-              <p style="color:#555; margin:0 0 10px 0; font-size:15px;">Pnt. Angelina Wabang-Maro, S.Pd</p>
+              <p style="color:#555; margin:0 0 10px 0; font-size:15px;" id="wakil-sekretaris-value">Pnt. Angelina Wabang-Maro, S.Pd</p>
             </div>
 
             <div>
               <p style="font-weight:700; color:#123a5a; margin:0 0 6px 0; font-size:14px;">Bendahara</p>
-              <p style="color:#555; margin:0 0 10px 0; font-size:15px;">Pnt. Elsi Natbais-Nobel, S.Pd</p>
+              <p style="color:#555; margin:0 0 10px 0; font-size:15px;" id="bendahara-value">Pnt. Elsi Natbais-Nobel, S.Pd</p>
             </div>
 
             <div>
               <p style="font-weight:700; color:#123a5a; margin:0 0 6px 0; font-size:14px;">Wakil Bendahara</p>
-              <p style="color:#555; margin:0; font-size:15px;">Pnt. Melky E.K. Bana</p>
+              <p style="color:#555; margin:0 0 10px 0; font-size:15px;" id="wakil-bendahara-value">Pnt. Melky E.K. Bana</p>
             </div>
           </div>
         </div>
@@ -104,54 +105,58 @@
           <div style="max-width:1000px; margin:0 auto; background: linear-gradient(135deg, #ffffff 0%, rgba(18,58,90,0.02) 100%); padding: 28px; border-radius: 12px; box-shadow: 0 8px 24px rgba(18,58,90,0.12); border: 1px solid rgba(18,58,90,0.08);">
             <h3 style="margin-top:0; text-align:center; color:#123a5a; font-size:18px; font-weight:700;">Penatua</h3>
             <div style="column-count:3; column-gap:30px; font-size:15px; color:#333; text-align:center; line-height:1.8;">
-              <p style="margin:6px 0;">Johanis Watrimny, S.Si</p>
-              <p style="margin:6px 0;">Agustinus Bria</p>
-              <p style="margin:6px 0;">Engelina Wabang – Maro, S.Pd</p>
-              <p style="margin:6px 0;">Ir. Adelfintje Meyok – Makandolu</p>
-              <p style="margin:6px 0;">Hanani Melangwala Laumalay, SKM, M.Sc</p>
-              <p style="margin:6px 0;">Mesak Meliyaki Natbais, S.Pd.Gr.</p>
-              <p style="margin:6px 0;">Marselina Halla – Nomleni</p>
-              <p style="margin:6px 0;">Elsi Natbais – Nobel, S.Pd</p>
-              <p style="margin:6px 0;">Norlince Jeni Penu – Tiran</p>
-              <p style="margin:6px 0;">Yunus Talan</p>
-              <p style="margin:6px 0;">Letries Bria – Plaikol</p>
-              <p style="margin:6px 0;">Grace Marion Nelwan, S.E</p>
-              <p style="margin:6px 0;">Terfosa Selan – Landak</p>
-              <p style="margin:6px 0;">Yakub Penu</p>
-              <p style="margin:6px 0;">Disyan Azarya Azmawet Taopan – Tanesab, A.Md.Keb</p>
-              <p style="margin:6px 0;">Norlina Ester Abdonia Penu – Hauteas, S.Pd</p>
-              <p style="margin:6px 0;">Praksedis Rassi – Naben</p>
-              <p style="margin:6px 0;">Jeni Angriani Nenohai – Biaf</p>
-              <p style="margin:6px 0;">Sulestiany Selan – Bistolen, A.Md.Keb.</p>
-              <p style="margin:6px 0;">Jelmi Bien – Penuam</p>
-              <p style="margin:6px 0;">Melky Elmaden Kornelis Bana</p>
-              <p style="margin:6px 0;">Jublina Pandie – Nomleni</p>
-              <p style="margin:6px 0;">Sebedius Selan</p>
-              <p style="margin:6px 0;">Yosina Manu – Ome</p>
-              <p style="margin:6px 0;">Jerison Benu</p>
-              <p style="margin:6px 0;">Paskaria Ati – Nomleni</p>
-              <p style="margin:6px 0;">Ribka Liu – Silla</p>
-              <p style="margin:6px 0;">Ferdinan Tefnai</p>
-              <p style="margin:6px 0;">Grancia Caroline Bria</p>
-              <p style="margin:6px 0;">Lidya Camelia Kase, S.Pd</p>
-              <p style="margin:6px 0;">Susan Sabrina Selan, A.Md.T</p>
-              <p style="margin:6px 0;">Melani Lebriana Selan</p>
+              <p style="margin:6px 0;" id="penatua-list-default">
+                Johanis Watrimny, S.Si
+                Agustinus Bria
+                Engelina Wabang – Maro, S.Pd
+                Ir. Adelfintje Meyok – Makandolu
+                Hanani Melangwala Laumalay, SKM, M.Sc
+                Mesak Meliyaki Natbais, S.Pd.Gr.
+                Marselina Halla – Nomleni
+                Elsi Natbais – Nobel, S.Pd
+                Norlince Jeni Penu – Tiran
+                Yunus Talan
+                Letries Bria – Plaikol
+                Grace Marion Nelwan, S.E
+                Terfosa Selan – Landak
+                Yakub Penu
+                Disyan Azarya Azmawet Taopan – Tanesab, A.Md.Keb
+                Norlina Ester Abdonia Penu – Hauteas, S.Pd
+                Praksedis Rassi – Naben
+                Jeni Angriani Nenohai – Biaf
+                Sulestiany Selan – Bistolen, A.Md.Keb.
+                Jelmi Bien – Penuam
+                Melky Elmaden Kornelis Bana
+                Jublina Pandie – Nomleni
+                Sebedius Selan
+                Yosina Manu – Ome
+                Jerison Benu
+                Paskaria Ati – Nomleni
+                Ribka Liu – Silla
+                Ferdinan Tefnai
+                Grancia Caroline Bria
+                Lidya Camelia Kase, S.Pd
+                Susan Sabrina Selan, A.Md.T
+                Melani Lebriana Selan
+              </p>
             </div>
           </div>
+        </div>
 
-          <!-- Diaken & Pengajar di baris bawah -->
-          <div style="max-width:1000px; margin:0 auto; display:grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap:20px; align-items:stretch; justify-items:center;">
-            <!-- Diaken -->
-            <div style="width:100%; max-width:480px; background: linear-gradient(135deg, #ffffff 0%, rgba(18,58,90,0.02) 100%); padding: 24px; border-radius: 10px; box-shadow: 0 8px 24px rgba(18,58,90,0.12); display:flex; flex-direction:column; border: 1px solid rgba(18,58,90,0.08);">
-              <h3 style="margin-top:0; text-align:center; color:#123a5a; margin-bottom:14px; font-size:18px; font-weight:700;">Diaken</h3>
-              <div style="font-size:15px; color:#333; flex-grow:1; text-align:center; line-height:1.8;">
-                <p style="margin:6px 0;">Jublina Pandie – Nomleni</p>
-                <p style="margin:6px 0;">Sebedius Selan</p>
-                <p style="margin:6px 0;">Yosina Manu – Ome</p>
-                <p style="margin:6px 0;">Jerison Benu</p>
-                <p style="margin:6px 0;">Paskaria Ati – Nomleni</p>
-                <p style="margin:6px 0;">Ribka Liu – Silla</p>
-                <p style="margin:6px 0;">Ferdinan Tefnai</p>
+        <!-- Diaken & Pengajar di baris bawah -->
+        <div style="max-width:1000px; margin:0 auto; display:grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap:20px; align-items:stretch; justify-items:center;">
+          <!-- Diaken -->
+          <div style="width:100%; max-width:480px; background: linear-gradient(135deg, #ffffff 0%, rgba(18,58,90,0.02) 100%); padding: 24px; border-radius: 10px; box-shadow: 0 8px 24px rgba(18,58,90,0.12); display:flex; flex-direction:column; border: 1px solid rgba(18,58,90,0.08);">
+            <h3 style="margin-top:0; text-align:center; color:#123a5a; margin-bottom:14px; font-size:18px; font-weight:700;">Diaken</h3>
+            <div style="font-size:15px; color:#333; flex-grow:1; text-align:center; line-height:1.8;">
+              <p style="margin:6px 0;" id="diaken-list-default">
+                Jublina Pandie – Nomleni
+                Sebedius Selan
+                Yosina Manu – Ome
+                Jerison Benu
+                Paskaria Ati – Nomleni
+                Ribka Liu – Silla
+                Ferdinan Tefnai
               </div>
             </div>
 
@@ -159,15 +164,16 @@
             <div style="width:100%; max-width:480px; background: linear-gradient(135deg, #ffffff 0%, rgba(18,58,90,0.02) 100%); padding: 24px; border-radius: 10px; box-shadow: 0 8px 24px rgba(18,58,90,0.12); display:flex; flex-direction:column; border: 1px solid rgba(18,58,90,0.08);">
               <h3 style="margin-top:0; text-align:center; color:#123a5a; margin-bottom:14px; font-size:18px; font-weight:700;">Pengajar</h3>
               <div style="font-size:15px; color:#333; flex-grow:1; text-align:center; line-height:1.8;">
-                <p style="margin:6px 0;">Grancia Caroline Bria</p>
-                <p style="margin:6px 0;">Lidya Camelia Kase, S.Pd</p>
-                <p style="margin:6px 0;">Susan Sabrina Selan, A.Md.T</p>
-                <p style="margin:6px 0;">Melani Lebriana Selan</p>
+                <p style="margin:6px 0;" id="pengajar-list-default">
+                  Grancia Caroline Bria
+                  Lidya Camelia Kase, S.Pd
+                  Susan Sabrina Selan, A.Md.T
+                  Melani Lebriana Selan
+                </div>
               </div>
             </div>
           </div>
         </div>
-
       </div>
     </section>
   </main>
@@ -211,93 +217,138 @@
     <div class="copyright">&copy; 2025 GMIT Sahaduta Bello</div>
   </footer>
 
+  <script src="./assets/js/api-client.js"></script>
   <script>
-    // Load struktur from admin panel (localStorage)
+    // Load struktur from API
     document.addEventListener('DOMContentLoaded', function() {
-      const savedData = localStorage.getItem('gmitAdminData');
-      if (savedData) {
-        const data = JSON.parse(savedData);
-        if (data.struktur) {
-          console.log('Loading struktur from admin data...');
-          
-          // Update periode
-          if (data.struktur.periode) {
-            const periodeTitle = document.querySelector('#majelis h1');
-            if (periodeTitle) {
-              periodeTitle.innerHTML = `FUNGSIONARIS MAJELIS HARIAN JEMAAT YEGAR SAHADUTA BELLO<br>PERIODE PELAYANAN ${data.struktur.periode}`;
+      // Check if running in admin context
+      const isAdminPage = document.querySelector('.admin-container') !== null;
+      
+      if (isAdminPage) {
+        // Admin page - already loaded via admin-script.js
+        console.log('Admin page detected - data loaded by admin-script.js');
+        return;
+      }
+      
+      // Public page - load from API
+      loadStrukturFromAPI();
+    });
+
+    async function loadStrukturFromAPI() {
+      let struktur = null;
+
+      // 1. Coba load dari API via api-client
+      try {
+        if (typeof api !== 'undefined' && typeof api.getPublicStruktur === 'function') {
+          struktur = await api.getPublicStruktur();
+        }
+      } catch (err) {
+        console.warn('API Struktur unavailable, checking fallback:', err.message);
+      }
+
+      // 2. Fallback ke localStorage jika API belum ada / offline
+      if (!struktur) {
+        try {
+          const savedData = localStorage.getItem('gmitAdminData');
+          if (savedData) {
+            const data = JSON.parse(savedData);
+            if (data.struktur && Object.keys(data.struktur).length > 0) {
+              struktur = data.struktur;
             }
           }
-
-          // Update pengurus utama - find container by structure
-          const pengurusContainer = document.querySelector('#majelis div[style*="max-width: 700px"] div[style*="display:flex"]');
-          if (pengurusContainer) {
-            let html = '';
-
-            if (data.struktur.ketua) {
-              html += `<div><p style="font-weight:700; color:#123a5a; margin:0 0 6px 0; font-size:14px;">Ketua Majelis Jemaat</p><p style="color:#555; margin:0 0 10px 0; font-size:15px;">${data.struktur.ketua}</p></div>`;
-            }
-            if (data.struktur.wakilKetua) {
-              html += `<div><p style="font-weight:700; color:#123a5a; margin:0 0 6px 0; font-size:14px;">Wakil Ketua</p><p style="color:#555; margin:0 0 10px 0; font-size:15px;">${data.struktur.wakilKetua}</p></div>`;
-            }
-            if (data.struktur.sekretaris) {
-              html += `<div><p style="font-weight:700; color:#123a5a; margin:0 0 6px 0; font-size:14px;">Sekretaris</p><p style="color:#555; margin:0 0 10px 0; font-size:15px;">${data.struktur.sekretaris}</p></div>`;
-            }
-            if (data.struktur.wakilSekretaris) {
-              html += `<div><p style="font-weight:700; color:#123a5a; margin:0 0 6px 0; font-size:14px;">Wakil Sekretaris</p><p style="color:#555; margin:0 0 10px 0; font-size:15px;">${data.struktur.wakilSekretaris}</p></div>`;
-            }
-            if (data.struktur.bendahara) {
-              html += `<div><p style="font-weight:700; color:#123a5a; margin:0 0 6px 0; font-size:14px;">Bendahara</p><p style="color:#555; margin:0 0 10px 0; font-size:15px;">${data.struktur.bendahara}</p></div>`;
-            }
-            if (data.struktur.wakilBendahara) {
-              html += `<div><p style="font-weight:700; color:#123a5a; margin:0 0 6px 0; font-size:14px;">Wakil Bendahara</p><p style="color:#555; margin:0; font-size:15px;">${data.struktur.wakilBendahara}</p></div>`;
-            }
-
-            if (html) {
-              pengurusContainer.innerHTML = html;
-              console.log('Pengurus utama updated');
-            }
-          }
-
-          // Update penatua list
-          if (data.struktur.penatua) {
-            const penatuaContainer = document.querySelector('#majelis div[style*="column-count:3"]');
-            if (penatuaContainer) {
-              const penatuaList = data.struktur.penatua.split('\n').filter(n => n.trim() !== '');
-              const html = penatuaList.map(nama => `<p style="margin:6px 0;">${nama.trim()}</p>`).join('');
-              penatuaContainer.innerHTML = html;
-              console.log(`Penatua updated: ${penatuaList.length} members`);
-            }
-          }
-
-          // Update diaken and pengajar - find by grid structure
-          const gridContainers = document.querySelectorAll('#majelis div[style*="grid-template-columns"] > div');
-          
-          // Update diaken (first in grid)
-          if (data.struktur.diaken && gridContainers[0]) {
-            const diakenContent = gridContainers[0].querySelector('div[style*="flex-grow"]');
-            if (diakenContent) {
-              const diakenList = data.struktur.diaken.split('\n').filter(n => n.trim() !== '');
-              const html = diakenList.map(nama => `<p style="margin:6px 0;">${nama.trim()}</p>`).join('');
-              diakenContent.innerHTML = html;
-              console.log(`Diaken updated: ${diakenList.length} members`);
-            }
-          }
-
-          // Update pengajar (second in grid)
-          if (data.struktur.pengajar && gridContainers[1]) {
-            const pengajarContent = gridContainers[1].querySelector('div[style*="flex-grow"]');
-            if (pengajarContent) {
-              const pengajarList = data.struktur.pengajar.split('\n').filter(n => n.trim() !== '');
-              const html = pengajarList.map(nama => `<p style="margin:6px 0;">${nama.trim()}</p>`).join('');
-              pengajarContent.innerHTML = html;
-              console.log(`Pengajar updated: ${pengajarList.length} members`);
-            }
-          }
-          
-          console.log('Struktur loaded successfully!');
+        } catch (e) {
+          console.error('Error parsing localStorage:', e);
         }
       }
-    });
+
+      // 3. Jika tidak ada data tersimpan, tetap gunakan konten default HTML
+      if (!struktur) {
+        return;
+      }
+
+      try {
+        // Update periode
+        if (struktur.periode) {
+          const periodeElement = document.getElementById('periode-value');
+          if (periodeElement) {
+            periodeElement.textContent = struktur.periode;
+          }
+        }
+
+        // Update pengurus utama
+        const pengurusContainer = document.querySelector('#majelis div[style*="max-width: 700px"] div[style*="display:flex"]');
+        if (pengurusContainer) {
+          let html = '';
+
+          if (struktur.ketua) {
+            html += `<div><p style="font-weight:700; color:#123a5a; margin:0 0 6px 0; font-size:14px;">Ketua Majelis Jemaat</p><p style="color:#555; margin:0 0 10px 0; font-size:15px;">${struktur.ketua}</p></div>`;
+          }
+          if (struktur.wakilKetua) {
+            html += `<div><p style="font-weight:700; color:#123a5a; margin:0 0 6px 0; font-size:14px;">Wakil Ketua</p><p style="color:#555; margin:0 0 10px 0; font-size:15px;">${struktur.wakilKetua}</p></div>`;
+          }
+          if (struktur.sekretaris) {
+            html += `<div><p style="font-weight:700; color:#123a5a; margin:0 0 6px 0; font-size:14px;">Sekretaris</p><p style="color:#555; margin:0 0 10px 0; font-size:15px;">${struktur.sekretaris}</p></div>`;
+          }
+          if (struktur.wakilSekretaris) {
+            html += `<div><p style="font-weight:700; color:#123a5a; margin:0 0 6px 0; font-size:14px;">Wakil Sekretaris</p><p style="color:#555; margin:0 0 10px 0; font-size:15px;">${struktur.wakilSekretaris}</p></div>`;
+          }
+          if (struktur.bendahara) {
+            html += `<div><p style="font-weight:700; color:#123a5a; margin:0 0 6px 0; font-size:14px;">Bendahara</p><p style="color:#555; margin:0 0 10px 0; font-size:15px;">${struktur.bendahara}</p></div>`;
+          }
+          if (struktur.wakilBendahara) {
+            html += `<div><p style="font-weight:700; color:#123a5a; margin:0 0 6px 0; font-size:14px;">Wakil Bendahara</p><p style="color:#555; margin:0; font-size:15px;">${struktur.wakilBendahara}</p></div>`;
+          }
+
+          if (html) {
+            pengurusContainer.innerHTML = html;
+            console.log('Pengurus utama updated from API');
+          }
+        }
+
+        // Update penatua list
+        if (struktur.penatua) {
+          const penatuaContainer = document.querySelector('#majelis div[style*="column-count:3"]');
+          if (penatuaContainer) {
+            const penatuaList = struktur.penatua.split('\n').filter(n => n.trim() !== '');
+            const html = penatuaList.map(nama => `<p style="margin:6px 0;">${nama.trim()}</p>`).join('');
+            penatuaContainer.innerHTML = html;
+            console.log(`Penatua updated from API: ${penatuaList.length} members`);
+          }
+        }
+
+        // Update diaken
+        if (struktur.diaken) {
+          const gridContainers = document.querySelectorAll('#majelis div[style*="grid-template-columns"] > div');
+          if (gridContainers[0]) {
+            const diakenContent = gridContainers[0].querySelector('div[style*="flex-grow"]');
+            if (diakenContent) {
+              const diakenList = struktur.diaken.split('\n').filter(n => n.trim() !== '');
+              const html = diakenList.map(nama => `<p style="margin:6px 0;">${nama.trim()}</p>`).join('');
+              diakenContent.innerHTML = html;
+              console.log(`Diaken updated from API: ${diakenList.length} members`);
+            }
+          }
+        }
+
+        // Update pengajar
+        if (struktur.pengajar) {
+          const gridContainers = document.querySelectorAll('#majelis div[style*="grid-template-columns"] > div');
+          if (gridContainers[1]) {
+            const pengajarContent = gridContainers[1].querySelector('div[style*="flex-grow"]');
+            if (pengajarContent) {
+              const pengajarList = struktur.pengajar.split('\n').filter(n => n.trim() !== '');
+              const html = pengajarList.map(nama => `<p style="margin:6px 0;">${nama.trim()}</p>`).join('');
+              pengajarContent.innerHTML = html;
+              console.log(`Pengajar updated from API: ${pengajarList.length} members`);
+            }
+          }
+        }
+
+        console.log('Struktur loaded successfully from API!');
+      } catch (err) {
+        console.warn('Gagal merender data Struktur:', err.message);
+      }
+    }
   </script>
 </body>
 </html>

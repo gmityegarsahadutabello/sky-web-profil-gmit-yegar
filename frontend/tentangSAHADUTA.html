@@ -10,7 +10,7 @@
   
   <!-- Canonical URL -->
   <link rel="canonical" href="https://gmityegarsahadutabello.vercel.app/tentangSAHADUTA.html" />
-
+  
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://gmityegarsahadutabello.vercel.app/tentangSAHADUTA.html" />
@@ -19,21 +19,22 @@
   <meta property="og:image" content="https://gmityegarsahadutabello.vercel.app/assets/images/arsip/tentang-photo.jpeg" />
   <meta property="og:site_name" content="GMIT Yegar Sahaduta Bello" />
   <meta property="og:locale" content="id_ID" />
-
+  
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:url" content="https://gmityegarsahadutabello.vercel.app/tentangSAHADUTA.html" />
   <meta name="twitter:title" content="Tentang GMIT Yegar Sahaduta Bello - Sejarah Jemaat" />
   <meta name="twitter:description" content="Ketahui sejarah singkat, pertumbuhan jemaat, dan perkembangan pelayanan GMIT Yegar Sahaduta Bello sejak berdiri sebagai pos pelayanan hingga menjadi jemaat mandiri." />
   <meta name="twitter:image" content="https://gmityegarsahadutabello.vercel.app/assets/images/arsip/tentang-photo.jpeg" />
-
+  
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="./assets/images/arsip/logo-gmit.png" />
   <link rel="apple-touch-icon" href="./assets/images/arsip/logo-gmit.png" />
-
+  
   <link rel="stylesheet" href="./assets/css/styel.css">
   <link rel="stylesheet" href="./assets/css/tentangSAHADUTA.css">
 </head>
+
 <body>
   <header>
     <h1>GMIT Yegar Sahaduta Bello</h1>
@@ -64,35 +65,21 @@
     <main class="tentang-content" role="main">
       <section id="gambaran-umum">
         <h2>Gambaran Umum Jemaat</h2>
-        <p>Jemaat GMIT Yegar Sahaduta Bello bermula dari sebuah Pos Pelayanan yang lahir sebagai wujud ucapan syukur kepada Tuhan atas jawaban doa dari beberapa keluarga di wilayah Kelurahan Bello, Kota Kupang sekitar tahun 2010. Gagasan ini mendapat dukungan warga setempat. Dengan semangat kebersamaan dan gotong royong, pembangunan fisik gedung gereja dimulai Mei 2012 dan selesai Juni 2013. Ibadah pertama diadakan 15 Juli 2013 dan Pos Pelayanan secara resmi dibuka dalam kebaktian perdana 22 September 2013.</p>
-
-        <p>Setelah melalui proses pembinaan dan dukungan Majelis Klasis Kupang Barat, Pos Pelayanan ini ditetapkan menjadi jemaat mandiri oleh Majelis Sinode GMIT pada 22 September 2019.</p>
+        <p>Memuat data dari API...</p>
       </section>
 
       <section id="pertumbuhan-jemaat">
         <h2>Pertumbuhan Jemaat</h2>
-        <p>Pada masa awal (2013) tercatat 17 KK dengan 35 jiwa. Saat pemandirian (2019) jumlah meningkat menjadi 55 KK. Perkembangan berlanjut menjadi 62 KK hingga 2022. Jumlah baptis, sidi dan statistik lainnya mengalami kenaikan hingga tercatat 82 KK dan sensus sementara 322 jiwa (Mei 2025).</p>
-
-        <div class="stats" aria-hidden="false">
-          <div class="stat-card">
-            <strong>82 KK</strong>
-            <span>Terdaftar (Mei 2025)</span>
-          </div>
-          <div class="stat-card">
-            <strong>322 Jiwa</strong>
-            <span>Sensus sementara</span>
-          </div>
-          <div class="stat-card">
-            <strong>241 Baptis</strong>
-            <span>Data historis</span>
-          </div>
-        </div>
+        <p>Memuat data dari API...</p>
       </section>
 
       <section id="pelayanan" style="margin-top:18px;">
         <h2>Pelayanan & Kegiatan</h2>
-        <p>Jemaat aktif menyelenggarakan ibadah Minggu, persekutuan doa, dan kegiatan pelayanan sosial/diakonia. Informasi jadwal dan pengumuman tersedia di halaman Informasi serta melalui kontak majelis jemaat.</p>
+        <p>Memuat data dari API...</p>
       </section>
+
+      <!-- Custom sections added from admin panel will appear here -->
+      <div id="additional-sahaduta-public"></div>
 
       <div class="tentang-footer-space"></div>
     </main>
@@ -137,114 +124,199 @@
     <div class="copyright">&copy; 2025 GMIT Sahaduta Bello</div>
   </footer>
 
+  <script src="./assets/js/api-client.js"></script>
   <script>
-    // Load content from admin panel (localStorage)
+    // Load content from API (admin panel) or fallback to localStorage
     document.addEventListener('DOMContentLoaded', function() {
-      const savedData = localStorage.getItem('gmitAdminData');
-      if (savedData) {
-        const data = JSON.parse(savedData);
-        if (data.sahaduta) {
-          // Update Gambaran Umum
-          if (data.sahaduta.gambaran) {
-            const gambaranSection = document.querySelector('#gambaran-umum');
-            if (gambaranSection) {
-              const h2 = gambaranSection.querySelector('h2');
-              gambaranSection.querySelectorAll('p').forEach(p => p.remove());
-              const paragraphs = data.sahaduta.gambaran.split('\n\n').filter(p => p.trim() !== '');
-              const paragraphsHTML = paragraphs.map(p => `<p>${p.trim().replace(/\n/g, '<br>')}</p>`).join('\n              ');
-              gambaranSection.innerHTML = '';
-              if (h2) gambaranSection.appendChild(h2);
-              gambaranSection.insertAdjacentHTML('beforeend', paragraphsHTML);
-            }
-          }
+      // Check if running in admin context or public page
+      const isAdminPage = document.querySelector('.admin-container') !== null;
+      
+      if (isAdminPage) {
+        // Admin page - already loaded via admin-script.js
+        console.log('Admin page detected - data loaded by admin-script.js');
+        return;
+      }
+      
+      // Public page - load from API
+      loadContentFromAPI();
+    });
 
-          // Update Pertumbuhan Jemaat
-          if (data.sahaduta.pertumbuhan) {
-            const pertumbuhanSection = document.querySelector('#pertumbuhan-jemaat');
-            if (pertumbuhanSection) {
-              pertumbuhanSection.querySelectorAll('p').forEach(p => p.remove());
-              const paragraphs = data.sahaduta.pertumbuhan.split('\n\n').filter(p => p.trim() !== '');
-              const paragraphsHTML = paragraphs.map(p => `<p>${p.trim().replace(/\n/g, '<br>')}</p>`).join('\n              ');
-              const statsEl = pertumbuhanSection.querySelector('.stats');
-              if (statsEl) {
-                statsEl.insertAdjacentHTML('beforebegin', paragraphsHTML);
-              } else {
-                pertumbuhanSection.insertAdjacentHTML('beforeend', paragraphsHTML);
-              }
-            }
-          }
+    async function loadContentFromAPI() {
+      let sahaduta = null;
 
-          // Update Statistics
-          const statCards = document.querySelectorAll('.stat-card strong');
-          if (data.sahaduta.statKK && statCards[0]) {
-            statCards[0].textContent = data.sahaduta.statKK + ' KK';
-          }
-          if (data.sahaduta.statJiwa && statCards[1]) {
-            statCards[1].textContent = data.sahaduta.statJiwa + ' Jiwa';
-          }
-          if (data.sahaduta.statBaptis && statCards[2]) {
-            statCards[2].textContent = data.sahaduta.statBaptis + ' Baptis';
-          }
-
-          // Update Pelayanan
-          if (data.sahaduta.pelayanan) {
-            const pelayananSection = document.querySelector('#pelayanan');
-            if (pelayananSection) {
-              const h2 = pelayananSection.querySelector('h2');
-              pelayananSection.querySelectorAll('p').forEach(p => p.remove());
-              const paragraphs = data.sahaduta.pelayanan.split('\n\n').filter(p => p.trim() !== '');
-              const paragraphsHTML = paragraphs.map(p => `<p>${p.trim().replace(/\n/g, '<br>')}</p>`).join('\n              ');
-              pelayananSection.innerHTML = '';
-              if (h2) pelayananSection.appendChild(h2);
-              pelayananSection.insertAdjacentHTML('beforeend', paragraphsHTML);
-            }
-          }
+      // 1. Coba load dari API via api-client
+      try {
+        if (typeof api !== 'undefined' && typeof api.getPublicSahaduta === 'function') {
+          sahaduta = await api.getPublicSahaduta();
         }
+      } catch (err) {
+        console.warn('API Sahaduta unavailable, checking fallback:', err.message);
+      }
 
-        // Add custom sections
-        const customSections = data.customSahadutaSections || [];
-        if (customSections.length > 0) {
-          const main = document.querySelector('main.tentang-content');
-          const footerSpace = document.querySelector('.tentang-footer-space');
-          if (main) {
-            const separator = document.createElement('hr');
-            separator.style.cssText = 'margin: 18px 0; border: none; border-top: 2px solid rgba(18,58,90,0.06);';
-            if (footerSpace) {
-              main.insertBefore(separator, footerSpace);
-            } else {
-              main.appendChild(separator);
+      // 2. Fallback ke localStorage jika API belum ada / offline
+      if (!sahaduta) {
+        try {
+          const savedData = localStorage.getItem('gmitAdminData');
+          if (savedData) {
+            const data = JSON.parse(savedData);
+            if (data.sahaduta && Object.keys(data.sahaduta).length > 0) {
+              sahaduta = data.sahaduta;
             }
           }
-
-          customSections.forEach(section => {
-            const content = data.contentSahaduta && data.contentSahaduta[section.id] ? data.contentSahaduta[section.id] : section.content;
-
-            // Create section element with same style as default sections
-            const sectionDiv = document.createElement('section');
-            sectionDiv.id = section.id;
-            sectionDiv.style.marginTop = '18px';
-
-            // Split content by double newlines to create paragraphs
-            const paragraphs = content.split('\n\n').filter(p => p.trim() !== '');
-            const paragraphsHTML = paragraphs.map(p => `<p style="text-align: left;">${p.trim().replace(/\n/g, '<br>')}</p>`).join('\n        ');
-
-            sectionDiv.innerHTML = `
-              <h2>${section.label}</h2>
-              ${paragraphsHTML}
-            `;
-
-            // Insert BEFORE tentang-footer-space to keep it inside tentang-content container
-            if (main) {
-              if (footerSpace) {
-                main.insertBefore(sectionDiv, footerSpace);
-              } else {
-                main.appendChild(sectionDiv);
-              }
-            }
-          });
+        } catch (e) {
+          console.error('Error parsing localStorage:', e);
         }
       }
-    });
+
+      // 3. Jika tidak ada data tersimpan, tetap tampilkan konten default HTML
+      if (!sahaduta) {
+        return;
+      }
+
+      try {
+        // Update Gambaran Umum
+        if (sahaduta.gambaran) {
+          const gambaranSection = document.querySelector('#gambaran-umum');
+          if (gambaranSection) {
+            const h2 = gambaranSection.querySelector('h2');
+            gambaranSection.querySelectorAll('p').forEach(p => p.remove());
+            const paragraphs = sahaduta.gambaran.split('\n\n').filter(p => p.trim() !== '');
+            const paragraphsHTML = paragraphs.map(p => `<p>${p.trim().replace(/\n/g, '<br>')}</p>`).join('\n              ');
+            gambaranSection.innerHTML = '';
+            if (h2) gambaranSection.appendChild(h2);
+            gambaranSection.insertAdjacentHTML('beforeend', paragraphsHTML);
+          }
+        }
+
+        // Update Pertumbuhan Jemaat
+        if (sahaduta.pertumbuhan) {
+          const pertumbuhanSection = document.querySelector('#pertumbuhan-jemaat');
+          if (pertumbuhanSection) {
+            pertumbuhanSection.querySelectorAll('p').forEach(p => p.remove());
+            const paragraphs = sahaduta.pertumbuhan.split('\n\n').filter(p => p.trim() !== '');
+            const paragraphsHTML = paragraphs.map(p => `<p>${p.trim().replace(/\n/g, '<br>')}</p>`).join('\n              ');
+            const statsEl = pertumbuhanSection.querySelector('.stats');
+            if (statsEl) {
+              statsEl.insertAdjacentHTML('beforebegin', paragraphsHTML);
+            } else {
+              pertumbuhanSection.insertAdjacentHTML('beforeend', paragraphsHTML);
+            }
+          }
+        }
+
+        // Update Statistics
+        const statCards = document.querySelectorAll('.stat-card strong');
+        if (sahaduta.statKK && statCards[0]) {
+          statCards[0].textContent = sahaduta.statKK + ' KK';
+        }
+        if (sahaduta.statJiwa && statCards[1]) {
+          statCards[1].textContent = sahaduta.statJiwa + ' Jiwa';
+        }
+        if (sahaduta.statBaptis && statCards[2]) {
+          statCards[2].textContent = sahaduta.statBaptis + ' Baptis';
+        }
+
+        // Update Pelayanan
+        if (sahaduta.pelayanan) {
+          const pelayananSection = document.querySelector('#pelayanan');
+          if (pelayananSection) {
+            const h2 = pelayananSection.querySelector('h2');
+            pelayananSection.querySelectorAll('p').forEach(p => p.remove());
+            const paragraphs = sahaduta.pelayanan.split('\n\n').filter(p => p.trim() !== '');
+            const paragraphsHTML = paragraphs.map(p => `<p>${p.trim().replace(/\n/g, '<br>')}</p>`).join('\n              ');
+            pelayananSection.innerHTML = '';
+            if (h2) pelayananSection.appendChild(h2);
+            pelayananSection.insertAdjacentHTML('beforeend', paragraphsHTML);
+          }
+        }
+
+        // Render custom sections added from admin panel
+        const customSections = sahaduta.customSahadutaSections || [];
+        const contentMap = sahaduta.contentSahaduta || {};
+        const customContainer = document.getElementById('additional-sahaduta-public');
+        if (customContainer) {
+          if (customSections.length > 0) {
+            let sectionsHTML = '';
+            customSections.forEach(section => {
+              const text = contentMap[section.id] !== undefined
+                ? contentMap[section.id]
+                : (section.content || '');
+              const paragraphs = text.split('\n\n').filter(p => p.trim() !== '');
+              const paragraphsHTML = paragraphs.length > 0
+                ? paragraphs.map(p => `<p>${p.trim().replace(/\n/g, '<br>')}</p>`).join('\n              ')
+                : '';
+              sectionsHTML += `
+            <section id="${section.id}" style="margin-top: 24px;">
+              <h2>${section.label}</h2>
+              ${paragraphsHTML}
+            </section>`;
+            });
+            customContainer.innerHTML = sectionsHTML;
+          } else {
+            customContainer.innerHTML = '';
+          }
+        }
+      } catch (err) {
+        console.warn('Gagal merender konten Sahaduta:', err.message);
+      }
+    }
+
+    function applyDefaultContent() {
+      // Default gambaran umum
+      const gambaranDefault = `Jemaat GMIT Yegar Sahaduta Bello bermula dari sebuah Pos Pelayanan yang lahir sebagai wujud ucapan syukur kepada Tuhan atas jawaban doa dari beberapa keluarga di wilayah Kelurahan Bello, Kota Kupang sekitar tahun 2010. Gagasan ini mendapat dukungan warga setempat. Dengan semangat kebersamaan dan gotong royong, pembangunan fisik gedung gereja dimulai Mei 2012 dan selesai Juni 2013. Ibadah pertama diadakan 15 Juli 2013 dan Pos Pelayanan secara resmi dibuka dalam kebaktian perdana 22 September 2013.
+
+      Setelah melalui proses pembinaan dan dukungan Majelis Klasis Kupang Barat, Pos Pelayanan ini ditetapkan menjadi jemaat mandiri oleh Majelis Sinode GMIT pada 22 September 2019.`;
+      
+      const gambaranSection = document.querySelector('#gambaran-umum');
+      if (gambaranSection) {
+        gambaranSection.querySelectorAll('p').forEach(p => p.remove());
+        const h2 = gambaranSection.querySelector('h2');
+        const paragraphs = gambaranDefault.split('\n\n').filter(p => p.trim() !== '');
+        const paragraphsHTML = paragraphs.map(p => `<p>${p.trim().replace(/\n/g, '<br>')}</p>`).join('\n              ');
+        gambaranSection.innerHTML = '';
+        if (h2) gambaranSection.appendChild(h2);
+        gambaranSection.insertAdjacentHTML('beforeend', paragraphsHTML);
+      }
+
+      // Default pertumbuhan
+      const pertumbuhanDefault = `Pada masa awal (2013) tercatat 17 KK dengan 35 jiwa. Saat pemandirian (2019) jumlah meningkat menjadi 55 KK. Perkembangan berlanjut menjadi 62 KK hingga 2022. Jumlah baptis, sidi dan statistik lainnya mengalami kenaikan hingga tercatat 82 KK dan sensus sementara 322 jiwa (Mei 2025).`;
+      
+      const pertumbuhanSection = document.querySelector('#pertumbuhan-jemaat');
+      if (pertumbuhanSection) {
+        pertumbuhanSection.querySelectorAll('p').forEach(p => p.remove());
+        const paragraphs = pertumbuhanDefault.split('\n\n').filter(p => p.trim() !== '');
+        const paragraphsHTML = paragraphs.map(p => `<p>${p.trim().replace(/\n/g, '<br>')}</p>`).join('\n              ');
+        const statsEl = pertumbuhanSection.querySelector('.stats');
+        if (statsEl) {
+          statsEl.insertAdjacentHTML('beforebegin', paragraphsHTML);
+        } else {
+          pertumbuhanSection.insertAdjacentHTML('beforeend', paragraphsHTML);
+        }
+      }
+
+      // Default stats
+      const defaultStats = ['82 KK', '322 Jiwa', '241 Baptis'];
+      defaultStats.forEach((stat, index) => {
+        const statCard = document.querySelectorAll('.stat-card strong')[index];
+        if (statCard) {
+          statCard.textContent = stat;
+        }
+      });
+
+      // Default pelayanan
+      const pelayananDefault = `Jemaat aktif menyelenggarakan ibadah Minggu, persekutuan doa, dan kegiatan pelayanan sosial/diakonia. Informasi jadwal dan pengumuman tersedia di halaman Informasi serta melalui kontak majelis jemaat.`;
+      
+      const pelayananSection = document.querySelector('#pelayanan');
+      if (pelayananSection) {
+        const h2 = pelayananSection.querySelector('h2');
+        pelayananSection.querySelectorAll('p').forEach(p => p.remove());
+        const paragraphs = pelayananDefault.split('\n\n').filter(p => p.trim() !== '');
+        const paragraphsHTML = paragraphs.map(p => `<p>${p.trim().replace(/\n/g, '<br>')}</p>`).join('\n              ');
+        pelayananSection.innerHTML = '';
+        if (h2) pelayananSection.appendChild(h2);
+        pelayananSection.insertAdjacentHTML('beforeend', paragraphsHTML);
+      }
+    }
   </script>
 </body>
 </html>

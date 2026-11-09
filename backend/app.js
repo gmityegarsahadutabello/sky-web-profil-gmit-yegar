@@ -5,6 +5,9 @@ const cors = require('cors');
 const pastorsRouter = require('./routes/pastors');
 const announcementsRouter = require('./routes/announcements');
 const galleryRouter = require('./routes/gallery');
+const sahadutaRouter = require('./routes/sahaduta');
+const gmitRouter = require('./routes/gmit');
+const strukturRouter = require('./routes/struktur');
 
 const app = express();
 let connectionPromise;
@@ -62,6 +65,9 @@ app.use(async (req, res, next) => {
 app.use('/api/pastors', pastorsRouter);
 app.use('/api/announcements', announcementsRouter);
 app.use('/api/gallery', galleryRouter);
+app.use('/api/sahaduta', sahadutaRouter);
+app.use('/api/gmit', gmitRouter);
+app.use('/api/struktur', strukturRouter);
 
 // Auth endpoint (simple login)
 app.post('/api/auth/login', async (req, res) => {
