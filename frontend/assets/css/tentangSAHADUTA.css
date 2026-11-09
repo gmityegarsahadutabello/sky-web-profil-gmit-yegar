@@ -47,6 +47,16 @@
   box-shadow:0 2px 10px rgba(0,0,0,0.04);
   line-height:1.8;
   color:#29333a;
+  /* Global `main` centers flex children; stretch them so every section
+     (including custom sections) fills the width and aligns left. */
+  align-items:stretch;
+}
+
+/* Custom sections from the admin panel must match the default sections */
+.tentang-content > section,
+.tentang-content > #additional-sahaduta-public > section{
+  width:100%;
+  text-align:left;
 }
 
 /* Section headings */

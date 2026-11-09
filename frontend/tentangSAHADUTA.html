@@ -246,7 +246,7 @@
                 ? paragraphs.map(p => `<p>${p.trim().replace(/\n/g, '<br>')}</p>`).join('\n              ')
                 : '';
               sectionsHTML += `
-            <section id="${section.id}" style="margin-top: 24px;">
+            <section id="${section.id}">
               <h2>${section.label}</h2>
               ${paragraphsHTML}
             </section>`;
