@@ -297,6 +297,14 @@
         img.style.cssText = 'width:100%;height:160px;object-fit:cover;';
         
         figure.appendChild(img);
+        
+        if (item.caption) {
+          const caption = document.createElement('figcaption');
+          caption.textContent = item.caption;
+          caption.style.cssText = 'padding:10px 12px;text-align:center;color:#123a5a;font-size:13px;font-weight:600;line-height:1.35;background:#fff;';
+          figure.appendChild(caption);
+        }
+        
         container.appendChild(figure);
       });
     }

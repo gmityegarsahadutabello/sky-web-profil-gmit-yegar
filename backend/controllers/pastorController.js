@@ -4,6 +4,18 @@ const Pastor = require('../models/Pastor');
 
 const getBucketName = () => process.env.S3_BUCKET_NAME || process.env.AWS_S3_BUCKET_NAME;
 
+// Endpoint S3 kustom (Neon Object Storage) — fallback ke variabel standar AWS.
+const getEndpointUrl = () => process.env.S3_ENDPOINT_URL || process.env.AWS_ENDPOINT_URL_S3;
+
+// URL publik objek. Bucket Neon diset public_read lewat neon.ts, jadi URL ini
+// bisa diakses langsung tanpa presigned URL.
+const getPublicUrl = (key) => {
+  const endpoint = getEndpointUrl();
+  const bucketName = getBucketName();
+  if (!endpoint || !bucketName) return null;
+  return `${endpoint.replace(/\/$/, '')}/${bucketName}/${key}`;
+};
+
 const normalizeS3Endpoint = (rawEndpoint, bucketName) => {
   if (!rawEndpoint) return rawEndpoint;
   try {
@@ -11,9 +23,9 @@ const normalizeS3Endpoint = (rawEndpoint, bucketName) => {
     const hostname = (url.hostname || '').toLowerCase();
     const bucketPrefix = bucketName ? `${bucketName.toLowerCase()}.` : '';
 
-    // Jika user mengisi endpoint bucket-specific (mis. https://<bucket>.s3.nevaobjects.id)
+    // Jika endpoint diisi bucket-specific (mis. https://<bucket>.host)
     // sementara SDK juga diberi Bucket=<bucket>, request bisa jadi tidak valid.
-    // Solusi: ubah endpoint menjadi base (https://s3.nevaobjects.id).
+    // Solusi: ubah endpoint menjadi base host.
     if (bucketPrefix && hostname.startsWith(bucketPrefix)) {
       url.hostname = url.hostname.slice(bucketPrefix.length);
     }
@@ -25,17 +37,17 @@ const normalizeS3Endpoint = (rawEndpoint, bucketName) => {
   }
 };
 
-// Konfigurasi AWS S3 (support custom endpoint seperti Neva Objects)
+// Konfigurasi AWS S3 (support custom endpoint seperti Neon Object Storage)
 const s3Config = {
   accessKeyId: process.env.S3_ACCESS_KEY_ID || process.env.AWS_ACCESS_KEY_ID,
   secretAccessKey: process.env.S3_SECRET_ACCESS_KEY || process.env.AWS_SECRET_ACCESS_KEY,
   region: process.env.S3_REGION || process.env.AWS_REGION || 'us-east-1'
 };
 
-// Jika ada custom endpoint (Neva Objects atau MinIO)
-if (process.env.S3_ENDPOINT_URL) {
+// Jika ada custom endpoint (Neon Object Storage atau MinIO)
+if (getEndpointUrl()) {
   const bucketName = getBucketName();
-  const endpoint = normalizeS3Endpoint(process.env.S3_ENDPOINT_URL, bucketName);
+  const endpoint = normalizeS3Endpoint(getEndpointUrl(), bucketName);
   s3Config.endpoint = new AWS.Endpoint(endpoint);
   s3Config.s3ForcePathStyle = true; // untuk kompatibilitas endpoint custom
   s3Config.signatureVersion = 'v4';
@@ -175,8 +187,9 @@ const uploadImage = async (req, res) => {
       Bucket: bucketName,
       Key: s3Key,
       Body: req.file.buffer,
-      ContentType: req.file.mimetype,
-      ACL: 'public-read' // Buat file public readable
+      ContentType: req.file.mimetype
+      // Tanpa ACL: Neon Object Storage mengatur akses lewat access level bucket
+      // (public_read), bukan header x-amz-acl.
     };
 
     console.log('Uploading to S3:', params.Bucket, '/', params.Key);
@@ -184,12 +197,14 @@ const uploadImage = async (req, res) => {
     // Upload ke S3
     const result = await s3.upload(params).promise();
 
-    console.log('Upload success:', result.Location);
+    // URL publik objek (fallback jika SDK tidak mengembalikan Location)
+    const fileUrl = result.Location || getPublicUrl(s3Key);
+    console.log('Upload success:', fileUrl);
 
     // Return URL gambar
     res.json({
       message: 'Gambar berhasil diupload',
-      url: result.Location,
+      url: fileUrl,
       s3_key: s3Key,
       size: req.file.size,
       filename: req.file.originalname
@@ -210,10 +225,10 @@ const uploadImage = async (req, res) => {
         code: details.code || null,
         statusCode: details.statusCode || null,
         bucket: getBucketName() || null,
-        endpoint: process.env.S3_ENDPOINT_URL ? normalizeS3Endpoint(process.env.S3_ENDPOINT_URL, getBucketName()) : null,
+        endpoint: getEndpointUrl() ? normalizeS3Endpoint(getEndpointUrl(), getBucketName()) : null,
         region: process.env.S3_REGION || process.env.AWS_REGION || 'us-east-1'
       };
-      response.hint = 'Jika code=SignatureDoesNotMatch/Forbidden: cek S3_ENDPOINT_URL, S3_ACCESS_KEY_ID, S3_SECRET_ACCESS_KEY, S3_BUCKET_NAME, dan S3_REGION sesuai panel Neva Objects.';
+      response.hint = 'Jika code=SignatureDoesNotMatch/Forbidden: cek S3_ENDPOINT_URL, S3_ACCESS_KEY_ID, S3_SECRET_ACCESS_KEY, S3_BUCKET_NAME, dan S3_REGION sesuai env Neon Object Storage (jalankan `neon deploy` untuk refresh).';
     }
 
     res.status(500).json(response);

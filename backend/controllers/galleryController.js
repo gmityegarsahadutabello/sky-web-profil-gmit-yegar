@@ -4,6 +4,17 @@ const GalleryItem = require('../models/GalleryItem');
 
 const getBucketName = () => process.env.S3_BUCKET_NAME || process.env.AWS_S3_BUCKET_NAME;
 
+// Endpoint S3 kustom (Neon Object Storage) — fallback ke variabel standar AWS.
+const getEndpointUrl = () => process.env.S3_ENDPOINT_URL || process.env.AWS_ENDPOINT_URL_S3;
+
+// URL publik objek. Bucket Neon diset public_read lewat neon.ts.
+const getPublicUrl = (key) => {
+  const endpoint = getEndpointUrl();
+  const bucketName = getBucketName();
+  if (!endpoint || !bucketName) return null;
+  return `${endpoint.replace(/\/$/, '')}/${bucketName}/${key}`;
+};
+
 const normalizeS3Endpoint = (rawEndpoint, bucketName) => {
   if (!rawEndpoint) return rawEndpoint;
   try {
@@ -29,9 +40,9 @@ const createS3Client = () => {
     region: process.env.S3_REGION || process.env.AWS_REGION || 'us-east-1'
   };
 
-  if (process.env.S3_ENDPOINT_URL) {
+  if (getEndpointUrl()) {
     const bucketName = getBucketName();
-    const endpoint = normalizeS3Endpoint(process.env.S3_ENDPOINT_URL, bucketName);
+    const endpoint = normalizeS3Endpoint(getEndpointUrl(), bucketName);
     s3Config.endpoint = new AWS.Endpoint(endpoint);
     s3Config.s3ForcePathStyle = true;
     s3Config.signatureVersion = 'v4';
@@ -202,15 +213,16 @@ const uploadGalleryImage = async (req, res) => {
       Bucket: bucketName,
       Key: s3Key,
       Body: req.file.buffer,
-      ContentType: req.file.mimetype,
-      ACL: 'public-read'
+      ContentType: req.file.mimetype
+      // Tanpa ACL: Neon Object Storage mengatur akses lewat access level bucket
+      // (public_read), bukan header x-amz-acl.
     };
 
     const result = await s3.upload(params).promise();
 
     res.json({
       message: 'Gambar galeri berhasil diupload',
-      url: result.Location,
+      url: result.Location || getPublicUrl(s3Key),
       s3_key: s3Key,
       size: req.file.size,
       filename: req.file.originalname,

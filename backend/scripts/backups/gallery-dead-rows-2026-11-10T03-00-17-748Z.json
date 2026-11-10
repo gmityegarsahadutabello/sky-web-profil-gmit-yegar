@@ -1,0 +1,134 @@
+[
+  {
+    "_id": "6a2d487133c82149f9ee04b8",
+    "section": "building",
+    "image_url": "https://s3.nevaobjects.id/web-profile/gallery/building/9faee1bb-6857-476d-baf4-f87686d8930d.jpeg",
+    "caption": "Tampak Samping",
+    "order": 2,
+    "s3_key": "gallery/building/9faee1bb-6857-476d-baf4-f87686d8930d.jpeg",
+    "createdAt": "2026-06-13T12:09:21.706Z",
+    "updatedAt": "2026-06-13T12:09:21.706Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a360aab782e2dedcd6a9afd",
+    "section": "activities",
+    "image_url": "https://s3.nevaobjects.id/web-profile/gallery/activities/d56229c9-e010-4eab-bb6d-47fee697924a.jpeg",
+    "caption": "Ibadah gabungan perempuan GMIT",
+    "order": 11,
+    "s3_key": "gallery/activities/d56229c9-e010-4eab-bb6d-47fee697924a.jpeg",
+    "createdAt": "2026-06-20T03:36:11.680Z",
+    "updatedAt": "2026-07-01T23:33:42.827Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a378f3d28414a9083476342",
+    "section": "activities",
+    "image_url": "https://s3.nevaobjects.id/web-profile/gallery/activities/1bbc3888-f96d-434c-acbc-1c29f4a5bce1.jpg",
+    "caption": "Sidangan tahunan GMIT YSB",
+    "order": 12,
+    "s3_key": "gallery/activities/1bbc3888-f96d-434c-acbc-1c29f4a5bce1.jpg",
+    "createdAt": "2026-06-21T07:14:05.571Z",
+    "updatedAt": "2026-07-01T23:33:43.053Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a3e5cda3ed40f9427c4a2de",
+    "section": "activities",
+    "image_url": "https://s3.nevaobjects.id/web-profile/gallery/activities/429ed87f-58a4-444d-904b-81e0103a8186.jpg",
+    "caption": "Rapat Evaluasi",
+    "order": 14,
+    "s3_key": "gallery/activities/429ed87f-58a4-444d-904b-81e0103a8186.jpg",
+    "createdAt": "2026-06-26T11:04:58.353Z",
+    "updatedAt": "2026-07-01T23:33:43.549Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a3e5d433ed40f9427c4a2e2",
+    "section": "activities",
+    "image_url": "https://s3.nevaobjects.id/web-profile/gallery/activities/dc747e9d-ae44-47b9-96f2-6fc114a06fa7.jpg",
+    "caption": "CCA Taruna",
+    "order": 13,
+    "s3_key": "gallery/activities/dc747e9d-ae44-47b9-96f2-6fc114a06fa7.jpg",
+    "createdAt": "2026-06-26T11:06:43.587Z",
+    "updatedAt": "2026-07-01T23:33:43.324Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a3e5d9e3ed40f9427c4a2e6",
+    "section": "activities",
+    "image_url": "https://s3.nevaobjects.id/web-profile/gallery/activities/c5da48a9-d289-4b3e-a100-676a68195426.jpg",
+    "caption": "",
+    "order": 15,
+    "s3_key": "gallery/activities/c5da48a9-d289-4b3e-a100-676a68195426.jpg",
+    "createdAt": "2026-06-26T11:08:14.074Z",
+    "updatedAt": "2026-07-01T23:33:43.774Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a3e5de13ed40f9427c4a2ea",
+    "section": "activities",
+    "image_url": "https://s3.nevaobjects.id/web-profile/gallery/activities/289a1e1f-d87d-4cd7-adcc-4c776d126fcd.jpg",
+    "caption": "",
+    "order": 16,
+    "s3_key": "gallery/activities/289a1e1f-d87d-4cd7-adcc-4c776d126fcd.jpg",
+    "createdAt": "2026-06-26T11:09:21.722Z",
+    "updatedAt": "2026-07-01T23:33:43.999Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a3e5e7d3ed40f9427c4a2ef",
+    "section": "activities",
+    "image_url": "https://s3.nevaobjects.id/web-profile/gallery/activities/a8d643c2-70fd-4ab1-85d5-ce650c2ecaf9.jpg",
+    "caption": "",
+    "order": 17,
+    "s3_key": "gallery/activities/a8d643c2-70fd-4ab1-85d5-ce650c2ecaf9.jpg",
+    "createdAt": "2026-06-26T11:11:57.089Z",
+    "updatedAt": "2026-07-01T23:33:44.225Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a40d90ba08d4ee5594cde83",
+    "section": "activities",
+    "image_url": "https://s3.nevaobjects.id/web-profile/gallery/activities/941511d8-647a-4171-9116-227688dfd879.jpg",
+    "caption": "Sakramen Baptisan Kudus",
+    "order": 18,
+    "s3_key": "gallery/activities/941511d8-647a-4171-9116-227688dfd879.jpg",
+    "createdAt": "2026-06-28T08:19:23.974Z",
+    "updatedAt": "2026-07-01T23:33:44.450Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a40d971a08d4ee5594cde87",
+    "section": "activities",
+    "image_url": "https://s3.nevaobjects.id/web-profile/gallery/activities/843aa05f-4e55-4768-bc28-8402ad65ee49.jpg",
+    "caption": "Peneguhan Sidi",
+    "order": 19,
+    "s3_key": "gallery/activities/843aa05f-4e55-4768-bc28-8402ad65ee49.jpg",
+    "createdAt": "2026-06-28T08:21:05.290Z",
+    "updatedAt": "2026-07-01T23:33:44.676Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a40d9a8a08d4ee5594cde8b",
+    "section": "activities",
+    "image_url": "https://s3.nevaobjects.id/web-profile/gallery/activities/e7e75607-2292-430f-bf69-d7a2337c943b.jpg",
+    "caption": "Kebaktian Minggu, 28 Juni 2026",
+    "order": 20,
+    "s3_key": "gallery/activities/e7e75607-2292-430f-bf69-d7a2337c943b.jpg",
+    "createdAt": "2026-06-28T08:22:00.586Z",
+    "updatedAt": "2026-07-01T23:33:44.901Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a40d9c2a08d4ee5594cde8f",
+    "section": "activities",
+    "image_url": "https://s3.nevaobjects.id/web-profile/gallery/activities/7cd57e7c-797b-48fd-8f81-0d3b6c2cb88a.jpg",
+    "caption": "",
+    "order": 21,
+    "s3_key": "gallery/activities/7cd57e7c-797b-48fd-8f81-0d3b6c2cb88a.jpg",
+    "createdAt": "2026-06-28T08:22:26.306Z",
+    "updatedAt": "2026-07-01T23:33:45.127Z",
+    "__v": 0
+  }
+]
