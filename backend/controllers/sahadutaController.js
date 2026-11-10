@@ -9,6 +9,10 @@ Setelah melalui proses pembinaan dan dukungan Majelis Klasis Kupang Barat, Pos P
   statKK: 82,
   statJiwa: 322,
   statBaptis: 241,
+  wartaUrl: 'https://drive.google.com/drive/folders/1Zwq8xjesek8QyeOV2H7JzOSBzLYR-DG5?usp=sharing',
+  bankNama: '',
+  bankRekening: '',
+  bankAtasNama: '',
   customSahadutaSections: [],
   contentSahaduta: {}
 };
@@ -41,6 +45,10 @@ const getPublicSahaduta = async (req, res) => {
       statKK: sahaduta.statKK,
       statJiwa: sahaduta.statJiwa,
       statBaptis: sahaduta.statBaptis,
+      wartaUrl: sahaduta.wartaUrl || defaultSahaduta.wartaUrl,
+      bankNama: sahaduta.bankNama || '',
+      bankRekening: sahaduta.bankRekening || '',
+      bankAtasNama: sahaduta.bankAtasNama || '',
       customSahadutaSections: sahaduta.customSahadutaSections || [],
       contentSahaduta: sahaduta.contentSahaduta || {}
     };
@@ -56,6 +64,7 @@ const saveSahaduta = async (req, res) => {
     const {
       gambaran, pertumbuhan, pelayanan,
       statKK, statJiwa, statBaptis,
+      wartaUrl, bankNama, bankRekening, bankAtasNama,
       customSahadutaSections, contentSahaduta
     } = req.body;
 
@@ -69,6 +78,10 @@ const saveSahaduta = async (req, res) => {
       sahaduta.statKK = statKK;
       sahaduta.statJiwa = statJiwa;
       sahaduta.statBaptis = statBaptis;
+      sahaduta.wartaUrl = wartaUrl ?? sahaduta.wartaUrl;
+      sahaduta.bankNama = bankNama ?? sahaduta.bankNama;
+      sahaduta.bankRekening = bankRekening ?? sahaduta.bankRekening;
+      sahaduta.bankAtasNama = bankAtasNama ?? sahaduta.bankAtasNama;
       sahaduta.customSahadutaSections = customSahadutaSections || [];
       sahaduta.contentSahaduta = contentSahaduta || {};
       await sahaduta.save();
@@ -81,6 +94,10 @@ const saveSahaduta = async (req, res) => {
         statKK,
         statJiwa,
         statBaptis,
+        wartaUrl,
+        bankNama,
+        bankRekening,
+        bankAtasNama,
         customSahadutaSections: customSahadutaSections || [],
         contentSahaduta: contentSahaduta || {}
       });

@@ -211,7 +211,8 @@ function navigateToSection(sectionId) {
       'content-sahaduta': 'Content GMIT Yegar Sahaduta Bello',
       'content-gmit': 'Content Tentang GMIT',
       'pengumuman': 'Kelola Pengumuman',
-      'struktur': 'Struktur Kepengurusan'
+      'struktur': 'Struktur Kepengurusan',
+      'warta-donasi': 'Warta & Donasi'
     };
     const titleEl = document.getElementById('section-title');
     if (titleEl) {
@@ -374,6 +375,7 @@ async function loadAllData() {
   applySahadutaData();
   applyGMITData();
   applyStrukturData();
+  applyPengaturanData();
 
   // Update dashboard
   updateDashboard();
@@ -471,6 +473,67 @@ function updateDashboard() {
     const activePengumuman = contentData.pengumuman.filter(p => p.aktif).length;
     countEl.textContent = `${activePengumuman} pengumuman aktif`;
   }
+}
+
+// ========== PENGATURAN WARTA & DONASI ==========
+const DEFAULT_WARTA_URL = 'https://drive.google.com/drive/folders/1Zwq8xjesek8QyeOV2H7JzOSBzLYR-DG5?usp=sharing';
+
+function applyPengaturanData() {
+  const s = contentData.sahaduta || {};
+  const setVal = (id, val) => {
+    const el = document.getElementById(id);
+    if (el) el.value = val;
+  };
+  setVal('warta-url', s.wartaUrl || DEFAULT_WARTA_URL);
+  setVal('bank-nama', s.bankNama || '');
+  setVal('bank-rekening', s.bankRekening || '');
+  setVal('bank-atasnama', s.bankAtasNama || '');
+}
+
+async function loadCurrentPengaturan() {
+  const client = getApiClient();
+  if (client && typeof client.getSahaduta === 'function' && client.isLoggedIn()) {
+    try {
+      const data = await client.getSahaduta();
+      if (data && typeof data === 'object') {
+        contentData.sahaduta = { ...(contentData.sahaduta || {}), ...data };
+      }
+    } catch (err) {
+      console.warn('Gagal load pengaturan dari API, pakai data tersimpan:', err.message);
+    }
+  }
+  applyPengaturanData();
+  showSuccessMessage('Data warta & donasi berhasil di-load!');
+}
+
+async function savePengaturan() {
+  const values = {
+    wartaUrl: document.getElementById('warta-url')?.value.trim() || '',
+    bankNama: document.getElementById('bank-nama')?.value.trim() || '',
+    bankRekening: document.getElementById('bank-rekening')?.value.trim() || '',
+    bankAtasNama: document.getElementById('bank-atasnama')?.value.trim() || ''
+  };
+
+  if (!contentData.sahaduta) contentData.sahaduta = {};
+  Object.assign(contentData.sahaduta, values);
+  saveData();
+
+  const client = getApiClient();
+  if (client && typeof client.saveSahaduta === 'function' && client.isLoggedIn()) {
+    try {
+      await client.saveSahaduta(contentData.sahaduta);
+      showSuccessMessage('Warta & Donasi berhasil disimpan ke database!');
+      return;
+    } catch (err) {
+      console.warn('Gagal simpan pengaturan ke API, tersimpan lokal:', err.message);
+    }
+  }
+
+  showSuccessMessage('Warta & Donasi berhasil disimpan!');
+}
+
+function previewPengaturan() {
+  window.open('../index.html', '_blank');
 }
 
 // ========== CONTENT SAHADUTA ==========

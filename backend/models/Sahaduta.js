@@ -8,6 +8,15 @@ const sahadutaSchema = new mongoose.Schema(
     statKK: { type: Number, default: 82 },
     statJiwa: { type: Number, default: 322 },
     statBaptis: { type: Number, default: 241 },
+    // Warta & donasi settings shown on beranda
+    wartaUrl: {
+      type: String,
+      trim: true,
+      default: 'https://drive.google.com/drive/folders/1Zwq8xjesek8QyeOV2H7JzOSBzLYR-DG5?usp=sharing'
+    },
+    bankNama: { type: String, trim: true, default: '' },
+    bankRekening: { type: String, trim: true, default: '' },
+    bankAtasNama: { type: String, trim: true, default: '' },
     // Custom sections added by admin
     customSahadutaSections: {
       type: Array,
